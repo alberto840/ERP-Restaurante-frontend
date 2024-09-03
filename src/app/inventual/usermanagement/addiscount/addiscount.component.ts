@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-adduser',
-  templateUrl: './adduser.component.html',
-  styleUrls: ['./adduser.component.scss'],
+  selector: 'app-addiscount',
+  templateUrl: './addiscount.component.html',
+  styleUrls: ['./addiscount.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AdduserComponent implements OnInit {
+export class AddiscountComponent implements OnInit {
   checked = false;
   disabled = false;
 

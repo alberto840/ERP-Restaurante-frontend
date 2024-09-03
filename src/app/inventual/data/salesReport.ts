@@ -8,6 +8,7 @@ export interface SalesInterfaceData {
   stockQty: number;
   soldQty: number;
   amount: number;
+  state: string;
 }
 export const salesReport: SalesInterfaceData[] = [
   {
@@ -20,6 +21,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 30,
     soldQty: 25,
     amount: 582.0,
+    state: 'inactivo',
   },
   {
     id: 2,
@@ -31,6 +33,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 40,
     soldQty: 35,
     amount: 720.0,
+    state: 'activo',
   },
   {
     id: 3,
@@ -42,6 +45,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 20,
     soldQty: 15,
     amount: 390.0,
+    state: 'activo',
   },
   {
     id: 4,
@@ -53,6 +57,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 50,
     soldQty: 45,
     amount: 880.0,
+    state: 'activo',
   },
   {
     id: 5,
@@ -64,6 +69,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 35,
     soldQty: 30,
     amount: 675.0,
+    state: 'activo',
   },
   {
     id: 6,
@@ -75,6 +81,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 25,
     soldQty: 20,
     amount: 480.0,
+    state: 'activo',
   },
   {
     id: 7,
@@ -86,6 +93,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 45,
     soldQty: 40,
     amount: 810.0,
+    state: 'activo',
   },
   {
     id: 8,
@@ -97,6 +105,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 60,
     soldQty: 55,
     amount: 1080.0,
+    state: 'activo',
   },
   {
     id: 9,
@@ -108,6 +117,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 15,
     soldQty: 10,
     amount: 240.0,
+    state: 'activo',
   },
   {
     id: 10,
@@ -119,6 +129,7 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 25,
     soldQty: 20,
     amount: 480.0,
+    state: 'activo',
   },
   {
     id: 11,
@@ -130,5 +141,18 @@ export const salesReport: SalesInterfaceData[] = [
     stockQty: 45,
     soldQty: 40,
     amount: 810.0,
+    state: 'activo',
+  },
+  {
+    id: 12,
+    date: '12 Jan 2024',
+    warehouse: 'Warehouse 1',
+    name: 'China Apple',
+    code: 58756689,
+    unit: 'Kilogram (kg)',
+    stockQty: 30,
+    soldQty: 25,
+    amount: 682.0,
+    state: 'activo',
   },
 ];

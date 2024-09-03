@@ -140,6 +140,14 @@ import { BellIconComponent } from './common/icons/bell-icon/bell-icon.component'
 import { EmailIconComponent } from './common/icons/email-icon/email-icon.component';
 import { GlobeIconComponent } from './common/icons/globe-icon/globe-icon.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { EmployeelistComponent } from './usermanagement/employeelist/employeelist.component';
+import { AddvacationComponent } from './usermanagement/addvacation/addvacation.component';
+import { AddiscountComponent } from './usermanagement/addiscount/addiscount.component';
+import { AddbonusComponent } from './usermanagement/addbonus/addbonus.component';
+import { BonuslistComponent } from './usermanagement/bonuslist/bonuslist.component';
+import { DiscountlistComponent } from './usermanagement/discountlist/discountlist.component';
+import { VacationlistComponent } from './usermanagement/vacationlist/vacationlist.component';
+import { SalaryhistoryComponent } from './usermanagement/salaryhistory/salaryhistory.component';
 
 @NgModule({
   imports: [
@@ -287,6 +295,14 @@ import { NotFoundComponent } from './not-found/not-found.component';
     EmailIconComponent,
     GlobeIconComponent,
     NotFoundComponent,
+    EmployeelistComponent,
+    AddvacationComponent,
+    AddiscountComponent,
+    AddbonusComponent,
+    BonuslistComponent,
+    DiscountlistComponent,
+    VacationlistComponent,
+    SalaryhistoryComponent,
   ],
 })
 export class InventualModule {}

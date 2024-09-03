@@ -61,6 +61,14 @@ import { CustomerreportComponent } from './inventual/report/customerreport/custo
 import { WarehousereportComponent } from './inventual/report/warehousereport/warehousereport.component';
 import { ElementsComponent } from './inventual/elements/elements.component';
 import { NotFoundComponent } from './inventual/not-found/not-found.component';
+import { EmployeelistComponent } from './inventual/usermanagement/employeelist/employeelist.component';
+import { AddbonusComponent } from './inventual/usermanagement/addbonus/addbonus.component';
+import { AddiscountComponent } from './inventual/usermanagement/addiscount/addiscount.component';
+import { AddvacationComponent } from './inventual/usermanagement/addvacation/addvacation.component';
+import { BonuslistComponent } from './inventual/usermanagement/bonuslist/bonuslist.component';
+import { DiscountlistComponent } from './inventual/usermanagement/discountlist/discountlist.component';
+import { SalaryhistoryComponent } from './inventual/usermanagement/salaryhistory/salaryhistory.component';
+import { VacationlistComponent } from './inventual/usermanagement/vacationlist/vacationlist.component';
 
 
 const routes: Routes = [ 
@@ -194,16 +202,48 @@ const routes: Routes = [
     component: ExpenselistComponent
   },
   {
-    path: 'client/adduser',
+    path: 'usuarios/agregar',
     component: AdduserComponent
   },
   {
-    path: 'client/createrole',
+    path: 'rol/agregar',
     component: CreateroleComponent
   },
   {
-    path: 'client/userlist',
+    path: 'usuarios/lista',
     component: UserlistComponent
+  },
+  {
+    path: 'empleados/lista',
+    component: EmployeelistComponent
+  },
+  {
+    path: 'empleados/bonos/agregar',
+    component: AddbonusComponent
+  },
+  {
+    path: 'empleados/descuentos/agregar',
+    component: AddiscountComponent
+  },
+  {
+    path: 'empleados/vacaciones/agregar',
+    component: AddvacationComponent
+  },
+  {
+    path: 'empleados/bonos/lista',
+    component: BonuslistComponent
+  },
+  {
+    path: 'empleados/descuentos/lista',
+    component: DiscountlistComponent
+  },
+  {
+    path: 'salarios',
+    component: SalaryhistoryComponent
+  },
+  {
+    path: 'empleados/vacaciones/lista',
+    component: VacationlistComponent
   },
   {
     path: 'warehouselist',

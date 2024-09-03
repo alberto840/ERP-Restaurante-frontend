@@ -21,11 +21,11 @@
         </div>
         <div class="inventual-breadcrumb-area px-7 py-9 bg-white mb-5">
             <div class="inventual-breadcrumb-area-inner px-0.5">
-                <h5 class="text-[20px] text-heading font-bold mb-3">Create Role</h5>
+                <h5 class="text-[20px] text-heading font-bold mb-3">Crear Rol</h5>
                 <div class="inventual-breadcrumb-area-inner-wrap">
-                    <span class="text-[14px] text-body font-normal inline-block me-2">User Management</span>
+                    <span class="text-[14px] text-body font-normal inline-block me-2">Gestion Roles</span>
                     <span class="text-[14px] text-body font-normal inline-block me-2">></span>
-                    <span class="text-[14px] text-body font-normal inline-block me-2">Create Role</span>
+                    <span class="text-[14px] text-body font-normal inline-block me-2">Crear Rol</span>
                 </div>
             </div>
         </div>
@@ -35,27 +35,27 @@
                     <div class="col-span-4 md:col-span-12 sm:col-span-12">
                         <div class="inventual-unit-content">
                             <div class="inventual-select-field mb-7">
-                                <h5 class="text-[15px] text-heading font-semibold mb-3">Role</h5>
+                                <h5 class="text-[15px] text-heading font-semibold mb-3">Rol</h5>
                                 <div class="inventual-input-field-style">
                                     <mat-form-field class="w-full" [floatLabel]="'always'">
                                         <mat-label class="hidden">Kilogram</mat-label>
-                                        <input matInput [placeholder]="'Admin'">
+                                        <input matInput [placeholder]="'Administrador'">
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="inventual-select-field mb-7">
-                                <h5 class="text-[15px] text-heading font-semibold mb-3">Description</h5>
+                                <h5 class="text-[15px] text-heading font-semibold mb-3">Descripcion</h5>
                                 <div class="inventual-input-field-style">
                                     <mat-form-field class="w-full" [floatLabel]="'always'">
                                         <mat-label class="hidden">kg</mat-label>
-                                        <input matInput [placeholder]="'The admin can control all the access'">
+                                        <input matInput [placeholder]="'El administrador tiene acceso a todas las funciones'">
                                     </mat-form-field>
                                 </div>
                             </div>
                         </div>
                         <div class="inventual-material-btn mb-7">
                             <button mat-raised-button color="primary" class="mb-1">
-                                Create Role
+                                Crear Rol
                             </button>
                         </div>
                     </div>
@@ -81,36 +81,38 @@
                                 </ng-container>
 
                                 <ng-container matColumnDef="role">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
                                     <td mat-cell *matCellDef="let row"> {{row.role}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="description">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
                                     <td mat-cell *matCellDef="let row">
                                         <div class="whitespace-nowrap">{{row.description}}</div>
                                     </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="action">
-                                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                                    <th mat-header-cell *matHeaderCellDef> Accion </th>
                                     <td mat-cell *matCellDef="let row">
                                         <div class="table-action-menu-wrap">
                                             <button mat-icon-button [matMenuTriggerFor]="beforeMenu"
                                                 class="common-action-menu-style"
                                                 aria-label="Example icon-button with a menu">
-                                                Action <mat-icon>arrow_drop_down</mat-icon>
+                                                Accion <mat-icon>arrow_drop_down</mat-icon>
                                             </button>
                                             <mat-menu #beforeMenu="matMenu" xPosition="before">
+                                                <!--
                                                 <button mat-menu-item>
                                                     <img src="../../../../../assets/img/icon/action-2.png"
                                                         alt="icon not found">
-                                                    <span>Edit Role</span>
-                                                </button>
+                                                    <span>Editar Rol</span>
+                                                </button>                                                
+                                                -->
                                                 <button mat-menu-item>
                                                     <img src="../../../../../assets/img/icon/action-6.png"
                                                         alt="icon not found">
-                                                    <span>Delete Role</span>
+                                                    <span>Eliminar Rol</span>
                                                 </button>
                                             </mat-menu>
                                         </div>

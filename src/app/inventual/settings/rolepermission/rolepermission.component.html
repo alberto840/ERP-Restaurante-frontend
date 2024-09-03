@@ -22,13 +22,11 @@
         </div>
         <div class="inventual-breadcrumb-area px-7 py-9 bg-white mb-5">
             <div class="inventual-breadcrumb-area-inner px-0.5">
-                <h5 class="text-[20px] text-heading font-bold mb-3">Role Permission </h5>
+                <h5 class="text-[20px] text-heading font-bold mb-3">Permisos de Rol </h5>
                 <div class="inventual-breadcrumb-area-inner-wrap">
-                    <span class="text-[14px] text-body font-normal inline-block me-2">Administrative Tools</span>
+                    <span class="text-[14px] text-body font-normal inline-block me-2">Gestion Roles</span>
                     <span class="text-[14px] text-body font-normal inline-block me-2">></span>
-                    <span class="text-[14px] text-body font-normal inline-block me-2">Settings</span>
-                    <span class="text-[14px] text-body font-normal inline-block me-2">></span>
-                    <span class="text-[14px] text-body font-normal inline-block me-2">Role Permission</span>
+                    <span class="text-[14px] text-body font-normal inline-block me-2">Permisos</span>
                 </div>
             </div>
         </div>
@@ -38,15 +36,18 @@
                     <div class="col-span-12">
                         <div class="flex flex-wrap gap-5 mb-5 items-end">
                             <div class="inventual-select-field flex-grow max-w-[350px]">
-                                <h4 class="text-[15px] font-bold text-heading mb-3">Create Role</h4>
-                                <div class="inventual-input-field-style">
+                                <h4 class="text-[15px] font-bold text-heading mb-3">Elige el Rol</h4>
+                                <div class="inventual-select-field-style">
                                     <mat-form-field class="w-full" [floatLabel]="'always'">
-                                        <mat-label class="hidden">Create Role</mat-label>
-                                        <input matInput [placeholder]="'Create Role'">
+                                      <mat-select [placeholder]="'Rol'">
+                                        <mat-option value="language-1">Rol 1</mat-option>
+                                        <mat-option value="language-2">Rol 2</mat-option>
+                                        <mat-option value="language-2">Rol 3</mat-option>
+                                      </mat-select>
                                     </mat-form-field>
                                 </div>
+                                <button type="button" class="inventual-btn primary-btn">Actualizar Permisos</button>
                             </div>
-                            <button type="button" class="inventual-btn primary-btn">Create Role</button>
                         </div>
                     </div>
                 </div>

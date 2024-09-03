@@ -11,12 +11,12 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { UserInterfaceData, userData } from '../../data/userData';
 
 @Component({
-  selector: 'app-userlist',
-  templateUrl: './userlist.component.html',
-  styleUrls: ['./userlist.component.scss'],
+  selector: 'app-employeelist',
+  templateUrl: './employeelist.component.html',
+  styleUrls: ['./employeelist.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class UserlistComponent implements AfterViewInit {
+export class EmployeelistComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'select',
     'id',

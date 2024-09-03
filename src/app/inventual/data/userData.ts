@@ -2,18 +2,22 @@ export interface UserInterfaceData {
   id: number;
   name: string;
   phone: number | string;
+  birthday: string;
   email: string;
   role: string;
   status: string;
   address: string;
   action: any;
+  gender: string;
   price: number;
 }
 export const userData: UserInterfaceData[] = [
   {
     id: 1,
     name: 'Joseph Tylor',
-    phone: `+02585339202`,
+    phone: `75869412`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Joseph@example.com',
     role: 'Owner',
     status: 'Online',
@@ -24,7 +28,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 2,
     name: 'Paul Freeman',
-    phone: `+02585339203`,
+    phone: `78596214`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Emily@example.com',
     role: 'Admin',
     status: 'Offline',
@@ -35,7 +41,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 3,
     name: 'Matthew Smallwood',
-    phone: `+02585339204`,
+    phone: `74521638`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Michael@example.com',
     role: 'Admin',
     status: 'Online',
@@ -46,7 +54,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 4,
     name: 'Danyelle Lundy',
-    phone: `+02585339243`,
+    phone: `75896321`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Sophia@example.com',
     role: 'Biller',
     status: 'Offline',
@@ -57,7 +67,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 5,
     name: 'Glenn Weiner',
-    phone: `+02585335203`,
+    phone: `78569541`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Alexander@example.com',
     role: 'Biller',
     status: 'Online',
@@ -68,7 +80,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 6,
     name: 'Alexander Crow',
-    phone: `+02515339203`,
+    phone: `79683524`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Emma@example.com',
     role: 'Biller',
     status: 'Online',
@@ -79,7 +93,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 7,
     name: 'Rosemary Clark',
-    phone: `+02575339203`,
+    phone: `75142368`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Daniel@example.com',
     role: 'Supervisor',
     status: 'Offline',
@@ -90,7 +106,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 8,
     name: 'Jennifer Carver',
-    phone: `+02585339603`,
+    phone: `71425352`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Olivia@example.com',
     role: 'Manager',
     status: 'Online',
@@ -101,7 +119,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 9,
     name: 'Donald Boser',
-    phone: `+02581339203`,
+    phone: `75211425`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'William@example.com',
     role: 'Admin',
     status: 'Offline',
@@ -112,7 +132,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 10,
     name: 'Maria Cavallo',
-    phone: `+02185339203`,
+    phone: `76353235`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Ava@example.com',
     role: 'Super Admin',
     status: 'Online',
@@ -123,7 +145,9 @@ export const userData: UserInterfaceData[] = [
   {
     id: 11,
     name: 'Glenn Maxwel',
-    phone: `+02585335258`,
+    phone: `722142536`,
+    birthday: '1990-01-01',
+    gender: 'Male',
     email: 'Maxwel@example.com',
     role: 'Biller',
     status: 'Online',
