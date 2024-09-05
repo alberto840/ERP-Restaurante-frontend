@@ -12,12 +12,8 @@ export const navbarData: INavbarData[] = [
     label: 'Gestion Empleados',
     items: [
       {
-        routeLink: '/usuarios/agregar',
-        label: 'Agregar Usuario / Empleado',
-      },
-      {
-        routeLink: '/usuarios/lista',
-        label: 'Lista de Usuarios',
+        routeLink: '/empleados/registro',
+        label: 'Registrar Usuario / Empleado',
       },
       {
         routeLink: '/empleados/lista',
@@ -36,11 +32,11 @@ export const navbarData: INavbarData[] = [
     label: 'Vacaciones',
     items: [
       {
-        routeLink: '/empleados/vacaciones/agregar',
-        label: 'Agregar Vacacion',
+        routeLink: 'vacaciones/registro',
+        label: 'Registrar Vacacion',
       },
       {
-        routeLink: '/empleados/vacaciones/lista',
+        routeLink: 'vacaciones/lista',
         label: 'Lista Vacaciones',
       },
     ],
@@ -51,42 +47,42 @@ export const navbarData: INavbarData[] = [
     label: 'Descuentos',
     items: [
       {
-        routeLink: '/empleados/descuentos/agregar',
-        label: 'Agregar Bono',
+        routeLink: 'descuentos/registro',
+        label: 'Registrar Descuento',
       },
       {
-        routeLink: '/empleados/descuentos/lista',
+        routeLink: 'descuentos/lista',
+        label: 'Lista Descuentos',
+      },
+    ],
+  },
+  {
+    routeLink: 'bonos',
+    icon: 'fal fa-money-bill',
+    label: 'Bonos',
+    items: [
+      {
+        routeLink: '/bonos/registro',
+        label: 'Registrar Bono',
+      },
+      {
+        routeLink: '/bonos/lista',
         label: 'Lista Bonos',
       },
     ],
   },
   {
-    routeLink: 'trading/invoice',
-    icon: 'fal fa-money-bill',
-    label: 'Bonos',
-    items: [
-      {
-        routeLink: '/empleados/bonos/agregar',
-        label: 'Agregar Vacacion',
-      },
-      {
-        routeLink: '/empleados/bonos/lista',
-        label: 'Lista Vacacion',
-      },
-    ],
-  },
-  {
-    routeLink: 'trading/invoice',
+    routeLink: 'horarios',
     icon: 'fal fa-clock',
     label: 'Horarios',
     items: [
       {
         routeLink: '/trading/invoice/saleinvoice',
-        label: 'Agregar Horario',
+        label: 'Registrar Horario',
       },
       {
         routeLink: '/trading/invoice/salesinvoice',
-        label: 'Lista Horario',
+        label: 'Lista Horarios',
       },
     ],
   },

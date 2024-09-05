@@ -201,8 +201,9 @@ const routes: Routes = [
     path: 'expesne/expenselist',
     component: ExpenselistComponent
   },
+  //User management agregado (vista)
   {
-    path: 'usuarios/agregar',
+    path: 'empleados/registro',
     component: AdduserComponent
   },
   {
@@ -210,31 +211,27 @@ const routes: Routes = [
     component: CreateroleComponent
   },
   {
-    path: 'usuarios/lista',
-    component: UserlistComponent
-  },
-  {
     path: 'empleados/lista',
     component: EmployeelistComponent
   },
   {
-    path: 'empleados/bonos/agregar',
+    path: 'bonos/registro',
     component: AddbonusComponent
   },
   {
-    path: 'empleados/descuentos/agregar',
+    path: 'descuentos/registro',
     component: AddiscountComponent
   },
   {
-    path: 'empleados/vacaciones/agregar',
+    path: 'vacaciones/registro',
     component: AddvacationComponent
   },
   {
-    path: 'empleados/bonos/lista',
+    path: 'bonos/lista',
     component: BonuslistComponent
   },
   {
-    path: 'empleados/descuentos/lista',
+    path: 'descuentos/lista',
     component: DiscountlistComponent
   },
   {
@@ -242,7 +239,7 @@ const routes: Routes = [
     component: SalaryhistoryComponent
   },
   {
-    path: 'empleados/vacaciones/lista',
+    path: 'vacaciones/lista',
     component: VacationlistComponent
   },
   {
