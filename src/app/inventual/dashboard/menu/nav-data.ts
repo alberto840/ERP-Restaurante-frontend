@@ -2,9 +2,9 @@ import { INavbarData } from './helper';
 
 export const navbarData: INavbarData[] = [
   {
-    routeLink: '/dashboard',
-    icon: 'fal fa-home',
-    label: 'Dashboard',
+    routeLink: '/salarios',
+    icon: 'fal fa-file-invoice-dollar',
+    label: 'Salarios',
   },
   {
     routeLink: 'empleados',
@@ -22,36 +22,31 @@ export const navbarData: INavbarData[] = [
     ],
   },
   {
-    routeLink: '/salarios',
-    icon: 'fal fa-file-invoice-dollar',
-    label: 'Salarios',
-  },
-  {
     routeLink: 'vacaciones',
     icon: 'fal fa-calendar',
     label: 'Vacaciones',
     items: [
       {
-        routeLink: 'vacaciones/registro',
+        routeLink: '/vacaciones/registro',
         label: 'Registrar Vacacion',
       },
       {
-        routeLink: 'vacaciones/lista',
+        routeLink: '/vacaciones/lista',
         label: 'Lista Vacaciones',
       },
     ],
   },
   {
-    routeLink: 'trading/invoice',
+    routeLink: 'descuentos',
     icon: 'fal fa-wind-warning',
     label: 'Descuentos',
     items: [
       {
-        routeLink: 'descuentos/registro',
+        routeLink: '/descuentos/registro',
         label: 'Registrar Descuento',
       },
       {
-        routeLink: 'descuentos/lista',
+        routeLink: '/descuentos/lista',
         label: 'Lista Descuentos',
       },
     ],
