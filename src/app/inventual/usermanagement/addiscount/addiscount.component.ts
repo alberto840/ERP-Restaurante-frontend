@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AccesoDialogsService } from '../../common/dialogs/acceso-dialogs.service';
 
 @Component({
   selector: 'app-addiscount',
@@ -24,7 +25,7 @@ myfunction(){
 
 hide = true;
 
-  constructor() { }
+  constructor(public accesoDialogsService: AccesoDialogsService) { }
 
   ngOnInit(): void {}
 
