@@ -19,6 +19,14 @@ export const navbarData: INavbarData[] = [
         routeLink: '/empleados/lista',
         label: 'Lista de Empleados',
       },
+      {
+        routeLink: '/empleados/actividades',
+        label: 'Lista de Actividades',
+      },
+      {
+        routeLink: '/empleados/asistencia',
+        label: 'Control de Asistencia',
+      },
     ],
   },
   {

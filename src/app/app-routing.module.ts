@@ -69,6 +69,7 @@ import { BonuslistComponent } from './inventual/usermanagement/bonuslist/bonusli
 import { DiscountlistComponent } from './inventual/usermanagement/discountlist/discountlist.component';
 import { SalaryhistoryComponent } from './inventual/usermanagement/salaryhistory/salaryhistory.component';
 import { VacationlistComponent } from './inventual/usermanagement/vacationlist/vacationlist.component';
+import { AttendancelistComponent } from './inventual/usermanagement/attendancelist/attendancelist.component';
 
 
 const routes: Routes = [ 
@@ -205,6 +206,14 @@ const routes: Routes = [
   {
     path: 'empleados/registro',
     component: AdduserComponent
+  },
+  {
+    path: 'empleados/actividades',
+    component: UserlistComponent
+  },
+  {
+    path: 'empleados/asistencia',
+    component: AttendancelistComponent
   },
   {
     path: 'rol/agregar',

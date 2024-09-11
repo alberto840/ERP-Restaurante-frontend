@@ -149,6 +149,7 @@ import { DiscountlistComponent } from './usermanagement/discountlist/discountlis
 import { VacationlistComponent } from './usermanagement/vacationlist/vacationlist.component';
 import { SalaryhistoryComponent } from './usermanagement/salaryhistory/salaryhistory.component';
 import { TipodescuentosDialogComponent } from './common/dialogs/tipodescuentos-dialog/tipodescuentos-dialog.component';
+import { AttendancelistComponent } from './usermanagement/attendancelist/attendancelist.component';
 
 @NgModule({
   imports: [
@@ -305,6 +306,7 @@ import { TipodescuentosDialogComponent } from './common/dialogs/tipodescuentos-d
     VacationlistComponent,
     SalaryhistoryComponent,
     TipodescuentosDialogComponent,
+    AttendancelistComponent,
   ],
 })
 export class InventualModule {}

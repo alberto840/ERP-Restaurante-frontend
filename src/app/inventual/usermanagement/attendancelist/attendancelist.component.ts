@@ -11,23 +11,20 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { UserInterfaceData, userData } from '../../data/userData';
 
 @Component({
-  selector: 'app-userlist',
-  templateUrl: './userlist.component.html',
-  styleUrls: ['./userlist.component.scss'],
+  selector: 'app-attendancelist',
+  templateUrl: './attendancelist.component.html',
+  styleUrls: ['./attendancelist.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class UserlistComponent implements AfterViewInit {
+export class AttendancelistComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'select',
     'id',
     'nombre',
-    'telefono',
     'fechanacimiento',
-    'direccion',
-    'genero',
-    'correo',
-    'rol',
-    'action',
+    'estado',
+    'sucursal',
+    'accion',
   ];
   dataSource: MatTableDataSource<UserInterfaceData>;
   selection = new SelectionModel<UserInterfaceData>(true, []);
