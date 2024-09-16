@@ -36,28 +36,37 @@
                         <div class="col-span-10 xxl:col-span-12 lg:col-span-12 md:col-span-12 sm:col-span-12">
                             <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0 items-end">
                                 <div class="col-span-3 md:col-span-6 sm:col-span-12">
-                                    <div class="inventual-calender-field mb-5">
-                                        <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha inicial</h5>
-                                        <div class="inventual-calender-field-style">
-                                            <mat-form-field appearance="fill" floatLabel="always">
-                                                <mat-label class="hidden">Escoje la fecha</mat-label>
-                                                <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'">
-                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker></mat-datepicker>
-                                            </mat-form-field>
+                                    <div class="inventual-select-field mb-5">
+                                        <h5 class="text-[15px] text-heading font-semibold mb-3">Año</h5>
+                                        <div class="inventual-select-field">
+                                            <div class="inventual-input-field-style">
+                                                <mat-form-field class="w-full" [floatLabel]="'always'">
+                                                    <mat-label class="hidden">Filtrar</mat-label>
+                                                    <input matInput (keyup)="applyFilter($event)" placeholder="Escribe el año" #input>
+                                                </mat-form-field>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-span-3 md:col-span-6 sm:col-span-12">
-                                    <div class="inventual-calender-field mb-5">
-                                        <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha final</h5>
-                                        <div class="inventual-calender-field-style">
-                                            <mat-form-field appearance="fill" floatLabel="always">
-                                                <mat-label class="hidden">Escoje la fecha</mat-label>
-                                                <input matInput [matDatepicker]="picker1" [placeholder]="'MM/DD/YYYY'">
-                                                <mat-datepicker-toggle matSuffix
-                                                    [for]="picker1"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker1></mat-datepicker>
+                                    <div class="inventual-select-field mb-5">
+                                        <h5 class="text-[15px] text-heading font-semibold mb-3">Mes</h5>
+                                        <div class="inventual-select-field-style">
+                                            <mat-form-field>
+                                                <mat-select class="block" [placeholder]="'Seleccionar Mes'">
+                                                    <mat-option value="language-1">Enero</mat-option>
+                                                    <mat-option value="language-2">Febrero</mat-option>
+                                                    <mat-option value="language-3">Marzo</mat-option>
+                                                    <mat-option value="language-4">Abril</mat-option>
+                                                    <mat-option value="language-5">Mayo</mat-option>
+                                                    <mat-option value="language-6">Junio</mat-option>
+                                                    <mat-option value="language-7">Julio</mat-option>
+                                                    <mat-option value="language-8">Agosto</mat-option>
+                                                    <mat-option value="language-9">Septiembre</mat-option>
+                                                    <mat-option value="language-10">Octubre</mat-option>
+                                                    <mat-option value="language-11">Noviembre</mat-option>
+                                                    <mat-option value="language-12">Diciembre</mat-option>
+                                                </mat-select>
                                             </mat-form-field>
                                         </div>
                                     </div>
