@@ -150,6 +150,10 @@ import { VacationlistComponent } from './usermanagement/vacationlist/vacationlis
 import { SalaryhistoryComponent } from './usermanagement/salaryhistory/salaryhistory.component';
 import { TipodescuentosDialogComponent } from './common/dialogs/tipodescuentos-dialog/tipodescuentos-dialog.component';
 import { AttendancelistComponent } from './usermanagement/attendancelist/attendancelist.component';
+import { SchedulelistComponent } from './usermanagement/schedulelist/schedulelist.component';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { GestionSucursalComponent } from './usermanagement/gestion-sucursal/gestion-sucursal.component';
 
 @NgModule({
   imports: [
@@ -183,7 +187,9 @@ import { AttendancelistComponent } from './usermanagement/attendancelist/attenda
     MatTabsModule,
     HttpClientModule,
     MatTableModule,
-    DragDropModule,
+    DragDropModule,    
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot() 
   ],
   declarations: [
     HeaderComponent,
@@ -307,6 +313,8 @@ import { AttendancelistComponent } from './usermanagement/attendancelist/attenda
     SalaryhistoryComponent,
     TipodescuentosDialogComponent,
     AttendancelistComponent,
+    SchedulelistComponent,
+    GestionSucursalComponent,
   ],
 })
 export class InventualModule {}

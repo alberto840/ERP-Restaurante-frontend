@@ -70,6 +70,7 @@ import { DiscountlistComponent } from './inventual/usermanagement/discountlist/d
 import { SalaryhistoryComponent } from './inventual/usermanagement/salaryhistory/salaryhistory.component';
 import { VacationlistComponent } from './inventual/usermanagement/vacationlist/vacationlist.component';
 import { AttendancelistComponent } from './inventual/usermanagement/attendancelist/attendancelist.component';
+import { SchedulelistComponent } from './inventual/usermanagement/schedulelist/schedulelist.component';
 
 
 const routes: Routes = [ 
@@ -250,6 +251,10 @@ const routes: Routes = [
   {
     path: 'vacaciones/lista',
     component: VacationlistComponent
+  },
+  {
+    path: 'horarios',
+    component: SchedulelistComponent
   },
   {
     path: 'warehouselist',

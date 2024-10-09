@@ -80,11 +80,7 @@ export const navbarData: INavbarData[] = [
     label: 'Horarios',
     items: [
       {
-        routeLink: '/trading/invoice/saleinvoice',
-        label: 'Registrar Horario',
-      },
-      {
-        routeLink: '/trading/invoice/salesinvoice',
+        routeLink: '/horarios',
         label: 'Lista Horarios',
       },
     ],

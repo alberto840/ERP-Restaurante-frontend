@@ -10,6 +10,13 @@ export interface UserInterfaceData {
   action: any;
   gender: string;
   price: number;
+  lunes: string;
+  martes: string;
+  miercoles: string;
+  jueves: string;
+  viernes: string;
+  sabado: string;
+  domingo: string;
 }
 export const userData: UserInterfaceData[] = [
   {
@@ -24,6 +31,13 @@ export const userData: UserInterfaceData[] = [
     address: '2851 Green Avenue, Oakland, CA 94612',
     action: 'action',
     price: 5000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '8:00 AM - 5:00 PM',
+    viernes: '8:00 AM - 5:00 PM',
+    sabado: '8:00 AM - 5:00 PM',
+    domingo: '8:00 AM - 5:00 PM',
   },
   {
     id: 2,
@@ -37,6 +51,13 @@ export const userData: UserInterfaceData[] = [
     address: '123 Main Street, Anytown, NY 12345',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '8:00 AM - 5:00 PM',
+    viernes: '',
+    sabado: '8:00 AM - 5:00 PM',
+    domingo: '8:00 AM - 5:00 PM',
   },
   {
     id: 3,
@@ -50,6 +71,13 @@ export const userData: UserInterfaceData[] = [
     address: '456 Elm Street, Springfield, IL 67890',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '8:00 AM - 5:00 PM',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '',
+    viernes: '',
+    sabado: '',
+    domingo: '',
   },
   {
     id: 4,
@@ -63,6 +91,13 @@ export const userData: UserInterfaceData[] = [
     address: '789 Oak Street, Pleasantville, TX 54321',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '8:00 AM - 5:00 PM',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '8:00 AM - 5:00 PM',
+    viernes: '8:00 AM - 5:00 PM',
+    sabado: '8:00 AM - 5:00 PM',
+    domingo: '8:00 AM - 5:00 PM',
   },
   {
     id: 5,
@@ -76,6 +111,13 @@ export const userData: UserInterfaceData[] = [
     address: '987 Pine Street, Lakeside, FL 98765',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '8:00 AM - 5:00 PM',
+    viernes: '',
+    sabado: '8:00 AM - 5:00 PM',
+    domingo: '8:00 AM - 5:00 PM',
   },
   {
     id: 6,
@@ -89,6 +131,13 @@ export const userData: UserInterfaceData[] = [
     address: '654 Maple Street, Riverside, WA 23456',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '8:00 AM - 5:00 PM',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '8:00 AM - 5:00 PM',
+    viernes: '8:00 AM - 5:00 PM',
+    sabado: '8:00 AM - 5:00 PM',
+    domingo: '8:00 AM - 5:00 PM',
   },
   {
     id: 7,
@@ -102,6 +151,13 @@ export const userData: UserInterfaceData[] = [
     address: '321 Cedar Street, Mountainview, CA 65432',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '8:00 AM - 5:00 PM',
+    miercoles: '',
+    jueves: '8:00 AM - 5:00 PM',
+    viernes: '8:00 AM - 5:00 PM',
+    sabado: '',
+    domingo: '8:00 AM - 5:00 PM',
   },
   {
     id: 8,
@@ -115,6 +171,13 @@ export const userData: UserInterfaceData[] = [
     address: '741 Birch Street, Oceanview, OR 87654',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '8:00 AM - 5:00 PM',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '8:00 AM - 5:00 PM',
+    viernes: '8:00 AM - 5:00 PM',
+    sabado: '',
+    domingo: '',
   },
   {
     id: 9,
@@ -128,6 +191,13 @@ export const userData: UserInterfaceData[] = [
     address: '852 Walnut Street, Hillside, NV 34567',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '8:00 AM - 5:00 PM',
+    viernes: '8:00 AM - 5:00 PM',
+    sabado: '',
+    domingo: '',
   },
   {
     id: 10,
@@ -141,6 +211,13 @@ export const userData: UserInterfaceData[] = [
     address: '369 Cherry Street, Sunnyside, AZ 01234',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '8:00 AM - 5:00 PM',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '',
+    viernes: '8:00 AM - 5:00 PM',
+    sabado: '',
+    domingo: '',
   },
   {
     id: 11,
@@ -154,5 +231,12 @@ export const userData: UserInterfaceData[] = [
     address: '987 Pine Street, Lakeside, FL 98765',
     action: 'action',
     price: 8000,
+    lunes: '8:00 AM - 5:00 PM',
+    martes: '8:00 AM - 5:00 PM',
+    miercoles: '8:00 AM - 5:00 PM',
+    jueves: '8:00 AM - 5:00 PM',
+    viernes: '8:00 AM - 5:00 PM',
+    sabado: '',
+    domingo: '',
   },
 ];
