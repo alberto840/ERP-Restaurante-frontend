@@ -3,6 +3,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SalesInterfaceData, salesReport } from '../../data/salesReport';
+import { DescuentosModel } from '../../models/descuentos.model';
+import { Observable } from 'rxjs';
+import { GetDescuento } from '../../state-management/descuentos/descuento.action';
+import { DiscountsState } from '../../state-management/descuentos/descuento.state';
+import { Store } from '@ngxs/store';
+import { PdfreportService } from '../../services/reportes/pdfreport.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-discountlist',
@@ -11,23 +18,28 @@ import { SalesInterfaceData, salesReport } from '../../data/salesReport';
   encapsulation: ViewEncapsulation.None
 })
 export class DiscountlistComponent implements AfterViewInit {
+  descuentos$: Observable<DescuentosModel[]>;
+
   displayedColumns: string[] = [
-    'empleado',
-    'tipo',
-    'monto',
-    'fecha',
-    'justificacion',
+    'select', 'tipo', 'monto', 'fecha', 'justificacion',
+    'action',
   ];
-  dataSource: MatTableDataSource<SalesInterfaceData>;
+  dataSource: MatTableDataSource<DescuentosModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
+  selection = new SelectionModel<DescuentosModel>(true, []);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor() {
+  constructor(private store: Store, public pdfreportService: PdfreportService) {
     // Assign your data array to the data source
-    this.dataSource = new MatTableDataSource(salesReport);
+    this.descuentos$ = this.store.select(DiscountsState.getDiscounts);
+  }
+
+  generarPDF() {
+    const descuentosSeleccionados = this.selection.selected;
+    this.pdfreportService.descuentopdf(descuentosSeleccionados);
   }
 
   ngAfterViewInit() {
@@ -44,35 +56,31 @@ export class DiscountlistComponent implements AfterViewInit {
     }
   }
 
-  getStockQty(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.stockQty)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
-  getSoldQty(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.amount)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
   }
-  getAmount(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.amount)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: DescuentosModel): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.id + 1
+    }`;
   }
 
   //sidebar menu activation start
@@ -84,7 +92,14 @@ export class DiscountlistComponent implements AfterViewInit {
       this.menuSidebarActive = false;
     }
   }
-  //sidebar menu activation end
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Despacha la acción para obtener los usuarios
+    this.store.dispatch([new GetDescuento()]);
+
+    // Suscríbete al observable para actualizar el dataSource
+    this.descuentos$.subscribe((descuentos) => {
+      this.dataSource.data = descuentos; // Asigna los datos al dataSource
+    });
+  }
 }

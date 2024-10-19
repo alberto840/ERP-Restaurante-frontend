@@ -1,12 +1,12 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { EmpleadoModel } from '../../models/empleado.model';
+import { UsuarioModel } from '../../models/empleado.model';
 import { EmpleadoService } from '../../services/empleado.service';
 import { AddEmpleado, DeleteEmpleado, GetEmpleado, UpdateEmpleado } from './empleado.action';
 
 export interface EmpleadosStateModel {
-  empleados: EmpleadoModel[];
+  empleados: UsuarioModel[];
 }
 
 @State<EmpleadosStateModel>({

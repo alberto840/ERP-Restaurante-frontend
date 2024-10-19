@@ -48,7 +48,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Juan</mat-label>
-                  <input matInput [placeholder]="'Juan'">
+                  <input matInput [placeholder]="'Juan'" type="text" class="form-control" id="nombre" [(ngModel)]="user.nombre" name="name">
                 </mat-form-field>
               </div>
             </div>
@@ -59,7 +59,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Paredes</mat-label>
-                  <input matInput [placeholder]="'Paredes'">
+                  <input matInput [placeholder]="'Paredes'" type="text" class="form-control" id="primerApellido" [(ngModel)]="user.primerApellido" name="primerApellido">
                 </mat-form-field>
               </div>
             </div>
@@ -70,7 +70,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Mendoza</mat-label>
-                  <input matInput [placeholder]="'Mendoza'">
+                  <input matInput [placeholder]="'Mendoza'" type="text" class="form-control" id="segundoApellido" [(ngModel)]="user.segundoApellido" name="segundoApellido">
                 </mat-form-field>
               </div>
             </div>
@@ -81,7 +81,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">00 000 000 000</mat-label>
-                  <input matInput [placeholder]="'00 000 000 000'">
+                  <input matInput [placeholder]="'00 000 000 000'" type="text" class="form-control" id="telefono" [(ngModel)]="user.telefono" name="telefono">
                 </mat-form-field>
               </div>
             </div>
@@ -92,7 +92,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Elige tu fecha</mat-label>
-                  <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'">
+                  <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="edad" [(ngModel)]="user.edad" name="edad">
                   <mat-hint>MM/DD/YYYY</mat-hint>
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
@@ -106,21 +106,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Ciudad, Barrio, Calle</mat-label>
-                  <input matInput [placeholder]="'Ciudad, Barrio, Calle'">
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-4 md:col-span-6 sm:col-span-12">
-            <div class="inventual-select-field mb-5">
-              <h5 class="text-[15px] text-heading font-semibold mb-3">Genero</h5>
-              <div class="inventual-select-field-style">
-                <mat-form-field>
-                  <mat-select class="block" [placeholder]="'Select Gender'">
-                    <mat-option value="language-1">Masculino</mat-option>
-                    <mat-option value="language-2">Femenino</mat-option>
-                    <mat-option value="language-2">Otro</mat-option>
-                  </mat-select>
+                  <input matInput [placeholder]="'Ciudad, Barrio, Calle'" type="text" class="form-control" id="direccion" [(ngModel)]="user.direccion" name="direccion">
                 </mat-form-field>
               </div>
             </div>
@@ -131,7 +117,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">joseph&#64;example.com</mat-label>
-                  <input type="email" matInput [placeholder]="'joseph@example.com'">
+                  <input type="email" matInput [placeholder]="'joseph@example.com'" type="text" class="form-control" id="correo" [(ngModel)]="user.correo" name="correo">
                 </mat-form-field>
               </div>
             </div>
@@ -143,7 +129,7 @@
                 <div class="inventual-input-field-style inventual-input-field-style-eye">
                   <mat-form-field appearance="fill">
                     <mat-label class="hidden">Enter your password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'">
+                    <input matInput [type]="hide ? 'password' : 'text'" type="text" class="form-control" id="password" [(ngModel)]="user.password" name="password">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                       [attr.aria-pressed]="hide">
                       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -158,10 +144,9 @@
               <h5 class="text-[15px] text-heading font-semibold mb-3">Rol</h5>
               <div class="inventual-select-field-style">
                 <mat-form-field>
-                  <mat-select class="block" [placeholder]="'Select Role'">
-                    <mat-option value="language-1">Supervisor</mat-option>
-                    <mat-option value="language-2">Officer</mat-option>
-                    <mat-option value="language-2">Manager</mat-option>
+                  <mat-select class="block" [placeholder]="'Select Role'" class="form-control" id="rolesId" name="rolesId">
+                    <mat-option value="language-1">Administrador</mat-option>
+                    <mat-option value="language-2">Contador</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -169,13 +154,27 @@
           </div>
           <div class="col-span-4 md:col-span-6 sm:col-span-12">
             <div class="inventual-select-field mb-5">
+              <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha de Ingreso</h5>
+              <div class="inventual-input-field-style">
+                <mat-form-field class="w-full" [floatLabel]="'always'">
+                  <mat-label class="hidden">Elige tu fecha</mat-label>
+                  <input matInput [matDatepicker]="picker2" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechaIngreso" [(ngModel)]="user.fechaIngreso" name="fechaIngreso">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>                
+              </div>
+            </div>
+          </div>          
+          <div class="col-span-4 md:col-span-6 sm:col-span-12">
+            <div class="inventual-select-field mb-5">
               <h5 class="text-[15px] text-heading font-semibold mb-3">Sucursal</h5>
               <div class="inventual-select-field-style">
                 <mat-form-field>
-                  <mat-select class="block" [placeholder]="'Sucursal'">
-                    <mat-option value="language-1">Sucursal 1</mat-option>
-                    <mat-option value="language-2">Sucursal 2</mat-option>
-                    <mat-option value="language-2">Sucursal 3</mat-option>
+                  <mat-select class="block" [placeholder]="'Selecionar Sucursal'" class="form-control" id="sucursalId" [(ngModel)]="user.sucursalId" name="sucursalId">
+                    <mat-option *ngFor="let sucursal of sucursales$ | async" [value]="sucursal.id">
+                      {{ sucursal.nombre }}
+                    </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -184,7 +183,7 @@
           <div class="col-span-12">
             <div class="inventual-material-btn pt-2.5 justify-end">              
               <ng-template [ngIf]="!checked">                
-                <button mat-raised-button color="primary">Registrar Usuario</button>
+                <button mat-raised-button color="primary" (click)="agregarUsuario()">Registrar Usuario</button>
               </ng-template>
               <ng-template [ngIf]="checked">                
                 <button mat-raised-button color="primary">Registrar Empleado</button>

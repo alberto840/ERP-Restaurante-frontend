@@ -9,28 +9,28 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BonosService {
-  private baseUrl = environment.apiUrl+'api/v1/bonos';
+  private baseUrl = environment.apiUrl+'api/bonos';
 
   constructor(private http: HttpClient) {}
   
   // Obtener todos los bonos
-  getAllBonos(): Observable<ResponseModel<BonosModel[]>> {
+  getAllBonos(): Observable<BonosModel[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.get<ResponseModel<BonosModel[]>>(`${this.baseUrl}`, { headers });
+    return this.http.get<BonosModel[]>(`${this.baseUrl}/all`, { headers });
   }
   
   // Agregar un nuevo bono
-  addBono(bono: any): Observable<ResponseModel<BonosModel>> {
+  addBono(bono: any): Observable<BonosModel> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.post<ResponseModel<BonosModel>>(`${this.baseUrl}/crear`, bono, { headers });
+    return this.http.post<BonosModel>(`${this.baseUrl}/create`, bono, { headers });
   }
   
   // Actualizar un bono

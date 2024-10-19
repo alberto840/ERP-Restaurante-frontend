@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class VacacionService {
-  private baseUrl = environment.apiUrl+'api/v1/vacacion';
+  private baseUrl = environment.apiUrl+'api/v1/vacaciones';
 
   constructor(private http: HttpClient) {}
 

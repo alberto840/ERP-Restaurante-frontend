@@ -71,6 +71,7 @@ import { SalaryhistoryComponent } from './inventual/usermanagement/salaryhistory
 import { VacationlistComponent } from './inventual/usermanagement/vacationlist/vacationlist.component';
 import { AttendancelistComponent } from './inventual/usermanagement/attendancelist/attendancelist.component';
 import { SchedulelistComponent } from './inventual/usermanagement/schedulelist/schedulelist.component';
+import { GestionSucursalComponent } from './inventual/usermanagement/gestion-sucursal/gestion-sucursal.component';
 
 
 const routes: Routes = [ 
@@ -205,6 +206,10 @@ const routes: Routes = [
   },
   //User management agregado (vista)
   {
+    path: 'sucursales',
+    component: GestionSucursalComponent
+  },
+  {
     path: 'empleados/registro',
     component: AdduserComponent
   },
@@ -222,7 +227,7 @@ const routes: Routes = [
   },
   {
     path: 'empleados/lista',
-    component: EmployeelistComponent
+    component: UserlistComponent
   },
   {
     path: 'bonos/registro',

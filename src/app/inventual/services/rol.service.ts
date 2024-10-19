@@ -10,24 +10,24 @@ import { environment } from 'src/environments/environment';
 })
 export class RolService {
 
-  private baseUrl = environment.apiUrl+'api/v1/rol';
+  private baseUrl = environment.apiUrl+'api/roles';
 
   constructor(private http: HttpClient) {}
 
-  getAllRoles(): Observable<ResponseModel<RolModel[]>> {
+  getAllRoles(): Observable<RolModel[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<ResponseModel<RolModel[]>>(`${this.baseUrl}`, { headers });
+    return this.http.get<RolModel[]>(`${this.baseUrl}/all`, { headers });
   }
 
-  addRol(rol: RolModel): Observable<ResponseModel<RolModel>> {
+  addRol(rol: RolModel): Observable<RolModel> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post<ResponseModel<RolModel>>(`${this.baseUrl}/crear`, rol, { headers });
+    return this.http.post<RolModel>(`${this.baseUrl}/create`, rol, { headers });
   }
 
   updateRol(rol: RolModel): Observable<ResponseModel<RolModel>> {
@@ -43,6 +43,6 @@ export class RolService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<ResponseModel<RolModel>>(`${this.baseUrl}/eliminar/${rolId}`, { headers });
+    return this.http.delete<ResponseModel<RolModel>>(`${this.baseUrl}/delete/${rolId}`, { headers });
   }
 }

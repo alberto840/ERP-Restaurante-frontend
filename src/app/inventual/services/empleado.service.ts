@@ -1,16 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EmpleadoModel } from '../models/empleado.model';
 import { ResponseModel } from '../models/response.model';
 import { environment } from 'src/environments/environment';
+import { UsuarioModel } from '../models/empleado.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpleadoService {
 
-  private baseUrl = environment.apiUrl+'api/v1/usuarios';
+  private baseUrl = environment.apiUrl+'api/usuarios';
 
   constructor(private http: HttpClient) {}
 
@@ -18,35 +18,35 @@ export class EmpleadoService {
     return this.http.post<ResponseModel<any>>(`${this.baseUrl}/login`, user);
   }
 
-  getAllEmpleados(): Observable<ResponseModel<EmpleadoModel[]>> {
+  getAllEmpleados(): Observable<ResponseModel<UsuarioModel[]>> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<ResponseModel<EmpleadoModel[]>>(`${this.baseUrl}`, { headers });
+    return this.http.get<ResponseModel<UsuarioModel[]>>(`${this.baseUrl}`, { headers });
   }
 
-  addEmpleado(empleado: EmpleadoModel): Observable<ResponseModel<EmpleadoModel>> {
+  addEmpleado(empleado: UsuarioModel): Observable<ResponseModel<UsuarioModel>> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post<ResponseModel<EmpleadoModel>>(`${this.baseUrl}/crear`, empleado, { headers });
+    return this.http.post<ResponseModel<UsuarioModel>>(`${this.baseUrl}`, empleado, { headers });
   }
 
-  updateEmpleado(empleado: EmpleadoModel): Observable<ResponseModel<EmpleadoModel>> {
+  updateEmpleado(empleado: UsuarioModel): Observable<ResponseModel<UsuarioModel>> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put<ResponseModel<EmpleadoModel>>(`${this.baseUrl}/actualizar/${empleado.id}`, empleado, { headers });
+    return this.http.put<ResponseModel<UsuarioModel>>(`${this.baseUrl}/actualizar/${empleado.id}`, empleado, { headers });
   }
 
-  deleteEmpleado(empleadoId: number): Observable<ResponseModel<EmpleadoModel>> {
+  deleteEmpleado(empleadoId: number): Observable<ResponseModel<UsuarioModel>> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<ResponseModel<EmpleadoModel>>(`${this.baseUrl}/eliminar/${empleadoId}`, { headers });
+    return this.http.delete<ResponseModel<UsuarioModel>>(`${this.baseUrl}/eliminar/${empleadoId}`, { headers });
   }
 }

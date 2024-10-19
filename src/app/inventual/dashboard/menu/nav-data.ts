@@ -7,6 +7,11 @@ export const navbarData: INavbarData[] = [
     label: 'Salarios',
   },
   {
+    routeLink: '/sucursales',
+    icon: 'fal fa-file-invoice-dollar',
+    label: 'Sucursales',
+  },
+  {
     routeLink: 'empleados',
     icon: 'fal fa-user',
     label: 'Gestion Empleados',

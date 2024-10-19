@@ -154,6 +154,13 @@ import { SchedulelistComponent } from './usermanagement/schedulelist/schedulelis
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { GestionSucursalComponent } from './usermanagement/gestion-sucursal/gestion-sucursal.component';
+import { EmpleadosState } from './state-management/empleado/empleado.state';
+import { NgxsModule } from '@ngxs/store';
+import { SucursalState } from './state-management/sucursal/sucursal.state';
+import { VacacionesState } from './state-management/vacacion/vacacion.state';
+import { DiscountsState } from './state-management/descuentos/descuento.state';
+import { BonosState } from './state-management/bono/bono.state';
+import { RolesState } from './state-management/rol/rol.state';
 
 @NgModule({
   imports: [
@@ -188,6 +195,7 @@ import { GestionSucursalComponent } from './usermanagement/gestion-sucursal/gest
     HttpClientModule,
     MatTableModule,
     DragDropModule,    
+    NgxsModule.forRoot([EmpleadosState, SucursalState, VacacionesState, DiscountsState, BonosState, RolesState]),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot() 
   ],

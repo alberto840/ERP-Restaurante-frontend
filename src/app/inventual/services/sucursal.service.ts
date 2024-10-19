@@ -9,28 +9,28 @@ import { SucursalModel } from '../models/sucursal.model';
   providedIn: 'root'
 })
 export class SucursalService {
-  private baseUrl = environment.apiUrl + 'api/v1/sucursales';
+  private baseUrl = environment.apiUrl + 'api/sucursales';
 
   constructor(private http: HttpClient) {}
   
   // Obtener todas las sucursales
-  getAllSucursales(): Observable<ResponseModel<SucursalModel[]>> {
+  getAllSucursales(): Observable<SucursalModel[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.get<ResponseModel<SucursalModel[]>>(`${this.baseUrl}`, { headers });
+    return this.http.get<SucursalModel[]>(`${this.baseUrl}/all`, { headers });
   }
   
   // Agregar una nueva sucursal
-  addSucursal(sucursal: any): Observable<ResponseModel<SucursalModel>> {
+  addSucursal(sucursal: any): Observable<SucursalModel> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.post<ResponseModel<SucursalModel>>(`${this.baseUrl}/crear`, sucursal, { headers });
+    return this.http.post<SucursalModel>(`${this.baseUrl}`, sucursal, { headers });
   }
   
   // Actualizar una sucursal
@@ -50,6 +50,6 @@ export class SucursalService {
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.delete<ResponseModel<SucursalModel>>(`${this.baseUrl}/eliminar/${sucursalId}`, { headers });
+    return this.http.delete<ResponseModel<SucursalModel>>(`${this.baseUrl}/${sucursalId}`, { headers });
   }
 }

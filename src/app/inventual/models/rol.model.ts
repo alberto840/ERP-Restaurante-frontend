@@ -1,3 +1,4 @@
 export interface RolModel {
-  id: any;
+  id: number;
+  nombre: string;
 }

@@ -9,18 +9,18 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class DescuentosService {
-  private baseUrl = environment.apiUrl+'api/v1/descuentos';
+  private baseUrl = environment.apiUrl+'api/descuentos';
 
   constructor(private http: HttpClient) {}
   
   // Obtener todos los descuentos
-  getAllDescuentos(): Observable<ResponseModel<DescuentosModel[]>> {
+  getAllDescuentos(): Observable<DescuentosModel[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.get<ResponseModel<DescuentosModel[]>>(`${this.baseUrl}`, { headers });
+    return this.http.get<DescuentosModel[]>(`${this.baseUrl}/all`, { headers });
   }
   
   // Agregar un nuevo descuento
@@ -30,7 +30,7 @@ export class DescuentosService {
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.post<ResponseModel<DescuentosModel>>(`${this.baseUrl}/crear`, descuento, { headers });
+    return this.http.post<ResponseModel<DescuentosModel>>(`${this.baseUrl}`, descuento, { headers });
   }
   
   // Actualizar un descuento

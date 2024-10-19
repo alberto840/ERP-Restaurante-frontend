@@ -45,28 +45,11 @@
                         </div>
                         <div class="col-span-7 md:col-span-6 sm:col-span-12">
                             <div class="inventual-table-header-search-action-btn text-end sm:text-start">
-                                <button type="button" class="filter" [matMenuTriggerFor]="beforeMenuA">
-                                    <app-filter-icon></app-filter-icon> Filtrar
-                                </button>
-                                <mat-menu #beforeMenuA="matMenu" xPosition="before">
-                                    <button mat-menu-item>
-                                        <span>Nombre</span>
-                                    </button>
-                                    <button mat-menu-item>
-                                        <span>Rol</span>
-                                    </button>
-                                    <button mat-menu-item>
-                                        <span>Estado</span>
-                                    </button>
-                                </mat-menu>
-                                <button type="button" class="pdf">
+                                <button type="button" class="pdf" (click)="generarPDF()">
                                     <app-pdf-icon></app-pdf-icon>
                                 </button>
                                 <button type="button" class="csv">
                                     <app-csv-icon></app-csv-icon>
-                                </button>
-                                <button type="button" class="printer">
-                                    <app-printer-icon></app-printer-icon>
                                 </button>
                             </div>
                         </div>
@@ -98,38 +81,55 @@
                         </ng-container>
 
                         <ng-container matColumnDef="nombre">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tabla </th>
-                            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="telefono">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Accion </th>
-                            <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="fechanacimiento">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-                            <td mat-cell *matCellDef="let row"> {{row.birthday}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="direccion">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cambios </th>
-                            <td mat-cell *matCellDef="let row"> {{row.address}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="genero">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Detalle </th>
-                            <td mat-cell *matCellDef="let row"> {{row.gender}} </td>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Completo </th>
+                            <td mat-cell *matCellDef="let row"> {{row.nombre+" "+row.primerApellido+" "+row.segundoApellido}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="correo">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Registro </th>
-                            <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+                            <td mat-cell *matCellDef="let row"> {{row.correo}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fechaIngreso">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Ingreso </th>
+                            <td mat-cell *matCellDef="let row"> {{row.fechaIngreso}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                            <td mat-cell *matCellDef="let row">
+                                <div>
+                                    <span *ngIf="row.estado === true"
+                                        class="badge-stroke badge-success">Activo</span>
+                                    <span *ngIf="row.estado === false"
+                                        class="badge-stroke badge-warning">Inactivo</span>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="direccion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Direccion </th>
+                            <td mat-cell *matCellDef="let row"> {{row.direccion}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fechanacimiento">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Nacimiento </th>
+                            <td mat-cell *matCellDef="let row"> {{row.edad}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="telefono">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefono </th>
+                            <td mat-cell *matCellDef="let row"> {{row.telefono}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="rol">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
-                            <td mat-cell *matCellDef="let row"> {{row.role}} </td>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+                            <td mat-cell *matCellDef="let row"> {{ getRolName(row.rolesId) }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="sucursal">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sucursal </th>
+                            <td mat-cell *matCellDef="let row"> {{ getSucursalName(row.sucursalId) }} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="action">

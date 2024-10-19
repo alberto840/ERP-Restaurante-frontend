@@ -3,6 +3,16 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SalesInterfaceData, salesReport } from '../../data/salesReport';
+import { UsuarioModel } from '../../models/empleado.model';
+import { Observable } from 'rxjs';
+import { VacacionesModel } from '../../models/vacaciones.model';
+import { PdfreportService } from '../../services/reportes/pdfreport.service';
+import { Store } from '@ngxs/store';
+import { VacacionesState } from '../../state-management/vacacion/vacacion.state';
+import { EmpleadosState } from '../../state-management/empleado/empleado.state';
+import { SelectionModel } from '@angular/cdk/collections';
+import { GetVacacion } from '../../state-management/vacacion/vacacion.action';
+import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 
 
 @Component({
@@ -12,22 +22,42 @@ import { SalesInterfaceData, salesReport } from '../../data/salesReport';
   encapsulation: ViewEncapsulation.None,
 })
 export class VacationlistComponent implements AfterViewInit {
+
+  vacaciones$: Observable<VacacionesModel[]>;
+  usuarios$: Observable<UsuarioModel[]>;
+  usuarios: UsuarioModel[] = [];  
+  usuarioslist: UsuarioModel[] = [];
+
   displayedColumns: string[] = [
-    'empleado',
-    'fechainicial',
-    'fechafinal',
-    'motivo',
+    'select',
+    'id',
+    'usuarios',
+    'fechaInicio',
+    'fechaFin',
+    'aprobacion',
+    'action',
   ];
-  dataSource: MatTableDataSource<SalesInterfaceData>;
+  dataSource: MatTableDataSource<VacacionesModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
+  selection = new SelectionModel<VacacionesModel>(true, []);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor() {
+  constructor(private store: Store, public pdfreportService: PdfreportService) {
     // Assign your data array to the data source
-    this.dataSource = new MatTableDataSource(salesReport);
+    this.vacaciones$ = this.store.select(VacacionesState.getVacaciones);
+    this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
+  }
+
+  generarPDF() {
+    const vacacionesSeleccionados = this.selection.selected;
+
+    this.usuarios$.subscribe((usuarios: UsuarioModel[]) => {
+      this.usuarioslist = usuarios;
+    });
+    this.pdfreportService.vacacionespdf(vacacionesSeleccionados, this.usuarioslist);
   }
 
   ngAfterViewInit() {
@@ -44,35 +74,31 @@ export class VacationlistComponent implements AfterViewInit {
     }
   }
 
-  getStockQty(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.stockQty)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
-  getSoldQty(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.amount)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
   }
-  getAmount(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.amount)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: VacacionesModel): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.id + 1
+    }`;
   }
 
   //sidebar menu activation start
@@ -86,5 +112,26 @@ export class VacationlistComponent implements AfterViewInit {
   }
   //sidebar menu activation end
 
-  ngOnInit(): void {}
+  // Función para obtener el nombre del sucursal por ID
+  getUserName(id: number): string {
+    if (!this.usuarios.length) {
+      return 'Cargando...'; // Si los sucursal aún no se han cargado
+    }
+    const usuario = this.usuarios.find((r) => r.id === id);
+    return usuario ? usuario.nombre+" "+usuario.primerApellido+" "+usuario.segundoApellido : 'Sin Usuario';  // Devuelve el nombre del sucursal o "Sin sucursal" si no se encuentra
+  }
+
+  ngOnInit(): void {
+    // Despacha la acción para obtener los usuarios
+    this.store.dispatch([new GetEmpleado(), new GetVacacion()]);
+
+    // Suscríbete al observable para actualizar el dataSource
+    this.vacaciones$.subscribe((vacaciones) => {
+      this.dataSource.data = vacaciones; // Asigna los datos al dataSource
+    });
+
+    this.usuarios$.subscribe((usuarios) => {
+      this.usuarios = usuarios;
+    });
+  }
 }

@@ -3,6 +3,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SalesInterfaceData, salesReport } from '../../data/salesReport';
+import { BonosModel } from '../../models/bonos.model';
+import { Observable } from 'rxjs';
+import { SelectionModel } from '@angular/cdk/collections';
+import { PdfreportService } from '../../services/reportes/pdfreport.service';
+import { Store } from '@ngxs/store';
+import { BonosState } from '../../state-management/bono/bono.state';
+import { GetBono } from '../../state-management/bono/bono.action';
 
 @Component({
   selector: 'app-bonuslist',
@@ -11,22 +18,28 @@ import { SalesInterfaceData, salesReport } from '../../data/salesReport';
   encapsulation: ViewEncapsulation.None
 })
 export class BonuslistComponent implements AfterViewInit {
+  bonos$: Observable<BonosModel[]>;
+
   displayedColumns: string[] = [
-    'empleado',
-    'razon',
-    'monto',
-    'fecha',
+    'select', 'nombre', 'monto',
+    'action',
   ];
-  dataSource: MatTableDataSource<SalesInterfaceData>;
+  dataSource: MatTableDataSource<BonosModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
+  selection = new SelectionModel<BonosModel>(true, []);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor() {
+  constructor(private store: Store, public pdfreportService: PdfreportService) {
     // Assign your data array to the data source
-    this.dataSource = new MatTableDataSource(salesReport);
+    this.bonos$ = this.store.select(BonosState.getBonos);
+  }
+
+  generarPDF() {
+    const bonosSeleccionados = this.selection.selected;
+    this.pdfreportService.bonospdf(bonosSeleccionados);
   }
 
   ngAfterViewInit() {
@@ -43,35 +56,31 @@ export class BonuslistComponent implements AfterViewInit {
     }
   }
 
-  getStockQty(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.stockQty)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
-  getSoldQty(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.amount)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
   }
-  getAmount(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.amount)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: BonosModel): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.id + 1
+    }`;
   }
 
   //sidebar menu activation start
@@ -83,7 +92,14 @@ export class BonuslistComponent implements AfterViewInit {
       this.menuSidebarActive = false;
     }
   }
-  //sidebar menu activation end
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Despacha la acción para obtener los usuarios
+    this.store.dispatch([new GetBono()]);
+
+    // Suscríbete al observable para actualizar el dataSource
+    this.bonos$.subscribe((bonos) => {
+      this.dataSource.data = bonos; // Asigna los datos al dataSource
+    });
+  }
 }

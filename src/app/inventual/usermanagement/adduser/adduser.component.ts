@@ -29,12 +29,14 @@ export class AdduserComponent implements OnInit {
     correo: '',
     password: '',
     fechaIngreso: new Date(),
-    estado: false,
+    estado: true,
     direccion: '',
-    edad: '',
+    edad: new Date(),
     telefono: '',
-    rolesId: 0,
-    sucursalId: 0
+    //hasta tener el endpoint de roles
+    rolesId: 1,
+    sucursalId: 0,
+    id: 0
   };
 
   //sidebar menu activation start
@@ -49,8 +51,23 @@ export class AdduserComponent implements OnInit {
   }
 
   agregarUsuario() {
-    console.log(this.user);
     this.store.dispatch(new AddEmpleado(this.user));
+    this.user = {
+      nombre: '',
+      primerApellido: '',
+      segundoApellido: '',
+      correo: '',
+      password: '',
+      fechaIngreso: new Date(),
+      estado: true,
+      direccion: '',
+      edad: new Date(),
+      telefono: '',
+      //hasta tener el endpoint de roles
+      rolesId: 1,
+      sucursalId: 0,
+      id: 0
+    };
   }
 
   //sidebar menu activation end

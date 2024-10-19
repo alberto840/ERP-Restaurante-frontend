@@ -28,7 +28,7 @@ export class RolesState {
   getRoles({ patchState }: StateContext<RolesStateModel>) {
     return this.rolService.getAllRoles().pipe(
       tap((response) => {
-        patchState({ roles: response.data });
+        patchState({ roles: response });
       })
     );
   }
@@ -39,7 +39,7 @@ export class RolesState {
       tap((response) => {
         const state = getState();
         patchState({
-          roles: [...state.roles, response.data],
+          roles: [...state.roles, response],
         });
       })
     );

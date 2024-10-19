@@ -4,19 +4,21 @@
             <img src="../../../../assets/img/logo/login-logo.png" alt="logo not found">
         </div>
         <div class="inventual-select-field mb-5">
+            Usuario
             <div class="inventual-input-field-style">
               <mat-form-field class="w-full" [floatLabel]="'always'">
                 <mat-label class="hidden">Joseph Tylor</mat-label>
-                <input matInput [placeholder]="'Username'" value="Admin">
+                <input matInput [placeholder]="'Correo electronico'" type="text" class="form-control" id="correo" [(ngModel)]="loginUser.correo" name="correo">
               </mat-form-field>
               <caption><mat-icon>person_outline</mat-icon></caption>
             </div>
         </div>
         <div class="inventual-select-field mb-5">
             <div class="inventual-input-field-style inventual-input-field-style-eye">
+                Contraseña
                 <mat-form-field appearance="fill">
-                    <mat-label class="hidden">Enter your password</mat-label>
-                    <input matInput [placeholder]="'Password'" [type]="hide ? 'password' : 'text'" value="123456">
+                    <mat-label class="hidden">Ingrese su Contraseña</mat-label>
+                    <input matInput [placeholder]="'Contraseña'" [type]="hide ? 'password' : 'text'" class="form-control" id="password" [(ngModel)]="loginUser.password" name="password">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -25,11 +27,11 @@
             </div>
         </div>
         <div class="inventual-login-footer-forgot mb-5">
-            <a [routerLink]="['/forgotpassword']" class="text-[16px] inline-block text-primary">Forgot Password?</a>
+            <!-- <a [routerLink]="['/forgotpassword']" class="text-[16px] inline-block text-primary">Forgot Password?</a> -->            
         </div>
         <div class="inventual-login-btn mb-7">
             <div class="inventual-material-btn">
-                <button [routerLink]="['/dashboard']" type="submit" mat-raised-button color="primary">Log in</button>
+                <button type="submit" mat-raised-button color="primary" (click)="iniciarSesion()">Iniciar Sesión</button>
             </div>
         </div>
         <div class="inventual-login-footer">

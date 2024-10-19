@@ -32,15 +32,15 @@
       <div class="inventual-content-area px-7">
         <div class="inventual-addsupplier-area bg-white p-7 custom-shadow rounded-8 mb-5">
           <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
-            <div class="col-span-12 md:col-span-6 sm:col-span-12">
+            <div class="col-span-4 md:col-span-6 sm:col-span-12">
               <div class="inventual-select-field mb-5">
                 <h5 class="text-[15px] text-heading font-semibold mb-3">Empleado</h5>
                 <div class="inventual-select-field-style">
                   <mat-form-field>
-                    <mat-select class="block" [placeholder]="'Selecciona Empleado'">
-                      <mat-option value="language-1">Juan Lopez</mat-option>
-                      <mat-option value="language-2">Alberto Flores</mat-option>
-                      <mat-option value="language-2">Ignacio Carvajal</mat-option>
+                    <mat-select class="block" [placeholder]="'Selecionar Empleado'" class="form-control" id="usuariosId" name="usuariosId">
+                      <mat-option *ngFor="let usuario of users$ | async" [value]="usuario.id">
+                        {{ usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido }}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -48,15 +48,12 @@
             </div>
             <div class="col-span-4 md:col-span-6 sm:col-span-12">
               <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Tipo de descuento</h5>
-                <div class="inventual-select-field-style">
-                  <mat-form-field>
-                    <mat-select class="block" [placeholder]="'Selecciona Descuento'">
-                      <mat-option value="language-1">Tipo1</mat-option>
-                      <mat-option value="language-2">Tipo2</mat-option>
-                      <mat-option value="language-2" style="background-color: #bfd2f7; color: white;" (click)="accesoDialogsService.crearNuevoTipoDialog()">Agregar Nuevo</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Tipo Descuento</h5>
+                <div class="inventual-input-field-style">
+                    <mat-form-field class="w-full" [floatLabel]="'always'">
+                      <mat-label class="hidden">Llego tarde</mat-label>
+                      <input matInput [placeholder]="'Llego tarde'" class="form-control" id="tipoDescuento" [(ngModel)]="descuento.tipoDescuento" name="tipoDescuento">
+                    </mat-form-field>
                 </div>
               </div>
             </div>
@@ -66,7 +63,7 @@
                 <div class="inventual-input-field-style">
                     <mat-form-field class="w-full" [floatLabel]="'always'">
                       <mat-label class="hidden">Cumplio 1 año</mat-label>
-                      <input matInput [placeholder]="'9999'">
+                      <input matInput [placeholder]="'9999'" class="form-control" id="monto" [(ngModel)]="descuento.monto" name="monto">
                     </mat-form-field>
                 </div>
               </div>
@@ -77,7 +74,7 @@
                 <div class="inventual-input-field-style">
                     <mat-form-field class="w-full" [floatLabel]="'always'">
                       <mat-label class="hidden">Llego tarde</mat-label>
-                      <input matInput [placeholder]="'Llego tarde'">
+                      <input matInput [placeholder]="'Llego tarde'" class="form-control" id="justificacion" [(ngModel)]="descuento.justificacion" name="justificacion">
                     </mat-form-field>
                 </div>
               </div>
@@ -88,7 +85,7 @@
                 <div class="inventual-input-field-style">
                   <mat-form-field class="w-full" [floatLabel]="'always'">
                     <mat-label class="hidden">Elige tu fecha</mat-label>
-                    <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'">
+                    <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fecha" [(ngModel)]="descuento.fecha" name="fecha">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -98,7 +95,7 @@
             </div>
             <div class="col-span-12">
               <div class="inventual-material-btn pt-2.5 justify-end">         
-                <button mat-raised-button color="primary">Registrar Descuento</button>     
+                <button mat-raised-button color="primary" (click)="agregarDescuento()">Registrar Descuento</button>     
               </div>
             </div>
           </div>

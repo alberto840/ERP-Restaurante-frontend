@@ -28,7 +28,7 @@ export class SucursalState {
   getSucursales({ patchState }: StateContext<SucursalStateModel>) {
     return this.sucursalService.getAllSucursales().pipe(
       tap((response) => {
-        patchState({ sucursales: response.data });
+        patchState({ sucursales: response });
       })
     );
   }
@@ -39,7 +39,7 @@ export class SucursalState {
       tap((response) => {
         const state = getState();
         patchState({
-          sucursales: [...state.sucursales, response.data],
+          sucursales: [...state.sucursales, response],
         });
       })
     );

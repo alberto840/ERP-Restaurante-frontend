@@ -30,7 +30,7 @@ export class DiscountsState {
   getDiscounts({ patchState }: StateContext<DiscountsStateModel>) {
     return this.discountService.getAllDescuentos().pipe(
       tap((response) => {
-        patchState({ discounts: response.data });
+        patchState({ discounts: response });
       })
     );
   }

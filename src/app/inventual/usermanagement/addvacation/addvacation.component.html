@@ -32,15 +32,15 @@
     <div class="inventual-content-area px-7">
       <div class="inventual-addsupplier-area bg-white p-7 custom-shadow rounded-8 mb-5">
         <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
-          <div class="col-span-12 md:col-span-6 sm:col-span-12">
+          <div class="col-span-4 md:col-span-6 sm:col-span-12">
             <div class="inventual-select-field mb-5">
               <h5 class="text-[15px] text-heading font-semibold mb-3">Empleado</h5>
               <div class="inventual-select-field-style">
                 <mat-form-field>
-                  <mat-select class="block" [placeholder]="'Select Gender'">
-                    <mat-option value="language-1">Juan Lopez</mat-option>
-                    <mat-option value="language-2">Alberto Flores</mat-option>
-                    <mat-option value="language-2">Ignacio Carvajal</mat-option>
+                  <mat-select class="block" [placeholder]="'Selecionar Empleado'" class="form-control" id="usuariosId" [(ngModel)]="vacacion.usuariosId" name="usuariosId">
+                    <mat-option *ngFor="let usuario of users$ | async" [value]="usuario.id">
+                      {{ usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido }}
+                    </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -52,7 +52,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Elige tu fecha</mat-label>
-                  <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'">
+                  <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechaInicio" [(ngModel)]="vacacion.fechaInicio" name="fechaInicio">
                   <mat-hint>MM/DD/YYYY</mat-hint>
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
@@ -66,10 +66,10 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Elige tu fecha</mat-label>
-                  <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'">
+                  <input matInput [matDatepicker]="picker2" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechaFin" [(ngModel)]="vacacion.fechaFin" name="fechaFin">
                   <mat-hint>MM/DD/YYYY</mat-hint>
-                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field> 
               </div>
             </div>
@@ -80,14 +80,27 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Cumplio 1 año</mat-label>
-                  <input matInput [placeholder]="'Cumplio 1 año'">
+                  <input matInput [placeholder]="'Cumplio 1 año'" class="form-control" id="motivo" name="motivo">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-6 sm:col-span-12">
+            <div class="inventual-select-field mb-5">
+              <h5 class="text-[15px] text-heading font-semibold mb-3">Aprobacion</h5>
+              <div class="inventual-select-field-style">
+                <mat-form-field>
+                  <mat-select class="block" [placeholder]="'Select Gender'" class="form-control" id="aprobacion" [(ngModel)]="vacacion.aprobacion" name="aprobacion">
+                    <mat-option [value]="true">Aprobado</mat-option>
+                    <mat-option [value]="false">Rechazado</mat-option>
+                  </mat-select>
                 </mat-form-field>
               </div>
             </div>
           </div>
           <div class="col-span-12">
             <div class="inventual-material-btn pt-2.5 justify-end">         
-              <button mat-raised-button color="primary">Registrar Vacacion</button>     
+              <button mat-raised-button color="primary" (click)="agregarVacacion()">Registrar Vacacion</button>     
             </div>
           </div>
         </div>

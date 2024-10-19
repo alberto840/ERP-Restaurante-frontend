@@ -1,8 +1,5 @@
-export interface EmpleadoModel {
-  id: any;
-}
-
 export interface UsuarioModel {
+  id: number;
   nombre: string;
   primerApellido: string;
   segundoApellido: string;
@@ -11,7 +8,7 @@ export interface UsuarioModel {
   fechaIngreso: Date;
   estado: boolean;
   direccion: string;
-  edad: string; // Puedes cambiarlo a Date si prefieres trabajar con objetos Date
+  edad: Date;
   telefono: string;
   rolesId: number;
   sucursalId: number;
