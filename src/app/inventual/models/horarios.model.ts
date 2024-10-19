@@ -1,12 +1,14 @@
 export interface TurnoModel {
+    id: number;
     nombre: string;
     descripcion: string;
-    horaInicio: string; // También podría ser de tipo Date si prefieres manejar fechas.
-    horaFin: string;    // Igual que horaInicio, podría ser Date si es necesario.
+    horaInicio: Date; // También podría ser de tipo Date si prefieres manejar fechas.
+    horaFin: Date;    // Igual que horaInicio, podría ser Date si es necesario.
     dia: string;
   }
   
   export interface HorarioModel {
+    id: number;
     diaSemana: string;
     usuariosId: number;
     turnoId: number;

@@ -21,11 +21,11 @@
         </div>
         <div class="inventual-breadcrumb-area px-7 py-9 bg-white mb-5">
             <div class="inventual-breadcrumb-area-inner px-0.5">
-                <h5 class="text-[20px] text-heading font-bold mb-3">Crear Sucursal</h5>
+                <h5 class="text-[20px] text-heading font-bold mb-3">Registrar Contrato</h5>
                 <div class="inventual-breadcrumb-area-inner-wrap">
                     <span class="text-[14px] text-body font-normal inline-block me-2">Gestion Empresa</span>
                     <span class="text-[14px] text-body font-normal inline-block me-2">></span>
-                    <span class="text-[14px] text-body font-normal inline-block me-2">Crear Sucursal</span>
+                    <span class="text-[14px] text-body font-normal inline-block me-2">Registrar Contrato</span>
                 </div>
             </div>
         </div>
@@ -34,29 +34,74 @@
                 <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
                     <div class="col-span-4 md:col-span-12 sm:col-span-12">
                         <div class="inventual-unit-content">
-                            <div class="inventual-select-field mb-7">
-                                <h5 class="text-[15px] text-heading font-semibold mb-3">Nombre Sucursal</h5>
-                                <div class="inventual-input-field-style">
-                                    <mat-form-field class="w-full" [floatLabel]="'always'">
-                                        <mat-label class="hidden">Kilogram</mat-label>
-                                        <input matInput [placeholder]="'Ej. La Paz'" type="text" class="form-control" id="nombre" [(ngModel)]="sucursal.nombre" name="nombre">
-                                    </mat-form-field>
-                                </div>
+                            <div class="inventual-select-field mb-5">
+                              <h5 class="text-[15px] text-heading font-semibold mb-3">Empleado</h5>
+                              <div class="inventual-select-field-style">
+                                <mat-form-field>
+                                  <mat-select class="block" [placeholder]="'Selecionar Rol'" class="form-control" id="usuariosId" [(ngModel)]="contrato.usuariosId" name="usuariosId">
+                                    <mat-option *ngFor="let usuario of usuarios$ | async" [value]="usuario.id">
+                                      {{ usuario.nombre }}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="inventual-unit-content">
+                            <div class="inventual-select-field mb-5">
+                              <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha Inicial</h5>
+                              <div class="inventual-input-field-style">
+                                <mat-form-field class="w-full" [floatLabel]="'always'">
+                                  <mat-label class="hidden">Elige tu fecha</mat-label>
+                                  <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechaInicio" [(ngModel)]="contrato.fechaInicio" name="fechaInicio">
+                                  <mat-hint>MM/DD/YYYY</mat-hint>
+                                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field> 
+                              </div>
+                            </div>
+                        </div>
+                        <div class="inventual-unit-content">
+                            <div class="inventual-select-field mb-5">
+                              <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha Conclusion</h5>
+                              <div class="inventual-input-field-style">
+                                <mat-form-field class="w-full" [floatLabel]="'always'">
+                                  <mat-label class="hidden">Elige tu fecha</mat-label>
+                                  <input matInput [matDatepicker]="picker2" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechaConclusion" [(ngModel)]="contrato.fechaConclusion" name="fechaConclusion">
+                                  <mat-hint>MM/DD/YYYY</mat-hint>
+                                  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field> 
+                              </div>
+                            </div>
+                        </div>
+                        <div class="inventual-unit-content">
+                            <div class="inventual-select-field mb-5">
+                              <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha de Contrato</h5>
+                              <div class="inventual-input-field-style">
+                                <mat-form-field class="w-full" [floatLabel]="'always'">
+                                  <mat-label class="hidden">Elige tu fecha</mat-label>
+                                  <input matInput [matDatepicker]="picker3" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechaContrato" [(ngModel)]="contrato.fechaContrato" name="fechaContrato">
+                                  <mat-hint>MM/DD/YYYY</mat-hint>
+                                  <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker3></mat-datepicker>
+                                </mat-form-field> 
+                              </div>
                             </div>
                         </div>
                         <div class="inventual-unit-content">
                             <div class="inventual-select-field mb-7">
-                                <h5 class="text-[15px] text-heading font-semibold mb-3">Direccion</h5>
+                                <h5 class="text-[15px] text-heading font-semibold mb-3">Identificador</h5>
                                 <div class="inventual-input-field-style">
                                     <mat-form-field class="w-full" [floatLabel]="'always'">
                                         <mat-label class="hidden">Kilogram</mat-label>
-                                        <input matInput [placeholder]="'Ej. Prado, Calle colombia, #300'" type="text" class="form-control" id="nombre" [(ngModel)]="sucursal.direccion" name="nombre">
+                                        <input matInput [placeholder]="'Ej. 11111'" type="text" class="form-control" id="identificador" [(ngModel)]="contrato.identificador" name="identificador">
                                     </mat-form-field>
                                 </div>
                             </div>
                         </div>
                         <div class="inventual-material-btn mb-7">
-                            <button mat-raised-button color="primary" class="mb-1" (click)="agregarSucursal()">
+                            <button mat-raised-button color="primary" class="mb-1" (click)="agregarContrato()">
                                 Crear Sucursal
                             </button>
                         </div>
@@ -84,15 +129,30 @@
 
                                 <ng-container matColumnDef="nombre">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Sucursal </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+                                    <td mat-cell *matCellDef="let row"> {{row.usuariosId}} </td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="direccion">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Direccion </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.direccion}}</td>
+                                <ng-container matColumnDef="inicio">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Inicial </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.fechaInicio}} </td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="accion">
+                                <ng-container matColumnDef="final">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Final </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.fechaConclusion}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="fechaContrato">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Del Contrato </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.fechaContrato}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="identificador">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Identificador </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.identificador}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="acciones">
                                     <th mat-header-cell *matHeaderCellDef> Accion </th>
                                     <td mat-cell *matCellDef="let row">
                                         <div class="table-action-menu-wrap">
@@ -109,7 +169,7 @@
                                                     <span>Editar Rol</span>
                                                 </button>                                                
                                                 -->
-                                                <button mat-menu-item (click)="eliminarSucursal(row.id)">
+                                                <button mat-menu-item (click)="eliminarContrato(row.id)">
                                                     <img src="../../../../../assets/img/icon/action-6.png"
                                                         alt="icon not found">
                                                     <span>Eliminar Rol</span>

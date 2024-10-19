@@ -12,6 +12,11 @@ export const navbarData: INavbarData[] = [
     label: 'Sucursales',
   },
   {
+    routeLink: '/empleados/contratos',
+    icon: 'fal fa-file-invoice-dollar',
+    label: 'Contratos',
+  },
+  {
     routeLink: 'empleados',
     icon: 'fal fa-user',
     label: 'Gestion Empleados',

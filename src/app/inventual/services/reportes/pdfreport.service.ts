@@ -8,6 +8,7 @@ import { SucursalModel } from '../../models/sucursal.model';
 import { VacacionesModel } from '../../models/vacaciones.model';
 import { DescuentosModel } from '../../models/descuentos.model';
 import { BonosModel } from '../../models/bonos.model';
+import { ContratoModel } from '../../models/contrato.model';
 
 
 @Injectable({
@@ -161,5 +162,31 @@ export class PdfreportService {
     });
 
     doc.save('informe-roles.pdf');
+  }
+  contratopdf(contratopdf: ContratoModel[], userlist: UsuarioModel[]) {
+    const doc = new jsPDF('l', 'mm', [297, 210]);
+    doc.text('Informe de Contratos generado: ' + new Date().toLocaleString(), 10, 10);
+    const fecha = new Date().toLocaleString();
+    // doc.text('/n Fecha de generacion: ' + fecha, 10, 10);
+
+    const columns = ['ID', 'Empleado', 'Fecha Inicio', 'Fecha Conclusion', 'Fecha Contrato', 'Identificador'];
+    const data = contratopdf.map((contrato) => {
+      const contratoUser = userlist.find(usuario => usuario.id === contrato.usuariosId);
+      return [
+        contrato.id,
+        contrato.fechaInicio.toString(),
+        contrato.fechaConclusion.toString(),
+        contrato.fechaContrato.toString(),
+        contrato.identificador,
+        contratoUser ? contratoUser.nombre : 'Sin Usuario',
+      ];
+    });
+
+    autoTable(doc, {
+      head: [columns],
+      body: data,
+    });
+
+    doc.save('informe-contratos.pdf');
   }
 }

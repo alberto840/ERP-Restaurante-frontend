@@ -161,6 +161,10 @@ import { VacacionesState } from './state-management/vacacion/vacacion.state';
 import { DiscountsState } from './state-management/descuentos/descuento.state';
 import { BonosState } from './state-management/bono/bono.state';
 import { RolesState } from './state-management/rol/rol.state';
+import { ContratoComponent } from './usermanagement/contrato/contrato.component';
+import { ContratoState } from './state-management/contrato/contrato.state';
+import { HorarioState } from './state-management/horario/horario.state';
+import { TurnoState } from './state-management/turno/turno.state';
 
 @NgModule({
   imports: [
@@ -195,7 +199,7 @@ import { RolesState } from './state-management/rol/rol.state';
     HttpClientModule,
     MatTableModule,
     DragDropModule,    
-    NgxsModule.forRoot([EmpleadosState, SucursalState, VacacionesState, DiscountsState, BonosState, RolesState]),
+    NgxsModule.forRoot([EmpleadosState, SucursalState, VacacionesState, DiscountsState, BonosState, RolesState, ContratoState, HorarioState, TurnoState]),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot() 
   ],
@@ -323,6 +327,7 @@ import { RolesState } from './state-management/rol/rol.state';
     AttendancelistComponent,
     SchedulelistComponent,
     GestionSucursalComponent,
+    ContratoComponent,
   ],
 })
 export class InventualModule {}
