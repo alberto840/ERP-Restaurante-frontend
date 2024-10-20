@@ -50,53 +50,54 @@
                                 <div class="inventual-input-field-style">
                                     <mat-form-field class="w-full" [floatLabel]="'always'">
                                         <mat-label class="hidden">Kilogram</mat-label>
-                                        <input matInput [placeholder]="'Ej. Administrador'" type="text" class="form-control" id="descripcion" [(ngModel)]="turno.descripcion" name="descripcion">
+                                        <input matInput [placeholder]="'Ej. Horario medio tiempo tarde'" type="text" class="form-control" id="descripcion" [(ngModel)]="turno.descripcion" name="descripcion">
                                     </mat-form-field>
                                 </div>
                             </div>
                         </div>
-                        <div class="inventual-unit-content">
-                            <div class="inventual-select-field mb-7">
-                                <h5 class="text-[15px] text-heading font-semibold mb-3">Dia</h5>
-                                <div class="inventual-input-field-style">
-                                    <mat-form-field class="w-full" [floatLabel]="'always'">
-                                        <mat-label class="hidden">Kilogram</mat-label>
-                                        <input matInput [placeholder]="'Ej. Administrador'" type="text" class="form-control" id="dia" [(ngModel)]="turno.dia" name="dia">
-                                    </mat-form-field>
-                                </div>
+                        <div class="col-span-4 md:col-span-6 sm:col-span-12">
+                          <div class="inventual-select-field mb-5">
+                            <h5 class="text-[15px] text-heading font-semibold mb-3">Dia</h5>
+                            <div class="inventual-select-field-style">
+                              <mat-form-field>
+                                <mat-select class="block" [placeholder]="'Selecciona Dia'" class="form-control" id="dia" [(ngModel)]="turno.dia" name="dia">
+                                  <mat-option value="Lunes">Lunes</mat-option>
+                                    <mat-option value="Martes">Martes</mat-option>
+                                    <mat-option value="Miercoles">Miercoles</mat-option>
+                                    <mat-option value="Jueves">Jueves</mat-option>
+                                    <mat-option value="Viernes">Viernes</mat-option>
+                                    <mat-option value="Sabado">Sabado</mat-option>
+                                    <mat-option value="Domingo">Domingo</mat-option>
+                                </mat-select>
+                              </mat-form-field>
                             </div>
+                          </div>
                         </div>
                         <div class="inventual-unit-content">
                             <div class="inventual-select-field mb-5">
-                              <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha Inicial</h5>
-                              <div class="inventual-input-field-style">
-                                <mat-form-field class="w-full" [floatLabel]="'always'">
-                                  <mat-label class="hidden">Elige tu fecha</mat-label>
-                                  <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="horaInicio" [(ngModel)]="turno.horaInicio" name="horaInicio">
-                                  <mat-hint>MM/DD/YYYY</mat-hint>
-                                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                  <mat-datepicker #picker></mat-datepicker>
-                                </mat-form-field> 
+                              <h5 class="text-[15px] text-heading font-semibold mb-3">Hora Inicial</h5>
+                              <div class="inventual-input-field-style">        
+                                <input placeholder="Ingrese Hora de Ingreso" aria-label="Ingrese Hora de Ingreso"
+                                    [ngxTimepicker]="appendedToInput" [format]="24" readonly class="form-control" id="horaInicio" [(ngModel)]="turno.horaInicio" name="horaInicio">
+                                <ngx-material-timepicker #appendedToInput
+                                    [appendToInput]="true"></ngx-material-timepicker>
                               </div>
                             </div>
                         </div>
                         <div class="inventual-unit-content">
                             <div class="inventual-select-field mb-5">
-                              <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha Final</h5>
+                              <h5 class="text-[15px] text-heading font-semibold mb-3">Hora Final</h5>
                               <div class="inventual-input-field-style">
-                                <mat-form-field class="w-full" [floatLabel]="'always'">
-                                  <mat-label class="hidden">Elige tu fecha</mat-label>
-                                  <input matInput [matDatepicker]="picker2" [placeholder]="'MM/DD/YYYY'" class="form-control" id="horaFin" [(ngModel)]="turno.horaFin" name="horaFin">
-                                  <mat-hint>MM/DD/YYYY</mat-hint>
-                                  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-                                  <mat-datepicker #picker2></mat-datepicker>
-                                </mat-form-field> 
+                                <input placeholder="Ingrese Hora de Salida" aria-label="Ingrese Hora de Salida"
+                                    [ngxTimepicker]="appendedToInput2" [format]="24" readonly class="form-control" id="horaFin" [(ngModel)]="turno.horaFin" name="horaFin">
+                                <ngx-material-timepicker #appendedToInput2
+                                    [appendToInput]="true"></ngx-material-timepicker>
                               </div>
                             </div>
                         </div>
                         <div class="inventual-material-btn mb-7">
                             <button mat-raised-button color="primary" class="mb-1" (click)="agregarTurno()">
-                                Crear Rol
+                                Crear Turno
                             </button>
                         </div>
                     </div>
@@ -121,9 +122,29 @@
                                     </td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="rol">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Rol </th>
+                                <ng-container matColumnDef="nombre">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Turno </th>
                                     <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="descripcion">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="horaInicio">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Inicio </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.horaInicio | date:'HH:mm'}}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="horaFin">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Fin </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.horaFin | date:'HH:mm'}}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="dia">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Dia </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.dia}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="action">

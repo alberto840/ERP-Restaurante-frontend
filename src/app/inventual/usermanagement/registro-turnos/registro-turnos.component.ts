@@ -9,6 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TurnoState } from '../../state-management/turno/turno.state';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-registro-turnos',
@@ -27,6 +28,18 @@ export class RegistroTurnosComponent {
   };
   
   agregarTurno() {
+    const horaInicio = this.turno.horaInicio;
+    const horaFin = this.turno.horaFin;
+    
+    // Crear las horas y restar las 4 horas adicionales
+    let inicio = new Date('2024-10-01T' + horaInicio + ':00');
+    inicio.setHours(inicio.getHours() - 4);
+
+    let fin = new Date('2024-10-01T' + horaFin + ':00');
+    fin.setHours(fin.getHours() - 4);
+
+    this.turno.horaInicio = inicio;
+    this.turno.horaFin = fin;
     this.store.dispatch(new AddTurno(this.turno));
     this.turno = {
       id: 0,

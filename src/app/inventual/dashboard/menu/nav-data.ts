@@ -90,7 +90,15 @@ export const navbarData: INavbarData[] = [
     label: 'Horarios',
     items: [
       {
+        routeLink: '/horarios/turnos',
+        label: 'Gestion Turnos',
+      },
+      {
         routeLink: '/horarios',
+        label: 'Asignar Horario',
+      },
+      {
+        routeLink: '/horarios/lista',
         label: 'Lista Horarios',
       },
     ],

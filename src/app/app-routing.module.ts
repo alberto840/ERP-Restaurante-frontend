@@ -73,6 +73,8 @@ import { AttendancelistComponent } from './inventual/usermanagement/attendanceli
 import { SchedulelistComponent } from './inventual/usermanagement/schedulelist/schedulelist.component';
 import { GestionSucursalComponent } from './inventual/usermanagement/gestion-sucursal/gestion-sucursal.component';
 import { ContratoComponent } from './inventual/usermanagement/contrato/contrato.component';
+import { RegistroTurnosComponent } from './inventual/usermanagement/registro-turnos/registro-turnos.component';
+import { RegistroHorarioComponent } from './inventual/usermanagement/registro-horario/registro-horario.component';
 
 
 const routes: Routes = [ 
@@ -207,6 +209,14 @@ const routes: Routes = [
   },
   //User management agregado (vista)
   {
+    path: 'horarios',
+    component: RegistroHorarioComponent
+  },
+  {
+    path: 'horarios/turnos',
+    component: RegistroTurnosComponent
+  },
+  {
     path: 'empleados/contratos',
     component: ContratoComponent
   },
@@ -263,7 +273,7 @@ const routes: Routes = [
     component: VacationlistComponent
   },
   {
-    path: 'horarios',
+    path: 'horarios/lista',
     component: SchedulelistComponent
   },
   {

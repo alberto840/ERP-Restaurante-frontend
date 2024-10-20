@@ -42,7 +42,7 @@ export class TurnoService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<ResponseModel<TurnoModel>>(`${this.baseUrl}/eliminar/${turnoId}`, { headers });
+    return this.http.delete<ResponseModel<TurnoModel>>(`${this.baseUrl}/${turnoId}`, { headers });
   }
   
 }

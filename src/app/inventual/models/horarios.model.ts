@@ -9,7 +9,7 @@ export interface TurnoModel {
   
   export interface HorarioModel {
     id: number;
-    diaSemana: string;
+    diaSemana: Date;
     usuariosId: number;
     turnoId: number;
   }

@@ -166,9 +166,12 @@ import { ContratoState } from './state-management/contrato/contrato.state';
 import { HorarioState } from './state-management/horario/horario.state';
 import { TurnoState } from './state-management/turno/turno.state';
 import { RegistroTurnosComponent } from './usermanagement/registro-turnos/registro-turnos.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { RegistroHorarioComponent } from './usermanagement/registro-horario/registro-horario.component';
 
 @NgModule({
   imports: [
+    NgxMaterialTimepickerModule,
     CommonModule,
     RouterModule,
     MatCheckboxModule,
@@ -330,6 +333,7 @@ import { RegistroTurnosComponent } from './usermanagement/registro-turnos/regist
     GestionSucursalComponent,
     ContratoComponent,
     RegistroTurnosComponent,
+    RegistroHorarioComponent,
   ],
 })
 export class InventualModule {}
