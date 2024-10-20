@@ -21,16 +21,17 @@
     </div>
     <div class="inventual-breadcrumb-area px-7 py-9 bg-white mb-5">
       <div class="inventual-breadcrumb-area-inner px-0.5">
-        <h5 class="text-[20px] text-heading font-bold mb-3">Agregar usuario</h5>
+        <h5 class="text-[20px] text-heading font-bold mb-3">Agregar Empleado</h5>
         <div class="inventual-breadcrumb-area-inner-wrap">
-          <span class="text-[14px] text-body font-normal inline-block me-2">Gestion de usuarios</span>
+          <span class="text-[14px] text-body font-normal inline-block me-2">Gestion de Empleado</span>
           <span class="text-[14px] text-body font-normal inline-block me-2">></span>
-          <span class="text-[14px] text-body font-normal inline-block me-2">Agregar usuario</span>
+          <span class="text-[14px] text-body font-normal inline-block me-2">Agregar Empleado</span>
         </div>
       </div>
     </div>
     <div class="inventual-content-area px-7">
       <div class="inventual-addsupplier-area bg-white p-7 custom-shadow rounded-8 mb-5">
+        <!--
         <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
           <section class="example-section">
               Usuario
@@ -41,6 +42,7 @@
             </mat-slide-toggle>
           </section>
         </div>
+        -->
         <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
           <div class="col-span-4 md:col-span-6 sm:col-span-12">
             <div class="inventual-select-field mb-5">
@@ -183,7 +185,7 @@
           <div class="col-span-12">
             <div class="inventual-material-btn pt-2.5 justify-end">              
               <ng-template [ngIf]="!checked">                
-                <button mat-raised-button color="primary" (click)="agregarUsuario()">Registrar Usuario</button>
+                <button mat-raised-button color="primary" (click)="agregarUsuario()">Registrar Empleado</button>
               </ng-template>
               <ng-template [ngIf]="checked">                
                 <button mat-raised-button color="primary">Registrar Empleado</button>

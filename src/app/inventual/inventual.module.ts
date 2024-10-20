@@ -165,6 +165,7 @@ import { ContratoComponent } from './usermanagement/contrato/contrato.component'
 import { ContratoState } from './state-management/contrato/contrato.state';
 import { HorarioState } from './state-management/horario/horario.state';
 import { TurnoState } from './state-management/turno/turno.state';
+import { RegistroTurnosComponent } from './usermanagement/registro-turnos/registro-turnos.component';
 
 @NgModule({
   imports: [
@@ -328,6 +329,7 @@ import { TurnoState } from './state-management/turno/turno.state';
     SchedulelistComponent,
     GestionSucursalComponent,
     ContratoComponent,
+    RegistroTurnosComponent,
   ],
 })
 export class InventualModule {}

@@ -12,18 +12,18 @@ export const navbarData: INavbarData[] = [
     label: 'Sucursales',
   },
   {
-    routeLink: '/empleados/contratos',
-    icon: 'fal fa-file-invoice-dollar',
-    label: 'Contratos',
-  },
-  {
     routeLink: 'empleados',
     icon: 'fal fa-user',
     label: 'Gestion Empleados',
     items: [
       {
         routeLink: '/empleados/registro',
-        label: 'Registrar Usuario / Empleado',
+        label: 'Registrar Empleado',
+      },
+      {
+        routeLink: '/empleados/contratos',
+        icon: 'fal fa-file-invoice-dollar',
+        label: 'Contratos',
       },
       {
         routeLink: '/empleados/lista',
@@ -31,11 +31,11 @@ export const navbarData: INavbarData[] = [
       },
       {
         routeLink: '/empleados/actividades',
-        label: 'Lista de Actividades',
+        label: 'Lista de Actividades x',
       },
       {
         routeLink: '/empleados/asistencia',
-        label: 'Control de Asistencia',
+        label: 'Control de Asistencia x',
       },
     ],
   },
@@ -106,7 +106,7 @@ export const navbarData: INavbarData[] = [
       },
       {
         routeLink: '/rolepermission',
-        label: 'Permisos de Rol',
+        label: 'Permisos de Rol x',
       },
     ],
   },

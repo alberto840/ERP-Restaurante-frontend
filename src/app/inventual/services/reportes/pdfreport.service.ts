@@ -9,6 +9,7 @@ import { VacacionesModel } from '../../models/vacaciones.model';
 import { DescuentosModel } from '../../models/descuentos.model';
 import { BonosModel } from '../../models/bonos.model';
 import { ContratoModel } from '../../models/contrato.model';
+import { TurnoModel } from '../../models/horarios.model';
 
 
 @Injectable({
@@ -188,5 +189,31 @@ export class PdfreportService {
     });
 
     doc.save('informe-contratos.pdf');
+  }
+
+  turnospdf(turnolist: TurnoModel[]) {
+    const doc = new jsPDF('l', 'mm', [297, 210]);
+    doc.text('Informe de Turnos generado: ' + new Date().toLocaleString(), 10, 10);
+    const fecha = new Date().toLocaleString();
+    // doc.text('/n Fecha de generacion: ' + fecha, 10, 10);
+
+    const columns = ['ID', 'Nombre'];
+    const data = turnolist.map((turno) => {
+      return [
+        turno.id,
+        turno.nombre,
+        turno.descripcion,
+        turno.horaInicio.toString(),
+        turno.horaFin.toString(),
+        turno.dia
+      ];
+    });
+
+    autoTable(doc, {
+      head: [columns],
+      body: data,
+    });
+
+    doc.save('informe-turnos.pdf');
   }
 }
