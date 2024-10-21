@@ -4,6 +4,19 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserInterfaceData, userData } from '../../data/userData';
+import { UsuarioModel } from '../../models/empleado.model';
+import { Observable } from 'rxjs';
+import { HorarioModel, TurnoModel } from '../../models/horarios.model';
+import { ContratoModel } from '../../models/contrato.model';
+import { PdfreportService } from '../../services/reportes/pdfreport.service';
+import { Store } from '@ngxs/store';
+import { HorarioState } from '../../state-management/horario/horario.state';
+import { EmpleadosState } from '../../state-management/empleado/empleado.state';
+import { TurnoState } from '../../state-management/turno/turno.state';
+import { ContratoState } from '../../state-management/contrato/contrato.state';
+import { GetEmpleado } from '../../state-management/empleado/empleado.action';
+import { GetTurno } from '../../state-management/turno/turno.action';
+import { GetHorario } from '../../state-management/horario/horario.action';
 
 @Component({
   selector: 'app-schedulelist',
@@ -12,6 +25,18 @@ import { UserInterfaceData, userData } from '../../data/userData';
   encapsulation: ViewEncapsulation.None
 })
 export class SchedulelistComponent implements AfterViewInit {
+  usuarios$: Observable<UsuarioModel[]>;
+  horarios$: Observable<HorarioModel[]>;
+  horarios: HorarioModel[] = [];
+  turnos$: Observable<TurnoModel[]>;
+  turnos: TurnoModel[] = [];
+  contrato$: Observable<ContratoModel[]>;
+  contrato: ContratoModel[] = [];
+  
+  horarioslist: HorarioModel[] = [];
+  turnoslist: TurnoModel[] = [];
+  contratolist: ContratoModel[] = [];
+
   displayedColumns: string[] = [
     'select',
     'id',
@@ -23,22 +48,37 @@ export class SchedulelistComponent implements AfterViewInit {
     'viernes',
     'sabado',
     'domingo',
-    'inicio',
-    'final',
-    'estado',
     'action',
   ];
-  dataSource: MatTableDataSource<UserInterfaceData>;
-  selection = new SelectionModel<UserInterfaceData>(true, []);
+  dataSource: MatTableDataSource<UsuarioModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
+  selection = new SelectionModel<UsuarioModel>(true, []);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor() {
+  constructor(private store: Store, public pdfreportService: PdfreportService) {
     // Assign your data array to the data source
-    this.dataSource = new MatTableDataSource(userData);
+    this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
+    this.horarios$ = this.store.select(HorarioState.getHorarios);
+    this.turnos$ = this.store.select(TurnoState.getTurnos);
+    this.contrato$ = this.store.select(ContratoState.getContratos);
+  }
+
+  generarPDF() {
+    const usuariosSeleccionados = this.selection.selected;
+
+    this.horarios$.subscribe((horarios: HorarioModel[]) => {
+      this.horarioslist = horarios;
+    });
+    this.turnos$.subscribe((turnos: TurnoModel[]) => {
+      this.turnoslist = turnos;
+    });
+    this.contrato$.subscribe((contratos: ContratoModel[]) => {
+      this.contratolist = contratos;
+    });
+    //this.pdfreportService.userpdf(usuariosSeleccionados, this.roleslist, this.sucursaleslist);
   }
 
   ngAfterViewInit() {
@@ -73,7 +113,7 @@ export class SchedulelistComponent implements AfterViewInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: UserInterfaceData): string {
+  checkboxLabel(row?: UsuarioModel): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -93,5 +133,75 @@ export class SchedulelistComponent implements AfterViewInit {
   }
   //sidebar menu activation end
 
-  ngOnInit(): void {}
+  // Función para obtener el nombre del sucursal por ID
+  getTurnos(id: number): TurnoModel[] {
+    if (!this.turnos.length) {
+      return []; // Si los sucursal aún no se han cargado
+    }
+    let turnosUser: TurnoModel[] = [];
+    for(let i = 0; i < this.horarios.length; i++) {
+      if(this.horarios[i].usuariosId === id) {
+        turnosUser.push(this.turnos.find((t) => t.id === this.horarios[i].turnoId) || {id: 0, nombre: '', descripcion: '', horaInicio: new Date(), horaFin: new Date(), dia: ''});
+      }
+    }
+    return turnosUser;
+  }  
+
+  // Función para obtener el nombre del sucursal por ID
+  getDia(id: number, dia: string): TurnoModel {
+    let turno: TurnoModel = {
+      id: 0,
+      nombre: '',
+      descripcion: '',
+      horaInicio: new Date(),
+      horaFin: new Date(),
+      dia: ''
+    };
+    if (!this.getTurnos(id).length) {
+      return turno; // Si los sucursal aún no se han cargado
+    }
+    switch (dia) {
+      case 'Lunes':
+        return this.getTurnos(id).find((t) => t.dia === 'Lunes') || turno;
+        break;
+      case 'Martes':
+        return this.getTurnos(id).find((t) => t.dia === 'Martes') || turno;
+        break;
+      case 'Miercoles':
+        return this.getTurnos(id).find((t) => t.dia === 'Miercoles') || turno;
+        break;
+      case 'Jueves':
+        return this.getTurnos(id).find((t) => t.dia === 'Jueves') || turno;
+        break;
+      case 'Viernes':
+        return this.getTurnos(id).find((t) => t.dia === 'Viernes') || turno;
+        break;
+      case 'Sabado':
+        return this.getTurnos(id).find((t) => t.dia === 'Sabado') || turno;
+        break;
+      case 'Domingo':
+        return this.getTurnos(id).find((t) => t.dia === 'Domingo') || turno;
+        break;
+      default:
+        return turno; // Return default turno if no match is found
+    }
+  }
+
+  ngOnInit(): void {
+    // Despacha la acción para obtener los usuarios
+    this.store.dispatch([new GetEmpleado(), new GetTurno(), new GetHorario()]);
+
+    // Suscríbete al observable para actualizar el dataSource
+    this.usuarios$.subscribe((users) => {
+      this.dataSource.data = users; // Asigna los datos al dataSource
+    });
+
+    this.turnos$.subscribe((turnos) => {
+      this.turnos = turnos;
+    });
+
+    this.horarios$.subscribe((horarios) => {
+      this.horarios = horarios;
+    });
+  }
 }

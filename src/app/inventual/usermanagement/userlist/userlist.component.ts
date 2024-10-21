@@ -16,7 +16,7 @@ import { Store } from '@ngxs/store';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { EmpleadosState } from '../../state-management/empleado/empleado.state';
 import { RolesState } from '../../state-management/rol/rol.state';
-import { GetEmpleado } from '../../state-management/empleado/empleado.action';
+import { DeleteEmpleado, GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { GetRol } from '../../state-management/rol/rol.action';
 import { GetSucursal } from '../../state-management/sucursal/sucursal.action';
 import { SucursalModel } from '../../models/sucursal.model';
@@ -91,6 +91,10 @@ export class UserlistComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  
+  eliminarEmpleado(id: number) {
+    this.store.dispatch(new DeleteEmpleado(id));
   }
 
   /** Whether the number of selected elements matches the total number of rows. */

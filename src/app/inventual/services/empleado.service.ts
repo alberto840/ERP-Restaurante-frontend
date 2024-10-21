@@ -47,6 +47,6 @@ export class EmpleadoService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<ResponseModel<UsuarioModel>>(`${this.baseUrl}/eliminar/${empleadoId}`, { headers });
+    return this.http.delete<ResponseModel<UsuarioModel>>(`${this.baseUrl}/${empleadoId}`, { headers });
   }
 }
