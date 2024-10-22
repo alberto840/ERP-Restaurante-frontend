@@ -40,7 +40,6 @@ export class UserlistComponent implements AfterViewInit {
 
   displayedColumns: string[] = [
     'select',
-    'id',
     'nombre',
     'correo',
     'fechaIngreso',

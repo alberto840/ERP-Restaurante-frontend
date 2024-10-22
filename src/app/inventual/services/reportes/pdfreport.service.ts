@@ -176,11 +176,11 @@ export class PdfreportService {
       const contratoUser = userlist.find(usuario => usuario.id === contrato.usuariosId);
       return [
         contrato.id,
+        contratoUser ? contratoUser.nombre : 'Sin Usuario',
         contrato.fechaInicio.toString(),
         contrato.fechaConclusion.toString(),
         contrato.fechaContrato.toString(),
         contrato.identificador,
-        contratoUser ? contratoUser.nombre : 'Sin Usuario',
       ];
     });
 

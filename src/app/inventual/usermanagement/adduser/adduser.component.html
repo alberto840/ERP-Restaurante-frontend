@@ -50,7 +50,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Juan</mat-label>
-                  <input matInput [placeholder]="'Juan'" type="text" class="form-control" id="nombre" [(ngModel)]="user.nombre" name="name">
+                  <input matInput [placeholder]="'Ej. Juan'" type="text" class="form-control" id="nombre" [(ngModel)]="user.nombre" name="name">
                 </mat-form-field>
               </div>
             </div>
@@ -61,7 +61,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Paredes</mat-label>
-                  <input matInput [placeholder]="'Paredes'" type="text" class="form-control" id="primerApellido" [(ngModel)]="user.primerApellido" name="primerApellido">
+                  <input matInput [placeholder]="'Ej. Paredes'" type="text" class="form-control" id="primerApellido" [(ngModel)]="user.primerApellido" name="primerApellido">
                 </mat-form-field>
               </div>
             </div>
@@ -72,7 +72,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">Mendoza</mat-label>
-                  <input matInput [placeholder]="'Mendoza'" type="text" class="form-control" id="segundoApellido" [(ngModel)]="user.segundoApellido" name="segundoApellido">
+                  <input matInput [placeholder]="'Ej. Mendoza'" type="text" class="form-control" id="segundoApellido" [(ngModel)]="user.segundoApellido" name="segundoApellido">
                 </mat-form-field>
               </div>
             </div>
@@ -83,7 +83,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">00 000 000 000</mat-label>
-                  <input matInput [placeholder]="'00 000 000 000'" type="text" class="form-control" id="telefono" [(ngModel)]="user.telefono" name="telefono">
+                  <input matInput [placeholder]="'Ej. 00 000 000 000'" type="text" class="form-control" id="telefono" [(ngModel)]="user.telefono" name="telefono">
                 </mat-form-field>
               </div>
             </div>
@@ -119,7 +119,7 @@
               <div class="inventual-input-field-style">
                 <mat-form-field class="w-full" [floatLabel]="'always'">
                   <mat-label class="hidden">joseph&#64;example.com</mat-label>
-                  <input type="email" matInput [placeholder]="'joseph@example.com'" type="text" class="form-control" id="correo" [(ngModel)]="user.correo" name="correo">
+                  <input type="email" matInput [placeholder]="'Ej. joseph@example.com'" type="text" class="form-control" id="correo" [(ngModel)]="user.correo" name="correo">
                 </mat-form-field>
               </div>
             </div>
@@ -140,15 +140,16 @@
                 </div>
               </div>
             </div>
-          </ng-template>
+          </ng-template>          
           <div class="col-span-4 md:col-span-6 sm:col-span-12">
             <div class="inventual-select-field mb-5">
               <h5 class="text-[15px] text-heading font-semibold mb-3">Rol</h5>
               <div class="inventual-select-field-style">
                 <mat-form-field>
-                  <mat-select class="block" [placeholder]="'Select Role'" class="form-control" id="rolesId" name="rolesId">
-                    <mat-option value="language-1">Administrador</mat-option>
-                    <mat-option value="language-2">Contador</mat-option>
+                  <mat-select class="block" [placeholder]="'Selecionar Rol'" class="form-control" id="rolesId" [(ngModel)]="user.rolesId"  name="rolesId">
+                    <mat-option *ngFor="let rol of roles$ | async" [value]="rol.id">
+                      {{ rol.nombre }}
+                    </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>

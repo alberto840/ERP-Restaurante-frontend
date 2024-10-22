@@ -38,7 +38,7 @@
                                 <div class="inventual-input-field-style">
                                     <mat-form-field class="w-full" [floatLabel]="'always'">
                                         <mat-label class="hidden">Filtrar</mat-label>
-                                        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Actividad" #input>
+                                        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Salario" #input>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -111,11 +111,11 @@
                                     <mat-menu #beforeMenu="matMenu" xPosition="before">
                                         <button mat-menu-item>
                                             <img src="../../../../../assets/img/icon/action-2.png" alt="icon not found">
-                                            <span>Edit User</span>
+                                            <span>Editar Historial</span>
                                         </button>
                                         <button mat-menu-item (click)="eliminarHistorial(row.id)">
                                             <img src="../../../../../assets/img/icon/action-6.png" alt="icon not found">
-                                            <span>Eliminar Usuario</span>
+                                            <span>Eliminar Historial</span>
                                         </button>
                                     </mat-menu>
                                 </div>

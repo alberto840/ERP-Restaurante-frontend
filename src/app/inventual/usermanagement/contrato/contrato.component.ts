@@ -12,6 +12,7 @@ import { ContratoState } from '../../state-management/contrato/contrato.state';
 import { UsuarioModel } from '../../models/empleado.model';
 import { EmpleadosState } from '../../state-management/empleado/empleado.state';
 import { GetEmpleado } from '../../state-management/empleado/empleado.action';
+import { SucursalModel } from '../../models/sucursal.model';
 
 @Component({
   selector: 'app-contrato',
@@ -20,6 +21,7 @@ import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 })
 export class ContratoComponent implements AfterViewInit {
   usuarios$: Observable<UsuarioModel[]>;
+  usuarios: UsuarioModel[] = [];
   contrato: ContratoModel = {
     id: 0,
     fechaInicio: new Date(),
@@ -47,6 +49,14 @@ export class ContratoComponent implements AfterViewInit {
   
   actualizarContrato(contrato: ContratoModel) {    
     this.store.dispatch(new UpdateContrato(this.contrato));
+  }
+
+  getUsuariosName(id: number) {
+    if (!this.usuarios.length) {
+      return 'Cargando...'; // Si los roles aún no se han cargado
+    }
+    const usuario = this.usuarios.find((r) => r.id === id);
+    return usuario ? (usuario.nombre+" "+usuario.primerApellido+" "+usuario.segundoApellido) : 'Sin usuario';  // Devuelve el nombre del rol o "Sin Rol" si no se encuentra
   }
   
   contratos$: Observable<ContratoModel[]>;
@@ -127,6 +137,10 @@ export class ContratoComponent implements AfterViewInit {
     // Suscríbete al observable para actualizar el dataSource
     this.contratos$.subscribe((contratos) => {
       this.dataSource.data = contratos; // Asigna los datos al dataSource
+    });
+
+    this.usuarios$.subscribe((usuarios) => {
+      this.usuarios = usuarios;
     });
   }
   
