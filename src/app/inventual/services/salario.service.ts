@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SalarioService {
-  private baseUrl = environment.apiUrl+'api/v1/salario';
+  private baseUrl = environment.apiUrl+'api/historialsalarios';
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +18,7 @@ export class SalarioService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<ResponseModel<SalariosModel[]>>(`${this.baseUrl}`, { headers });
+    return this.http.get<ResponseModel<SalariosModel[]>>(`${this.baseUrl}/all`, { headers });
   }
 
   addSalario(salario: SalariosModel): Observable<ResponseModel<SalariosModel>> {
@@ -26,7 +26,7 @@ export class SalarioService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post<ResponseModel<SalariosModel>>(`${this.baseUrl}/crear`, salario, { headers });
+    return this.http.post<ResponseModel<SalariosModel>>(`${this.baseUrl}`, salario, { headers });
   }
 
   updateSalario(salario: SalariosModel): Observable<ResponseModel<SalariosModel>> {
@@ -42,6 +42,6 @@ export class SalarioService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<ResponseModel<SalariosModel>>(`${this.baseUrl}/eliminar/${salarioId}`, { headers });
+    return this.http.delete<ResponseModel<SalariosModel>>(`${this.baseUrl}/${salarioId}`, { headers });
   }
 }

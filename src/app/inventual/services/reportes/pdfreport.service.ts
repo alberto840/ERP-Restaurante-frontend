@@ -10,6 +10,7 @@ import { DescuentosModel } from '../../models/descuentos.model';
 import { BonosModel } from '../../models/bonos.model';
 import { ContratoModel } from '../../models/contrato.model';
 import { TurnoModel } from '../../models/horarios.model';
+import { SalariosModel } from '../../models/salarios.model';
 
 
 @Injectable({
@@ -215,5 +216,33 @@ export class PdfreportService {
     });
 
     doc.save('informe-turnos.pdf');
+  }
+
+  historialSalariospdf(salarioslist: SalariosModel[], userlist: UsuarioModel[], descuentoslist: DescuentosModel[]) {
+    const doc = new jsPDF('l', 'mm', [297, 210]);
+    doc.text('Informe de Historial Salarios generado: ' + new Date().toLocaleString(), 10, 10);
+    const fecha = new Date().toLocaleString();
+    // doc.text('/n Fecha de generacion: ' + fecha, 10, 10);
+
+    const columns = ['ID', 'Nombre', 'Fecha Pago', 'Descuento', 'Salario', 'Total'];
+    const data = salarioslist.map((salario) => {
+      const userSalario = userlist.find(user => user.id === salario.usuariosId);
+      const descuentoSalrio = descuentoslist.find(descuento => descuento.id === salario.descuentoId);
+      return [
+        salario.descuentoId,
+        userSalario ? userSalario.nombre : 'Sin Usuario',
+        salario.fechapago.toString(),
+        descuentoSalrio ? descuentoSalrio.monto : 'Sin Descuento',
+        salario.salario.toString(),
+        descuentoSalrio ? (salario.salario - descuentoSalrio.monto) : salario.salario,
+      ];
+    });
+
+    autoTable(doc, {
+      head: [columns],
+      body: data,
+    });
+
+    doc.save('informe-salarios.pdf');
   }
 }

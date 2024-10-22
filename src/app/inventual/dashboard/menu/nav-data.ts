@@ -2,6 +2,11 @@ import { INavbarData } from './helper';
 
 export const navbarData: INavbarData[] = [
   {
+    routeLink: '/salarios',
+    icon: 'fal fa-file-invoice-dollar',
+    label: 'Salarios',
+  },
+  {
     routeLink: '/sucursales',
     icon: 'fal fa-file-invoice-dollar',
     label: 'Sucursales',
@@ -23,6 +28,14 @@ export const navbarData: INavbarData[] = [
       {
         routeLink: '/empleados/lista',
         label: 'Lista de Empleados',
+      },
+      {
+        routeLink: '/empleados/actividades',
+        label: 'Lista de Actividades x',
+      },
+      {
+        routeLink: '/empleados/asistencia',
+        label: 'Control de Asistencia x',
       },
     ],
   },
@@ -98,6 +111,10 @@ export const navbarData: INavbarData[] = [
       {
         routeLink: '/rol/agregar',
         label: 'Crear Rol',
+      },
+      {
+        routeLink: '/rolepermission',
+        label: 'Permisos de Rol x',
       },
     ],
   },

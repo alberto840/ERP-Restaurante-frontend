@@ -3,6 +3,19 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SalesInterfaceData, salesReport } from '../../data/salesReport';
+import { SalariosModel } from '../../models/salarios.model';
+import { UsuarioModel } from '../../models/empleado.model';
+import { Observable } from 'rxjs';
+import { DescuentosModel } from '../../models/descuentos.model';
+import { Store } from '@ngxs/store';
+import { PdfreportService } from '../../services/reportes/pdfreport.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { EmpleadosState } from '../../state-management/empleado/empleado.state';
+import { DiscountsState } from '../../state-management/descuentos/descuento.state';
+import { SalariosState } from '../../state-management/salario/salario.state';
+import { DeleteSalario, GetSalario } from '../../state-management/salario/salario.action';
+import { GetEmpleado } from '../../state-management/empleado/empleado.action';
+import { GetDescuento } from '../../state-management/descuentos/descuento.action';
 
 @Component({
   selector: 'app-salaryhistory',
@@ -11,26 +24,49 @@ import { SalesInterfaceData, salesReport } from '../../data/salesReport';
   encapsulation: ViewEncapsulation.None,
 })
 export class SalaryhistoryComponent implements AfterViewInit {
+  historialSalarios$: Observable<SalariosModel[]>;
+  usuarios$: Observable<UsuarioModel[]>;
+  usuarios: UsuarioModel[] = [];
+  descuentos$: Observable<DescuentosModel[]>;
+  descuentos: DescuentosModel[] = [];
+  
+  usuarioslist: UsuarioModel[] = [];
+  descuentoslist: DescuentosModel[] = [];
+
   displayedColumns: string[] = [
-    'fecha',
+    'select',
     'nombre',
-    'sucursal',
-    'area',
-    'descuento',
-    'bono',
-    'monto',
-    'estado',
+    'fechapago',
+    'salario',
+    'desceunto',
+    'total',
+    'action',
   ];
-  dataSource: MatTableDataSource<SalesInterfaceData>;
+  dataSource: MatTableDataSource<SalariosModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
+  selection = new SelectionModel<SalariosModel>(true, []);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor() {
+  constructor(private store: Store, public pdfreportService: PdfreportService) {
     // Assign your data array to the data source
-    this.dataSource = new MatTableDataSource(salesReport);
+    this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
+    this.descuentos$ = this.store.select(DiscountsState.getDiscounts);
+    this.historialSalarios$ = this.store.select(SalariosState.getSalarios);
+  }
+
+  generarPDF() {
+    const salariosSeleccionados = this.selection.selected;
+
+    this.descuentos$.subscribe((descuentos: DescuentosModel[]) => {
+      this.descuentoslist = descuentos;
+    });
+    this.usuarios$.subscribe((usuarios: UsuarioModel[]) => {
+      this.usuarioslist = usuarios;
+    });
+    this.pdfreportService.historialSalariospdf(salariosSeleccionados, this.usuarioslist, this.descuentoslist);
   }
 
   ngAfterViewInit() {
@@ -46,36 +82,36 @@ export class SalaryhistoryComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  
+  eliminarHistorial(id: number) {
+    this.store.dispatch(new DeleteSalario(id));
+  }
 
-  getStockQty(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.stockQty)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
-  getSoldQty(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.amount)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
   }
-  getAmount(): number {
-    // Access the filtered data using this.dataSource.filteredData
-    return (
-      this.dataSource.filteredData
-        // Use map to extract the price from each item
-        .map((t: SalesInterfaceData) => t.amount)
-        // Use reduce to sum up the prices
-        .reduce((acc: number, value: number) => acc + value, 0)
-    );
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: SalariosModel): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.id + 1
+    }`;
   }
 
   //sidebar menu activation start
@@ -89,5 +125,39 @@ export class SalaryhistoryComponent implements AfterViewInit {
   }
   //sidebar menu activation end
 
-  ngOnInit(): void {}
+  // Función para obtener el nombre del sucursal por ID
+  getUserName(id: number): string {
+    if (!this.usuarios.length) {
+      return 'Cargando...'; // Si los sucursal aún no se han cargado
+    }
+    const usuario = this.usuarios.find((r) => r.id === id);
+    return usuario ? (usuario.nombre+" "+usuario.primerApellido+" "+usuario.segundoApellido) : 'Sin usuarios';  // Devuelve el nombre del sucursal o "Sin sucursal" si no se encuentra
+  }  
+
+  // Función para obtener el nombre del rol por ID
+  getDiscountName(id: number): number {
+    if (!this.descuentos.length) {
+      return 0; // Si los roles aún no se han cargado
+    }
+    const descuentos = this.descuentos.find((r) => r.id === id);
+    return descuentos ? descuentos.monto : 0;  // Devuelve el nombre del rol o "Sin Rol" si no se encuentra
+  }
+
+  ngOnInit(): void {
+    // Despacha la acción para obtener los usuarios
+    this.store.dispatch([new GetEmpleado(), new GetDescuento(), new GetSalario()]);
+
+    // Suscríbete al observable para actualizar el dataSource
+    this.historialSalarios$.subscribe((salarios) => {
+      this.dataSource.data = salarios; // Asigna los datos al dataSource
+    });
+
+    this.usuarios$.subscribe((usuarios) => {
+      this.usuarios = usuarios;
+    });
+
+    this.descuentos$.subscribe((descuentos) => {
+      this.descuentos = descuentos;
+    });
+  }
 }

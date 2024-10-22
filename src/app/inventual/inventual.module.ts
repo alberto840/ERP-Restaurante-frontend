@@ -168,6 +168,7 @@ import { TurnoState } from './state-management/turno/turno.state';
 import { RegistroTurnosComponent } from './usermanagement/registro-turnos/registro-turnos.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { RegistroHorarioComponent } from './usermanagement/registro-horario/registro-horario.component';
+import { SalariosState } from './state-management/salario/salario.state';
 
 @NgModule({
   imports: [
@@ -203,7 +204,7 @@ import { RegistroHorarioComponent } from './usermanagement/registro-horario/regi
     HttpClientModule,
     MatTableModule,
     DragDropModule,    
-    NgxsModule.forRoot([EmpleadosState, SucursalState, VacacionesState, DiscountsState, BonosState, RolesState, ContratoState, HorarioState, TurnoState]),
+    NgxsModule.forRoot([EmpleadosState, SucursalState, VacacionesState, DiscountsState, BonosState, RolesState, ContratoState, HorarioState, TurnoState, SalariosState]),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot() 
   ],
