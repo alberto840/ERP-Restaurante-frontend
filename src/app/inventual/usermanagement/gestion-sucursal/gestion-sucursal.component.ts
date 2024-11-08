@@ -27,6 +27,18 @@ export class GestionSucursalComponent implements AfterViewInit {
   };
   
   agregarSucursal() {
+    if (!this.sucursal.nombre || !this.sucursal.direccion) {
+      this.openSnackBar('Por favor complete todos los campos', 'Cerrar');
+      return;
+    }
+    if (this.sucursal.nombre.length < 3 || this.sucursal.nombre.length > 50) {
+      this.openSnackBar('El nombre tiene que estar entre 3 y 50 caracteres', 'Cerrar');
+      return;
+    }
+    if (this.sucursal.direccion.length < 3 || this.sucursal.direccion.length > 50) {
+      this.openSnackBar('La dirección tiene que estar entre 3 y 150 caracteres', 'Cerrar');
+      return;
+    }
     this.store.dispatch(new AddSucursal(this.sucursal)).subscribe({
       next: () => {
         console.log('sucursal agregada exitosamente');
