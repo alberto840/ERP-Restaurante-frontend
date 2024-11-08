@@ -171,6 +171,7 @@ import { RegistroHorarioComponent } from './usermanagement/registro-horario/regi
 import { SalariosState } from './state-management/salario/salario.state';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { SucursalEditComponent } from './common/dialogs/sucursal-edit/sucursal-edit.component';
+import { ContratoEditComponent } from './common/dialogs/contrato-edit/contrato-edit.component';
 
 @NgModule({
   imports: [
@@ -339,6 +340,7 @@ import { SucursalEditComponent } from './common/dialogs/sucursal-edit/sucursal-e
     RegistroTurnosComponent,
     RegistroHorarioComponent,
     SucursalEditComponent,
+    ContratoEditComponent,
   ],
 })
 export class InventualModule {}

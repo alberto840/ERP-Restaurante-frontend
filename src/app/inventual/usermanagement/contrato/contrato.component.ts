@@ -13,6 +13,9 @@ import { UsuarioModel } from '../../models/empleado.model';
 import { EmpleadosState } from '../../state-management/empleado/empleado.state';
 import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { SucursalModel } from '../../models/sucursal.model';
+import { CsvreportService } from '../../services/reportes/csvreport.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-contrato',
@@ -32,7 +35,20 @@ export class ContratoComponent implements AfterViewInit {
   };
   
   agregarContrato() {
-    this.store.dispatch(new AddContrato(this.contrato));
+    if (!this.contrato.fechaInicio || !this.contrato.fechaConclusion || !this.contrato.fechaContrato || !this.contrato.identificador || !this.contrato.usuariosId) {
+      this.openSnackBar('Por favor complete todos los campos', 'Cerrar');
+      return;
+    }
+    this.store.dispatch(new AddContrato(this.contrato)).subscribe({
+      next: () => {
+        console.log('contrato agregar exitosamente');
+        this.openSnackBar('contrato agregado correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al agregar contrato:', error);
+        this.openSnackBar('Contrato no se pudo agregar', 'Cerrar');
+      }
+    });
     this.contrato = {
       id: 0,
       fechaInicio: new Date(),
@@ -44,7 +60,16 @@ export class ContratoComponent implements AfterViewInit {
   }
   
   eliminarContrato(id: number) {
-    this.store.dispatch(new DeleteContrato(id));
+    this.store.dispatch(new DeleteContrato(id)).subscribe({
+      next: () => {
+        console.log('contrato eliminada exitosamente');
+        this.openSnackBar('Contrato eliminado correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al eliminada contrato:', error);
+        this.openSnackBar('Contrato no se pudo eliminar', 'Cerrar');
+      }
+    });
   }
   
   actualizarContrato(contrato: ContratoModel) {    
@@ -76,7 +101,7 @@ export class ContratoComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  constructor(private store: Store, public pdfreportService: PdfreportService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
     this.contratos$ = this.store.select(ContratoState.getContratos);
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
   }
@@ -94,6 +119,19 @@ export class ContratoComponent implements AfterViewInit {
     usuarios.subscribe((usuarioslist: UsuarioModel[]) => {
       this.pdfreportService.contratopdf(contratosSeleccionados, usuarioslist);
     });
+  }
+
+  generarCSV() {
+    const contratosSeleccionados = this.selection.selected;
+    const usuarios = this.usuarios$; // Aquí debes asegurarte de que tienes los roles correctamente cargados
+  
+    // Suscribirse a los roles para obtener la lista y generar el PDF
+    usuarios.subscribe((usuarioslist: UsuarioModel[]) => {
+      this.csvreportService.contratopdf(contratosSeleccionados, usuarioslist);
+    });}
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
   }
   
   applyFilter(event: Event) {

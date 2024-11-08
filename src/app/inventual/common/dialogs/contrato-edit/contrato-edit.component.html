@@ -1,0 +1,86 @@
+<mat-dialog-content>
+    <div class="popup-body">
+        <div class="inventual-popup-inner">
+            <div class="inventual-popup-header relative mb-11">
+                <div class="inventual-popup-header-title">
+                    <h4 class="text-[20px] text-heading font-bold">Actualizar Sucursal: {{data.contrato.identificador}}</h4>
+                </div>
+                <div class="inventual-popup-header-close absolute -top-4 ltr:-right-2.5 ltr:left-auto rtl:left-0 rtl:right-auto">
+                    <mat-dialog-actions>
+                        <div class="default-light-theme">
+                            <a href="javascript:void(0)" mat-dialog-close>
+                                <mat-icon>clear</mat-icon>
+                            </a>
+                        </div>
+                    </mat-dialog-actions>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
+                <div class="col-span-6 md:col-span-6 sm:col-span-12">
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Empleado</h5>
+                        <div class="inventual-select-field-style">
+                          <mat-form-field>
+                            <mat-select class="block" [placeholder]="'Selecionar Empleado'" class="form-control" id="usuariosId" [(ngModel)]="contrato.usuariosId" name="usuariosId">
+                              <mat-option *ngFor="let usuario of usuarios$ | async" [value]="usuario.id">
+                                {{ usuario.nombre+" "+usuario.primerApellido+" "+usuario.segundoApellido }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha Inicial</h5>
+                        <div class="inventual-input-field-style">
+                          <mat-form-field class="w-full" [floatLabel]="'always'">
+                            <mat-label class="hidden">Elige tu fecha</mat-label>
+                            <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechaInicio" [(ngModel)]="contrato.fechaInicio" name="fechaInicio">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha Conclusion</h5>
+                        <div class="inventual-input-field-style">
+                          <mat-form-field class="w-full" [floatLabel]="'always'">
+                            <mat-label class="hidden">Elige tu fecha</mat-label>
+                            <input matInput [matDatepicker]="picker2" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechaConclusion" [(ngModel)]="contrato.fechaConclusion" name="fechaConclusion">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                          </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha de Contrato</h5>
+                        <div class="inventual-input-field-style">
+                          <mat-form-field class="w-full" [floatLabel]="'always'">
+                            <mat-label class="hidden">Elige tu fecha</mat-label>
+                            <input matInput [matDatepicker]="picker3" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechaContrato" [(ngModel)]="contrato.fechaContrato" name="fechaContrato">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                          </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Identificador</h5>
+                        <div class="inventual-input-field-style">
+                            <mat-form-field class="w-full" [floatLabel]="'always'">
+                                <mat-label class="hidden">Kilogram</mat-label>
+                                <input matInput [placeholder]="'Ej. 11111'" type="text" class="form-control" id="identificador" [(ngModel)]="contrato.identificador" name="identificador">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-12">
+                    <div class="inventual-material-btn pt-1.5 justify-end">
+                        <button type="submit" mat-raised-button color="primary" (click)="actualizarContrato()">Actualizar Area</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

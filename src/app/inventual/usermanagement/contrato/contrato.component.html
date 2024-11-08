@@ -157,7 +157,7 @@
                                         <button matTooltip="Reporte PDF" type="button" class="pdf" style="margin-right: 20px;" (click)="generarPDF()">
                                             <app-pdf-icon></app-pdf-icon>
                                         </button>
-                                        <button matTooltip="Reporte Csv" type="button" class="csv">
+                                        <button matTooltip="Reporte Csv" type="button" class="csv" (click)="generarCSV()">
                                             <app-csv-icon></app-csv-icon>
                                         </button>
                                     </th>
@@ -169,13 +169,11 @@
                                                 Accion <mat-icon>arrow_drop_down</mat-icon>
                                             </button>
                                             <mat-menu #beforeMenu="matMenu" xPosition="before">
-                                                <!--
-                                                <button mat-menu-item>
+                                                <button mat-menu-item (click)="dialogsService.actualizarContrato(row)">
                                                     <img src="../../../../../assets/img/icon/action-2.png"
                                                         alt="icon not found">
                                                     <span>Editar Rol</span>
-                                                </button>                                                
-                                                -->
+                                                </button>    
                                                 <button mat-menu-item (click)="eliminarContrato(row.id)">
                                                     <img src="../../../../../assets/img/icon/action-6.png"
                                                         alt="icon not found">

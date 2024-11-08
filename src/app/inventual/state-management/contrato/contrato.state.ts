@@ -52,7 +52,7 @@ export class ContratoState {
         const state = getState();
         const contratos = [...state.contratos];
         const index = contratos.findIndex((contrato) => contrato.id === payload.id);
-        contratos[index] = response.data;
+        contratos[index] = response;
         setState({
           ...state,
           contratos,

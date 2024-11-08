@@ -29,12 +29,12 @@ export class ContratoService {
     return this.http.post<ContratoModel>(`${this.baseUrl}/create`, contrato, { headers });
   }
   
-  updateContrato(contrato: ContratoModel): Observable<ResponseModel<ContratoModel>> {
+  updateContrato(contrato: ContratoModel): Observable<ContratoModel> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put<ResponseModel<ContratoModel>>(`${this.baseUrl}/actualizar/${contrato.id}`, contrato, { headers });
+    return this.http.put<ContratoModel>(`${this.baseUrl}/update/${contrato.id}`, contrato, { headers });
   }
   
   deleteContrato(contratoId: number): Observable<ResponseModel<ContratoModel>> {
@@ -42,7 +42,7 @@ export class ContratoService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<ResponseModel<ContratoModel>>(`${this.baseUrl}/eliminar/${contratoId}`, { headers });
+    return this.http.delete<ResponseModel<ContratoModel>>(`${this.baseUrl}/delete/${contratoId}`, { headers });
   }
   
   
