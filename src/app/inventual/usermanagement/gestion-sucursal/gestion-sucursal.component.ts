@@ -9,6 +9,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CsvreportService } from '../../services/reportes/csvreport.service';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-gestion-sucursal',
@@ -24,7 +27,16 @@ export class GestionSucursalComponent implements AfterViewInit {
   };
   
   agregarSucursal() {
-    this.store.dispatch(new AddSucursal(this.sucursal));
+    this.store.dispatch(new AddSucursal(this.sucursal)).subscribe({
+      next: () => {
+        console.log('sucursal agregada exitosamente');
+        this.openSnackBar('Sucursal agregada correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al agregada sucursal:', error);
+        this.openSnackBar('La Sucursal no se pudo agregada', 'Cerrar');
+      }
+    });
     this.sucursal = {
       id: 0,
       nombre: '',
@@ -33,7 +45,16 @@ export class GestionSucursalComponent implements AfterViewInit {
   }
   
   eliminarSucursal(id: number) {
-    this.store.dispatch(new DeleteSucursal(id));
+    this.store.dispatch(new DeleteSucursal(id)).subscribe({
+      next: () => {
+        console.log('sucursal eliminada exitosamente');
+        this.openSnackBar('Sucursal eliminada correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al eliminada sucursal:', error);
+        this.openSnackBar('La Sucursal no se pudo eliminar', 'Cerrar');
+      }
+    });
   }
   
   actualizarSucursal(sucursal: SucursalModel) {    
@@ -57,8 +78,12 @@ export class GestionSucursalComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  constructor(private store: Store, public pdfreportService: PdfreportService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
     this.sucursales$ = this.store.select(SucursalState.getSucursales);
+  }
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
   }
   
   ngAfterViewInit() {
@@ -69,6 +94,11 @@ export class GestionSucursalComponent implements AfterViewInit {
   generarPDF() {
     const sucursalesSeleccionados = this.selection.selected;
     this.pdfreportService.sucursalpdf(sucursalesSeleccionados);
+  }
+
+  generarCSV() {    
+    const sucursalesSeleccionados = this.selection.selected;
+    this.csvreportService.sucursalcsv(sucursalesSeleccionados);
   }
   
   applyFilter(event: Event) {

@@ -52,7 +52,7 @@ export class SucursalState {
         const state = getState();
         const sucursales = [...state.sucursales];
         const index = sucursales.findIndex((sucursal) => sucursal.id === payload.id);
-        sucursales[index] = response.data;
+        sucursales[index] = response;
         setState({
           ...state,
           sucursales,

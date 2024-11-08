@@ -34,13 +34,13 @@ export class SucursalService {
   }
   
   // Actualizar una sucursal
-  updateSucursal(sucursal: any): Observable<ResponseModel<SucursalModel>> {
+  updateSucursal(sucursal: any): Observable<SucursalModel> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.put<ResponseModel<SucursalModel>>(`${this.baseUrl}/actualizar/${sucursal.id}`, sucursal, { headers });
+    return this.http.put<SucursalModel>(`${this.baseUrl}/${sucursal.id}`, sucursal, { headers });
   }
   
   // Eliminar una sucursal

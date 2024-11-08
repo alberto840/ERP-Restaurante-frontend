@@ -169,9 +169,12 @@ import { RegistroTurnosComponent } from './usermanagement/registro-turnos/regist
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { RegistroHorarioComponent } from './usermanagement/registro-horario/registro-horario.component';
 import { SalariosState } from './state-management/salario/salario.state';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { SucursalEditComponent } from './common/dialogs/sucursal-edit/sucursal-edit.component';
 
 @NgModule({
   imports: [
+    MatSnackBarModule,
     NgxMaterialTimepickerModule,
     CommonModule,
     RouterModule,
@@ -335,6 +338,7 @@ import { SalariosState } from './state-management/salario/salario.state';
     ContratoComponent,
     RegistroTurnosComponent,
     RegistroHorarioComponent,
+    SucursalEditComponent,
   ],
 })
 export class InventualModule {}
