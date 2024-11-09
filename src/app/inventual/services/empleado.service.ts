@@ -39,7 +39,7 @@ export class EmpleadoService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put<ResponseModel<UsuarioModel>>(`${this.baseUrl}/actualizar/${empleado.id}`, empleado, { headers });
+    return this.http.put<ResponseModel<UsuarioModel>>(`${this.baseUrl}/${empleado.id}`, empleado, { headers });
   }
 
   deleteEmpleado(empleadoId: number): Observable<ResponseModel<UsuarioModel>> {

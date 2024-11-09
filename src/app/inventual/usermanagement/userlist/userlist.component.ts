@@ -21,6 +21,9 @@ import { GetRol } from '../../state-management/rol/rol.action';
 import { GetSucursal } from '../../state-management/sucursal/sucursal.action';
 import { SucursalModel } from '../../models/sucursal.model';
 import { SucursalState } from '../../state-management/sucursal/sucursal.state';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
+import { CsvreportService } from '../../services/reportes/csvreport.service';
 
 @Component({
   selector: 'app-userlist',
@@ -59,7 +62,7 @@ export class UserlistComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private store: Store, public pdfreportService: PdfreportService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
     // Assign your data array to the data source
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
     this.roles$ = this.store.select(RolesState.getRoles);
@@ -78,6 +81,18 @@ export class UserlistComponent implements AfterViewInit {
     this.pdfreportService.userpdf(usuariosSeleccionados, this.roleslist, this.sucursaleslist);
   }
 
+  generarCSV() {
+    const usuariosSeleccionados = this.selection.selected;
+
+    this.roles$.subscribe((roles: RolModel[]) => {
+      this.roleslist = roles;
+    });
+    this.sucursales$.subscribe((sucursales: SucursalModel[]) => {
+      this.sucursaleslist = sucursales;
+    });
+    this.csvreportService.usercsv(usuariosSeleccionados, this.roleslist, this.sucursaleslist);
+  }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -92,8 +107,21 @@ export class UserlistComponent implements AfterViewInit {
     }
   }
   
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
+  }
+  
   eliminarEmpleado(id: number) {
-    this.store.dispatch(new DeleteEmpleado(id));
+    this.store.dispatch(new DeleteEmpleado(id)).subscribe({
+      next: () => {
+        console.log('Empleado eliminada exitosamente');
+        this.openSnackBar('Empleado eliminado correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al eliminada Empleado:', error);
+        this.openSnackBar('Empleado no se pudo eliminar', 'Cerrar');
+      }
+    });
   }
 
   /** Whether the number of selected elements matches the total number of rows. */

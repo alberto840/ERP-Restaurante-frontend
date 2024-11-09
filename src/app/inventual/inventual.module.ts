@@ -172,6 +172,7 @@ import { SalariosState } from './state-management/salario/salario.state';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { SucursalEditComponent } from './common/dialogs/sucursal-edit/sucursal-edit.component';
 import { ContratoEditComponent } from './common/dialogs/contrato-edit/contrato-edit.component';
+import { UsuarioEditComponent } from './common/dialogs/usuario-edit/usuario-edit.component';
 
 @NgModule({
   imports: [
@@ -341,6 +342,7 @@ import { ContratoEditComponent } from './common/dialogs/contrato-edit/contrato-e
     RegistroHorarioComponent,
     SucursalEditComponent,
     ContratoEditComponent,
+    UsuarioEditComponent,
   ],
 })
 export class InventualModule {}
