@@ -6,6 +6,9 @@ import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { UsuarioModel } from '../../models/empleado.model';
 import { Observable } from 'rxjs';
 import { EmpleadosState } from '../../state-management/empleado/empleado.state';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
+import { CsvreportService } from '../../services/reportes/csvreport.service';
 
 @Component({
   selector: 'app-addvacation',
@@ -36,9 +39,29 @@ export class AddvacationComponent implements OnInit {
       this.menuSidebarActive=false;
     }
   }
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
+  }
 
   agregarVacacion() {
-    this.store.dispatch(new AddVacacion(this.vacacion));
+    if (!this.vacacion.fechaInicio || !this.vacacion.fechaFin || !this.vacacion.usuariosId || !this.vacacion.aprobacion) {
+      this.openSnackBar('Por favor, complete los campos', 'Cerrar');
+      return;
+    }
+    if (this.vacacion.fechaInicio > this.vacacion.fechaFin) {
+      this.openSnackBar('La Fecha de inicio no puede ser mayor a la fecha de fin', 'Cerrar');
+      return;
+    }
+    this.store.dispatch(new AddVacacion(this.vacacion)).subscribe({
+      next: () => {
+        this.openSnackBar('Vacacion registrada correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al registrada Vacacion:', error);
+        this.openSnackBar('No se pudo registrada Vacacion', 'Cerrar');
+      }
+    });
     this.vacacion = {
       id: undefined,
       fechaInicio: new Date(),
@@ -52,7 +75,7 @@ export class AddvacationComponent implements OnInit {
   
   hide = true;
   
-    constructor(private store: Store) {
+    constructor(private store: Store, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
       this.users$ = this.store.select(EmpleadosState.getEmpleados);
     }
   

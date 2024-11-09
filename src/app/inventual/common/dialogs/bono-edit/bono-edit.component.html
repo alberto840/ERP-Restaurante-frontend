@@ -3,7 +3,7 @@
         <div class="inventual-popup-inner">
             <div class="inventual-popup-header relative mb-11">
                 <div class="inventual-popup-header-title">
-                    <h4 class="text-[20px] text-heading font-bold">Actualizar Sucursal: {{data.sucursal.nombre}}</h4>
+                    <h4 class="text-[20px] text-heading font-bold">Actualizar Bono: {{data.bono.nombre}}</h4>
                 </div>
                 <div class="inventual-popup-header-close absolute -top-4 ltr:-right-2.5 ltr:left-auto rtl:left-0 rtl:right-auto">
                     <mat-dialog-actions>
@@ -18,27 +18,27 @@
             <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
                 <div class="col-span-6 md:col-span-6 sm:col-span-12">
                     <div class="inventual-select-field mb-7">
-                        <h5 class="text-[15px] text-heading font-semibold mb-3">Nombre</h5>
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Nombre Bono</h5>
                         <div class="inventual-input-field-style">
                             <mat-form-field class="w-full" [floatLabel]="'always'">
-                                <mat-label class="hidden">Kilogram</mat-label>
-                                <input matInput [placeholder]="'Ej. La Paz'" type="text" class="form-control" id="nombre" [(ngModel)]="sucursal.nombre" name="nombre">
+                              <mat-label class="hidden">Llego tarde</mat-label>
+                              <input matInput [placeholder]="'Ej. Bono Navidad'" class="form-control" id="nombre" [(ngModel)]="bono.nombre" name="nombre">
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="inventual-select-field mb-7">
-                        <h5 class="text-[15px] text-heading font-semibold mb-3">Direccion</h5>
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Monto (Bs)</h5>
                         <div class="inventual-input-field-style">
                             <mat-form-field class="w-full" [floatLabel]="'always'">
-                                <mat-label class="hidden">Kilogram</mat-label>
-                                <input matInput [placeholder]="'Ej. La Paz, Miraflores, Calle 3. #300'" type="text" class="form-control" id="descripcion" [(ngModel)]="sucursal.direccion" name="descripcion">
+                              <mat-label class="hidden">Cumplio 1 año</mat-label>
+                              <input matInput [placeholder]="'9999'" class="form-control" id="monto" [(ngModel)]="bono.monto" name="monto">
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
                 <div class="col-span-12">
                     <div class="inventual-material-btn pt-1.5 justify-end">
-                        <button type="submit" mat-raised-button color="primary" (click)="actualizarSucursal()">Actualizar Sucursal</button>
+                        <button type="submit" mat-raised-button color="primary" (click)="actualizarBono()">Actualizar Bono</button>
                     </div>
                 </div>
             </div>

@@ -41,7 +41,7 @@ export class UsuarioEditComponent implements OnInit {
   };
 
   constructor(private store: Store, private dialog: MatDialog,
-    public dialogRef: MatDialogRef<SucursalEditComponent>,
+    public dialogRef: MatDialogRef<UsuarioEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _snackBar: MatSnackBar) {
       this.user = { ...data.usuario };
       this.roles$ = this.store.select(RolesState.getRoles);
@@ -56,7 +56,7 @@ export class UsuarioEditComponent implements OnInit {
     this._snackBar.open(message, action, { duration: 2000 });
   }
 
-  actualizarContrato() {
+  actualizarUsuario() {
     if (!this.user.nombre || !this.user.primerApellido || !this.user.segundoApellido || !this.user.correo || !this.user.password || !this.user.fechaIngreso || !this.user.estado || !this.user.direccion || !this.user.edad || !this.user.telefono || !this.user.rolesId || !this.user.sucursalId) {
       this.openSnackBar('Por favor complete todos los campos', 'Cerrar');
       return;

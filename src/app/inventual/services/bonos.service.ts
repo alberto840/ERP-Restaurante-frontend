@@ -34,13 +34,13 @@ export class BonosService {
   }
   
   // Actualizar un bono
-  updateBono(bono: any): Observable<ResponseModel<BonosModel>> {
+  updateBono(bono: any): Observable<BonosModel> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.put<ResponseModel<BonosModel>>(`${this.baseUrl}/actualizar/${bono.id}`, bono, { headers });
+    return this.http.put<BonosModel>(`${this.baseUrl}/update/${bono.id}`, bono, { headers });
   }
   
   // Eliminar un bono
@@ -50,7 +50,7 @@ export class BonosService {
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.delete<ResponseModel<BonosModel>>(`${this.baseUrl}/eliminar/${bonoId}`, { headers });
+    return this.http.delete<ResponseModel<BonosModel>>(`${this.baseUrl}/delete/${bonoId}`, { headers });
   }
   
 }

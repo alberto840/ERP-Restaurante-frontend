@@ -49,14 +49,14 @@
               <div class="inventual-input-field-style">
                   <mat-form-field class="w-full" [floatLabel]="'always'">
                     <mat-label class="hidden">Cumplio 1 año</mat-label>
-                    <input matInput [placeholder]="'9999'" class="form-control" id="monto" [(ngModel)]="bono.monto" name="monto">
+                    <input matInput [placeholder]="'9999'" type="number" class="form-control" id="monto" [(ngModel)]="bono.monto" name="monto">
                   </mat-form-field>
               </div>
             </div>
           </div>
           <div class="col-span-12">
             <div class="inventual-material-btn pt-2.5 justify-end">         
-              <button mat-raised-button color="primary" (click)="agregarBono()">Registrar Descuento</button>     
+              <button mat-raised-button color="primary" (click)="agregarBono()">Registrar Bono</button>     
             </div>
           </div>
         </div>

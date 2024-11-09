@@ -52,7 +52,7 @@ export class BonosState {
         const state = getState();
         const bonos = [...state.bonos];
         const index = bonos.findIndex((bono) => bono.id === payload.id);
-        bonos[index] = response.data;
+        bonos[index] = response;
         setState({
           ...state,
           bonos,

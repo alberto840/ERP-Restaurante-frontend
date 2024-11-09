@@ -56,7 +56,7 @@ export class DiscountsState {
         const state = getState();
         const discounts = [...state.discounts];
         const index = discounts.findIndex((discount) => discount.id === payload.id);
-        discounts[index] = response.data;
+        discounts[index] = response;
         setState({
           ...state,
           discounts,

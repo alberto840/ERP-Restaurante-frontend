@@ -52,7 +52,7 @@ export class TurnoState {
         const state = getState();
         const turnos = [...state.turnos];
         const index = turnos.findIndex((turno) => turno.id === payload.id);
-        turnos[index] = response.data;
+        turnos[index] = response;
         setState({
           ...state,
           turnos,

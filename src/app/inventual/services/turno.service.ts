@@ -29,12 +29,12 @@ export class TurnoService {
     return this.http.post<TurnoModel>(`${this.baseUrl}`, turno, { headers });
   }
   
-  updateTurno(turno: TurnoModel): Observable<ResponseModel<TurnoModel>> {
+  updateTurno(turno: TurnoModel): Observable<TurnoModel> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put<ResponseModel<TurnoModel>>(`${this.baseUrl}/actualizar/${turno.id}`, turno, { headers });
+    return this.http.put<TurnoModel>(`${this.baseUrl}/${turno.id}`, turno, { headers });
   }
   
   deleteTurno(turnoId: number): Observable<ResponseModel<TurnoModel>> {

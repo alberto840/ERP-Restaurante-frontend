@@ -34,13 +34,13 @@ export class DescuentosService {
   }
   
   // Actualizar un descuento
-  updateDescuento(descuento: any): Observable<ResponseModel<DescuentosModel>> {
+  updateDescuento(descuento: any): Observable<DescuentosModel> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.put<ResponseModel<DescuentosModel>>(`${this.baseUrl}/actualizar/${descuento.id}`, descuento, { headers });
+    return this.http.put<DescuentosModel>(`${this.baseUrl}/${descuento.id}`, descuento, { headers });
   }
   
   // Eliminar un descuento
@@ -50,7 +50,7 @@ export class DescuentosService {
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.delete<ResponseModel<DescuentosModel>>(`${this.baseUrl}/eliminar/${descuentoId}`, { headers });
+    return this.http.delete<ResponseModel<DescuentosModel>>(`${this.baseUrl}/${descuentoId}`, { headers });
   }
   
 }

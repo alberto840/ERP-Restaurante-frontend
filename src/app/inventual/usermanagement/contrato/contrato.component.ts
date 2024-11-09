@@ -127,8 +127,9 @@ export class ContratoComponent implements AfterViewInit {
   
     // Suscribirse a los roles para obtener la lista y generar el PDF
     usuarios.subscribe((usuarioslist: UsuarioModel[]) => {
-      this.csvreportService.contratopdf(contratosSeleccionados, usuarioslist);
-    });}
+      this.csvreportService.contratocsv(contratosSeleccionados, usuarioslist);
+    });
+  }
   
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {duration: 2000});

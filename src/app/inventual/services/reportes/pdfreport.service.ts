@@ -198,16 +198,16 @@ export class PdfreportService {
     const fecha = new Date().toLocaleString();
     // doc.text('/n Fecha de generacion: ' + fecha, 10, 10);
 
-    const columns = ['ID', 'Nombre'];
+    const columns = ['ID', 'Nombre', 'Descripcion', 'Hora Inicio', 'Hora Fin', 'Dia'];
     const data = turnolist.map((turno) => {
       return [
         turno.id,
         turno.nombre,
         turno.descripcion,
-        turno.horaInicio.toString(),
-        turno.horaFin.toString(),
+        new Date(turno.horaInicio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        new Date(turno.horaFin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         turno.dia
-      ];
+      ];      
     });
 
     autoTable(doc, {

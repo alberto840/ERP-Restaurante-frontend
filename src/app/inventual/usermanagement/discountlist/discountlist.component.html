@@ -38,7 +38,7 @@
                                 <div class="inventual-input-field-style">
                                     <mat-form-field class="w-full" [floatLabel]="'always'">
                                         <mat-label class="hidden">Filtrar</mat-label>
-                                        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Actividad" #input>
+                                        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Descuento" #input>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                 <button type="button" class="pdf" (click)="generarPDF()">
                                     <app-pdf-icon></app-pdf-icon>
                                 </button>
-                                <button type="button" class="csv">
+                                <button type="button" class="csv" (click)="generarCSV()">
                                     <app-csv-icon></app-csv-icon>
                                 </button>
                             </div>
@@ -82,7 +82,7 @@
 
                         <ng-container matColumnDef="monto">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Monto </th>
-                            <td mat-cell *matCellDef="let row"> {{row.monto}} </td>
+                            <td mat-cell *matCellDef="let row"> {{row.monto}} Bs</td>
                         </ng-container>
 
                         <ng-container matColumnDef="fecha">
@@ -104,11 +104,11 @@
                                         Action <mat-icon>arrow_drop_down</mat-icon>
                                     </button>
                                     <mat-menu #beforeMenu="matMenu" xPosition="before">
-                                        <button mat-menu-item>
+                                        <button mat-menu-item (click)="dialogsService.actualizarDescuento(row)">
                                             <img src="../../../../../assets/img/icon/action-2.png" alt="icon not found">
-                                            <span>Edit User</span>
+                                            <span>Editar Descuento</span>
                                         </button>
-                                        <button mat-menu-item>
+                                        <button mat-menu-item (click)="eliminarDescuento(row.id)">
                                             <img src="../../../../../assets/img/icon/action-6.png" alt="icon not found">
                                             <span>Eliminar Descuento</span>
                                         </button>

@@ -9,7 +9,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { Store } from '@ngxs/store';
 import { BonosState } from '../../state-management/bono/bono.state';
-import { GetBono } from '../../state-management/bono/bono.action';
+import { DeleteBono, GetBono } from '../../state-management/bono/bono.action';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
+import { CsvreportService } from '../../services/reportes/csvreport.service';
 
 @Component({
   selector: 'app-bonuslist',
@@ -32,14 +35,36 @@ export class BonuslistComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private store: Store, public pdfreportService: PdfreportService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
     // Assign your data array to the data source
     this.bonos$ = this.store.select(BonosState.getBonos);
+  }
+  
+  eliminarBono(id: number) {
+    this.store.dispatch(new DeleteBono(id)).subscribe({
+      next: () => {
+        console.log('Bono eliminada exitosamente');
+        this.openSnackBar('Bono eliminado correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al eliminada Bono:', error);
+        this.openSnackBar('Bono no se pudo eliminar', 'Cerrar');
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
   }
 
   generarPDF() {
     const bonosSeleccionados = this.selection.selected;
     this.pdfreportService.bonospdf(bonosSeleccionados);
+  }
+
+  generarCSV() {
+    const bonosSeleccionados = this.selection.selected;
+    this.csvreportService.bonoscsv(bonosSeleccionados);
   }
 
   ngAfterViewInit() {

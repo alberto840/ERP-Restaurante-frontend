@@ -1,0 +1,80 @@
+<mat-dialog-content>
+    <div class="popup-body">
+        <div class="inventual-popup-inner">
+            <div class="inventual-popup-header relative mb-11">
+                <div class="inventual-popup-header-title">
+                    <h4 class="text-[20px] text-heading font-bold">Actualizar Descuento</h4>
+                </div>
+                <div class="inventual-popup-header-close absolute -top-4 ltr:-right-2.5 ltr:left-auto rtl:left-0 rtl:right-auto">
+                    <mat-dialog-actions>
+                        <div class="default-light-theme">
+                            <a href="javascript:void(0)" mat-dialog-close>
+                                <mat-icon>clear</mat-icon>
+                            </a>
+                        </div>
+                    </mat-dialog-actions>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
+                <div class="col-span-6 md:col-span-6 sm:col-span-12">
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Empleado</h5>
+                        <div class="inventual-select-field-style">
+                          <mat-form-field>
+                            <mat-select class="block" [placeholder]="'Selecionar Empleado'" class="form-control" id="usuariosId" name="usuariosId">
+                              <mat-option *ngFor="let usuario of usuarios$ | async" [value]="usuario.id">
+                                {{ usuario.nombre+' '+usuario.primerApellido+' '+usuario.segundoApellido }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Tipo Descuento</h5>
+                        <div class="inventual-input-field-style">
+                            <mat-form-field class="w-full" [floatLabel]="'always'">
+                              <mat-label class="hidden">Llego tarde</mat-label>
+                              <input matInput [placeholder]="'Llego tarde'" class="form-control" id="tipoDescuento" [(ngModel)]="descuento.tipoDescuento" name="tipoDescuento">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Monto</h5>
+                        <div class="inventual-input-field-style">
+                            <mat-form-field class="w-full" [floatLabel]="'always'">
+                              <mat-label class="hidden">Cumplio 1 año</mat-label>
+                              <input matInput [placeholder]="'9999'" class="form-control" id="monto" [(ngModel)]="descuento.monto" name="monto">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Justificacion</h5>
+                        <div class="inventual-input-field-style">
+                            <mat-form-field class="w-full" [floatLabel]="'always'">
+                              <mat-label class="hidden">Llego tarde</mat-label>
+                              <input matInput [placeholder]="'Llego tarde'" class="form-control" id="justificacion" [(ngModel)]="descuento.justificacion" name="justificacion">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha de Descuento</h5>
+                        <div class="inventual-input-field-style">
+                          <mat-form-field class="w-full" [floatLabel]="'always'">
+                            <mat-label class="hidden">Elige tu fecha</mat-label>
+                            <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fecha" [(ngModel)]="descuento.fecha" name="fecha">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>                
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-12">
+                    <div class="inventual-material-btn pt-1.5 justify-end">
+                        <button type="submit" mat-raised-button color="primary" (click)="actualizarDescuento()">Actualizar Descuento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

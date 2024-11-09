@@ -11,8 +11,11 @@ import { Store } from '@ngxs/store';
 import { VacacionesState } from '../../state-management/vacacion/vacacion.state';
 import { EmpleadosState } from '../../state-management/empleado/empleado.state';
 import { SelectionModel } from '@angular/cdk/collections';
-import { GetVacacion } from '../../state-management/vacacion/vacacion.action';
+import { DeleteVacacion, GetVacacion } from '../../state-management/vacacion/vacacion.action';
 import { GetEmpleado } from '../../state-management/empleado/empleado.action';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CsvreportService } from '../../services/reportes/csvreport.service';
 
 
 @Component({
@@ -45,7 +48,7 @@ export class VacationlistComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private store: Store, public pdfreportService: PdfreportService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
     // Assign your data array to the data source
     this.vacaciones$ = this.store.select(VacacionesState.getVacaciones);
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
@@ -60,6 +63,19 @@ export class VacationlistComponent implements AfterViewInit {
     this.pdfreportService.vacacionespdf(vacacionesSeleccionados, this.usuarioslist);
   }
 
+  generarCSV() {
+    const vacacionesSeleccionados = this.selection.selected;
+
+    this.usuarios$.subscribe((usuarios: UsuarioModel[]) => {
+      this.usuarioslist = usuarios;
+    });
+    this.csvreportService.vacacionescsv(vacacionesSeleccionados, this.usuarioslist);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
+  }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -72,6 +88,19 @@ export class VacationlistComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  
+  eliminarVacacion(id: number) {
+    this.store.dispatch(new DeleteVacacion(id)).subscribe({
+      next: () => {
+        console.log('Vacacion eliminada exitosamente');
+        this.openSnackBar('Vacacion eliminada correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al eliminada Vacacion:', error);
+        this.openSnackBar('Vacacion no se pudo eliminar', 'Cerrar');
+      }
+    });
   }
 
   /** Whether the number of selected elements matches the total number of rows. */

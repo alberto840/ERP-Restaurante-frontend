@@ -1,0 +1,81 @@
+<mat-dialog-content>
+    <div class="popup-body">
+        <div class="inventual-popup-inner">
+            <div class="inventual-popup-header relative mb-11">
+                <div class="inventual-popup-header-title">
+                    <h4 class="text-[20px] text-heading font-bold">Actualizar Turno: {{data.turno.nombre}}</h4>
+                </div>
+                <div class="inventual-popup-header-close absolute -top-4 ltr:-right-2.5 ltr:left-auto rtl:left-0 rtl:right-auto">
+                    <mat-dialog-actions>
+                        <div class="default-light-theme">
+                            <a href="javascript:void(0)" mat-dialog-close>
+                                <mat-icon>clear</mat-icon>
+                            </a>
+                        </div>
+                    </mat-dialog-actions>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
+                <div class="col-span-6 md:col-span-6 sm:col-span-12">
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Nombre</h5>
+                        <div class="inventual-input-field-style">
+                            <mat-form-field class="w-full" [floatLabel]="'always'">
+                                <mat-label class="hidden">Kilogram</mat-label>
+                                <input matInput [placeholder]="'Ej. Turno tarde'" type="text" class="form-control" id="nombre" [(ngModel)]="turno.nombre" name="nombre">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Descripcion</h5>
+                        <div class="inventual-input-field-style">
+                            <mat-form-field class="w-full" [floatLabel]="'always'">
+                                <mat-label class="hidden">Kilogram</mat-label>
+                                <input matInput [placeholder]="'Ej. Horario medio tiempo tarde'" type="text" class="form-control" id="descripcion" [(ngModel)]="turno.descripcion" name="descripcion">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Dia</h5>
+                        <div class="inventual-select-field-style">
+                          <mat-form-field>
+                            <mat-select class="block" [placeholder]="'Selecciona Dia'" class="form-control" id="dia" [(ngModel)]="turno.dia" name="dia">
+                              <mat-option value="Lunes">Lunes</mat-option>
+                                <mat-option value="Martes">Martes</mat-option>
+                                <mat-option value="Miercoles">Miercoles</mat-option>
+                                <mat-option value="Jueves">Jueves</mat-option>
+                                <mat-option value="Viernes">Viernes</mat-option>
+                                <mat-option value="Sabado">Sabado</mat-option>
+                                <mat-option value="Domingo">Domingo</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Hora Inicial</h5>
+                        <div class="inventual-input-field-style">        
+                          <input placeholder="Ingrese Hora de Ingreso" aria-label="Ingrese Hora de Ingreso"
+                              [ngxTimepicker]="appendedToInput" [format]="24" readonly class="form-control" id="horaInicio" [(ngModel)]="turno.horaInicio" name="horaInicio">
+                          <ngx-material-timepicker #appendedToInput
+                              [appendToInput]="true"></ngx-material-timepicker>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Hora Final</h5>
+                        <div class="inventual-input-field-style">
+                          <input placeholder="Ingrese Hora de Salida" aria-label="Ingrese Hora de Salida"
+                              [ngxTimepicker]="appendedToInput2" [format]="24" readonly class="form-control" id="horaFin" [(ngModel)]="turno.horaFin" name="horaFin">
+                          <ngx-material-timepicker #appendedToInput2
+                              [appendToInput]="true"></ngx-material-timepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-12">
+                    <div class="inventual-material-btn pt-1.5 justify-end">
+                        <button type="submit" mat-raised-button color="primary" (click)="actualizarBono()">Actualizar Turno</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

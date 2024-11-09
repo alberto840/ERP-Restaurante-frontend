@@ -173,6 +173,10 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { SucursalEditComponent } from './common/dialogs/sucursal-edit/sucursal-edit.component';
 import { ContratoEditComponent } from './common/dialogs/contrato-edit/contrato-edit.component';
 import { UsuarioEditComponent } from './common/dialogs/usuario-edit/usuario-edit.component';
+import { VacacionEditComponent } from './common/dialogs/vacacion-edit/vacacion-edit.component';
+import { DescuentoEditComponent } from './common/dialogs/descuento-edit/descuento-edit.component';
+import { BonoEditComponent } from './common/dialogs/bono-edit/bono-edit.component';
+import { TurnoEditComponent } from './common/dialogs/turno-edit/turno-edit.component';
 
 @NgModule({
   imports: [
@@ -343,6 +347,10 @@ import { UsuarioEditComponent } from './common/dialogs/usuario-edit/usuario-edit
     SucursalEditComponent,
     ContratoEditComponent,
     UsuarioEditComponent,
+    VacacionEditComponent,
+    DescuentoEditComponent,
+    BonoEditComponent,
+    TurnoEditComponent,
   ],
 })
 export class InventualModule {}

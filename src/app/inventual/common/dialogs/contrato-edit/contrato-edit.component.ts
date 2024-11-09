@@ -28,7 +28,7 @@ export class ContratoEditComponent implements OnInit {
   };
 
   constructor(private store: Store, private dialog: MatDialog,
-    public dialogRef: MatDialogRef<SucursalEditComponent>,
+    public dialogRef: MatDialogRef<ContratoEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _snackBar: MatSnackBar) {
       this.contrato = { ...data.contrato };
       this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);

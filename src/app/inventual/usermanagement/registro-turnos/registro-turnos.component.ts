@@ -10,6 +10,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TurnoState } from '../../state-management/turno/turno.state';
 import { DateTime } from 'luxon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
+import { CsvreportService } from '../../services/reportes/csvreport.service';
 
 @Component({
   selector: 'app-registro-turnos',
@@ -28,6 +31,22 @@ export class RegistroTurnosComponent {
   };
   
   agregarTurno() {
+    if (!this.turno.nombre || !this.turno.descripcion || !this.turno.horaInicio || !this.turno.horaFin || !this.turno.dia) {
+      this.openSnackBar('Debe completar todos los campos', 'Cerrar');
+      return;
+    }
+    if (this.turno.nombre.length < 3 || this.turno.nombre.length > 50) {
+      this.openSnackBar('El nombre tiene que estar entre 3 y 50 caracteres', 'Cerrar');
+      return;
+    }
+    if (this.turno.descripcion.length < 3 || this.turno.descripcion.length > 50) {
+      this.openSnackBar('La descripción tiene que estar entre 3 y 50 caracteres', 'Cerrar');
+      return;
+    }
+    if (this.turno.horaInicio > this.turno.horaFin) {
+      this.openSnackBar('La hora de inicio no puede ser mayor a la hora de fin', 'Cerrar');
+      return;
+    }
     const horaInicio = this.turno.horaInicio;
     const horaFin = this.turno.horaFin;
     
@@ -40,7 +59,15 @@ export class RegistroTurnosComponent {
 
     this.turno.horaInicio = inicio;
     this.turno.horaFin = fin;
-    this.store.dispatch(new AddTurno(this.turno));
+    this.store.dispatch(new AddTurno(this.turno)).subscribe({
+      next: () => {
+        this.openSnackBar('Turno creado correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al crear turno:', error);
+        this.openSnackBar('No se pudo crear Turno', 'Cerrar');
+      }
+    });
     this.turno = {
       id: 0,
       nombre: '',
@@ -52,7 +79,16 @@ export class RegistroTurnosComponent {
   }
   
   eliminarTurno(id: number) {
-    this.store.dispatch(new DeleteTurno(id));
+    this.store.dispatch(new DeleteTurno(id)).subscribe({
+      next: () => {
+        console.log('Turno eliminado exitosamente');
+        this.openSnackBar('Turno eliminado correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al eliminado Turno:', error);
+        this.openSnackBar('Turno no se pudo eliminar', 'Cerrar');
+      }
+    });
   }
   
   actualizarTurno(turno: TurnoModel) {    
@@ -76,8 +112,12 @@ export class RegistroTurnosComponent {
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  constructor(private store: Store, public pdfreportService: PdfreportService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
     this.turnos$ = this.store.select(TurnoState.getTurnos);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
   }
   
   ngAfterViewInit() {
@@ -88,6 +128,11 @@ export class RegistroTurnosComponent {
   generarPDF() {
     const turnosSeleccionados = this.selection.selected;
     this.pdfreportService.turnospdf(turnosSeleccionados);
+  }
+
+  generarCSV() {
+    const turnosSeleccionados = this.selection.selected;
+    this.csvreportService.turnoscsv(turnosSeleccionados);
   }
   
   applyFilter(event: Event) {
