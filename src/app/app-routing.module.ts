@@ -75,6 +75,7 @@ import { GestionSucursalComponent } from './inventual/usermanagement/gestion-suc
 import { ContratoComponent } from './inventual/usermanagement/contrato/contrato.component';
 import { RegistroTurnosComponent } from './inventual/usermanagement/registro-turnos/registro-turnos.component';
 import { RegistroHorarioComponent } from './inventual/usermanagement/registro-horario/registro-horario.component';
+import { RegistroSalariosComponent } from './inventual/usermanagement/registro-salarios/registro-salarios.component';
 
 
 const routes: Routes = [ 
@@ -265,8 +266,12 @@ const routes: Routes = [
     component: DiscountlistComponent
   },
   {
-    path: 'salarios',
+    path: 'salarios/lista',
     component: SalaryhistoryComponent
+  },
+  {
+    path: 'salarios/registro',
+    component: RegistroSalariosComponent
   },
   {
     path: 'vacaciones/lista',

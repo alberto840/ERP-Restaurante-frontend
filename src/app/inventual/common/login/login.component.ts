@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         const status = response.data.usuario.estado;
         //this.tokendecoded = this.jwdecoder.decodeToken(response.data);
         this.guardarDatos(response.data.token, response.data.usuario.id, response.data.usuario.nombre, response.data.usuario.primerApellido, response.data.usuario.segundoApellido, response.data.usuario.rolesId, response.data.usuario.sucursalId);
-        this.router.navigate(['/salarios']);
+        this.router.navigate(['salarios/lista']);
       },
       error: (error) => {
         console.error('Error Login:', error);

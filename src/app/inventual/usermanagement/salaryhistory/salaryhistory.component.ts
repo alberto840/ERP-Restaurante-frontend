@@ -16,6 +16,9 @@ import { SalariosState } from '../../state-management/salario/salario.state';
 import { DeleteSalario, GetSalario } from '../../state-management/salario/salario.action';
 import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { GetDescuento } from '../../state-management/descuentos/descuento.action';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
+import { CsvreportService } from '../../services/reportes/csvreport.service';
 
 @Component({
   selector: 'app-salaryhistory',
@@ -50,11 +53,15 @@ export class SalaryhistoryComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private store: Store, public pdfreportService: PdfreportService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
     // Assign your data array to the data source
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
     this.descuentos$ = this.store.select(DiscountsState.getDiscounts);
     this.historialSalarios$ = this.store.select(SalariosState.getSalarios);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
   }
 
   generarPDF() {
@@ -67,6 +74,18 @@ export class SalaryhistoryComponent implements AfterViewInit {
       this.usuarioslist = usuarios;
     });
     this.pdfreportService.historialSalariospdf(salariosSeleccionados, this.usuarioslist, this.descuentoslist);
+  }
+
+  generarCSV() {
+    const salariosSeleccionados = this.selection.selected;
+
+    this.descuentos$.subscribe((descuentos: DescuentosModel[]) => {
+      this.descuentoslist = descuentos;
+    });
+    this.usuarios$.subscribe((usuarios: UsuarioModel[]) => {
+      this.usuarioslist = usuarios;
+    });
+    this.csvreportService.salariocsv(salariosSeleccionados, this.usuarioslist, this.descuentoslist);
   }
 
   ngAfterViewInit() {

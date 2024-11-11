@@ -34,7 +34,7 @@ export class SalarioService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put<ResponseModel<SalariosModel>>(`${this.baseUrl}/actualizar/${salario.id}`, salario, { headers });
+    return this.http.put<ResponseModel<SalariosModel>>(`${this.baseUrl}/${salario.id}`, salario, { headers });
   }
 
   deleteSalario(salarioId: number): Observable<ResponseModel<SalariosModel>> {

@@ -1,0 +1,83 @@
+<mat-dialog-content>
+    <div class="popup-body">
+        <div class="inventual-popup-inner">
+            <div class="inventual-popup-header relative mb-11">
+                <div class="inventual-popup-header-title">
+                    <h4 class="text-[20px] text-heading font-bold">Actualizar Contrato: {{data.contrato.identificador}}</h4>
+                </div>
+                <div class="inventual-popup-header-close absolute -top-4 ltr:-right-2.5 ltr:left-auto rtl:left-0 rtl:right-auto">
+                    <mat-dialog-actions>
+                        <div class="default-light-theme">
+                            <a href="javascript:void(0)" mat-dialog-close>
+                                <mat-icon>clear</mat-icon>
+                            </a>
+                        </div>
+                    </mat-dialog-actions>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
+                <div class="col-span-6 md:col-span-6 sm:col-span-12">
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Empleado</h5>
+                        <div class="inventual-select-field-style">
+                          <mat-form-field>
+                            <mat-select class="block" [placeholder]="'Selecionar Empleado'" class="form-control" id="usuariosId" [(ngModel)]="salario.usuariosId" name="usuariosId">
+                              <mat-option *ngFor="let usuario of usuarios$ | async" [value]="usuario.id">
+                                {{ usuario.nombre+" "+usuario.primerApellido+" "+usuario.segundoApellido }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Salario (Bs)</h5>
+                        <div class="inventual-input-field-style">
+                          <mat-form-field class="w-full" [floatLabel]="'always'">
+                            <mat-label class="hidden">00 000 000 000</mat-label>
+                            <input matInput [placeholder]="'Ej. 352'" type="text" class="form-control" id="salario" [(ngModel)]="salario.salario" name="salario">
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Salario (Bs)</h5>
+                        <div class="inventual-input-field-style">
+                          <mat-form-field class="w-full" [floatLabel]="'always'">
+                            <mat-label class="hidden">00 000 000 000</mat-label>
+                            <input matInput [placeholder]="'Ej. 352'" type="text" class="form-control" id="salario" [(ngModel)]="salario.salario" name="salario">
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha de Pago</h5>
+                        <div class="inventual-input-field-style">
+                          <mat-form-field class="w-full" [floatLabel]="'always'">
+                            <mat-label class="hidden">Elige tu fecha</mat-label>
+                            <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechapago" [(ngModel)]="salario.fechapago" name="fechapago">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>                
+                        </div>
+                    </div>
+                    <div class="inventual-select-field mb-7">
+                        <h5 class="text-[15px] text-heading font-semibold mb-3">Descuento</h5>
+                        <div class="inventual-select-field-style">
+                          <mat-form-field>
+                            <mat-select class="block" [placeholder]="'Selecionar Descuento'" class="form-control" id="descuentoId" [(ngModel)]="salario.descuentoId"  name="descuentoId">
+                              <mat-option *ngFor="let rol of descuentos$ | async" [value]="rol.id">
+                                {{ rol.tipoDescuento+' - '+rol.monto+" Bs ("+rol.justificacion+")" }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-12">
+                    <div class="inventual-material-btn pt-1.5 justify-end">
+                        <button type="submit" mat-raised-button color="primary" (click)="actualizarSalario()">Actualizar Contrato</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

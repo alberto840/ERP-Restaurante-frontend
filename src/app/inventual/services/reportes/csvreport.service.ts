@@ -7,6 +7,7 @@ import { TurnoModel } from '../../models/horarios.model';
 import { BonosModel } from '../../models/bonos.model';
 import { DescuentosModel } from '../../models/descuentos.model';
 import { VacacionesModel } from '../../models/vacaciones.model';
+import { SalariosModel } from '../../models/salarios.model';
 
 @Injectable({
   providedIn: 'root'
@@ -199,6 +200,35 @@ export class CsvreportService {
     const a = document.createElement('a');
     a.href = url;
     a.download = 'Reporte-Turnos.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+  
+  salariocsv(salarioslist: SalariosModel[], userlist: UsuarioModel[], descuentoslist: DescuentosModel[]) {
+    const headers = ['ID', 'Nombre', 'Fecha Pago', 'Descuento', 'Salario', 'Total'];
+  
+    const csvData = [
+      headers.join(','), // Encabezados
+      ...salarioslist.map(salario => {
+        const userSalario = userlist.find(user => user.id === salario.usuariosId);
+        const descuentoSalrio = descuentoslist.find(descuento => descuento.id === salario.descuentoId);
+  
+        return [
+          salario.descuentoId,
+          userSalario ? userSalario.nombre : 'Sin Usuario',
+          salario.fechapago.toString(),
+          descuentoSalrio ? descuentoSalrio.monto : 'Sin Descuento',
+          salario.salario.toString(),
+          descuentoSalrio ? (salario.salario - descuentoSalrio.monto) : salario.salario,
+        ].join(',')
+      })
+    ].join('\n');
+  
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Reporte-Salarios.csv';
     a.click();
     window.URL.revokeObjectURL(url);
   }

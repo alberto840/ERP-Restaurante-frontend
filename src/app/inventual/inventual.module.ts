@@ -177,6 +177,8 @@ import { VacacionEditComponent } from './common/dialogs/vacacion-edit/vacacion-e
 import { DescuentoEditComponent } from './common/dialogs/descuento-edit/descuento-edit.component';
 import { BonoEditComponent } from './common/dialogs/bono-edit/bono-edit.component';
 import { TurnoEditComponent } from './common/dialogs/turno-edit/turno-edit.component';
+import { RegistroSalariosComponent } from './usermanagement/registro-salarios/registro-salarios.component';
+import { SalarioEditComponent } from './common/dialogs/salario-edit/salario-edit.component';
 
 @NgModule({
   imports: [
@@ -351,6 +353,8 @@ import { TurnoEditComponent } from './common/dialogs/turno-edit/turno-edit.compo
     DescuentoEditComponent,
     BonoEditComponent,
     TurnoEditComponent,
+    RegistroSalariosComponent,
+    SalarioEditComponent,
   ],
 })
 export class InventualModule {}

@@ -14,6 +14,8 @@ import { BonosModel } from '../../models/bonos.model';
 import { BonoEditComponent } from '../../common/dialogs/bono-edit/bono-edit.component';
 import { TurnoModel } from '../../models/horarios.model';
 import { TurnoEditComponent } from '../../common/dialogs/turno-edit/turno-edit.component';
+import { SalariosModel } from '../../models/salarios.model';
+import { SalarioEditComponent } from '../../common/dialogs/salario-edit/salario-edit.component';
 
 export interface DialogData {
   sucursal: SucursalModel;
@@ -23,6 +25,7 @@ export interface DialogData {
   descuento: DescuentosModel;
   bono: BonosModel;
   turno: TurnoModel;
+  salario: SalariosModel;
 }
 
 @Injectable({
@@ -85,6 +88,14 @@ export class DialogsService {
     this.dialog.open(TurnoEditComponent, {
       data: {
         turno: turno
+      },
+    });
+  }
+
+  actualizarSalario(salario: SalariosModel): void {
+    this.dialog.open(SalarioEditComponent, {
+      data: {
+        salario: salario
       },
     });
   }
