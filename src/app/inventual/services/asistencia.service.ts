@@ -9,48 +9,37 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AsistenciaService {
-  private baseUrl = environment.apiUrl+'api/v1/asistencia';
+  private baseUrl = environment.apiUrl+'api/registros';
 
   constructor(private http: HttpClient) {}
   
   // Obtener todas las asistencias
-  getAllAsistencias(): Observable<ResponseModel<AsistenciaModel[]>> {
+  getAllAsistencias(): Observable<AsistenciaModel[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.get<ResponseModel<AsistenciaModel[]>>(`${this.baseUrl}`, { headers });
+    return this.http.get<AsistenciaModel[]>(`${this.baseUrl}/all`, { headers });
   }
   
-  // Agregar una nueva asistencia
-  addAsistencia(asistencia: any): Observable<ResponseModel<AsistenciaModel>> {
+  // Obtener todas las asistencias
+  getAllAsistenciasUsuario(usuarioId: number): Observable<AsistenciaModel[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.post<ResponseModel<AsistenciaModel>>(`${this.baseUrl}/crear`, asistencia, { headers });
+    return this.http.get<AsistenciaModel[]>(`${this.baseUrl}/usuario/${usuarioId}`, { headers });
   }
   
-  // Actualizar una asistencia
-  updateAsistencia(asistencia: any): Observable<ResponseModel<AsistenciaModel>> {
+  // Obtener todas las asistencias
+  getAllAsistenciasFecha(fecha: Date): Observable<AsistenciaModel[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.put<ResponseModel<AsistenciaModel>>(`${this.baseUrl}/actualizar/${asistencia.id}`, asistencia, { headers });
+    return this.http.get<AsistenciaModel[]>(`${this.baseUrl}/fecha/${fecha.toString()}`, { headers });
   }
-  
-  // Eliminar una asistencia
-  deleteAsistencia(asistenciaId: number): Observable<ResponseModel<AsistenciaModel>> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  
-    return this.http.delete<ResponseModel<AsistenciaModel>>(`${this.baseUrl}/eliminar/${asistenciaId}`, { headers });
-  }
-  
 }
