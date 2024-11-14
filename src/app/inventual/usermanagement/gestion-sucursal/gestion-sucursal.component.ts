@@ -12,6 +12,7 @@ import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 @Component({
   selector: 'app-gestion-sucursal',
@@ -90,7 +91,7 @@ export class GestionSucursalComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public permisosAppService: PermisosAppService) {
     this.sucursales$ = this.store.select(SucursalState.getSucursales);
   }
   

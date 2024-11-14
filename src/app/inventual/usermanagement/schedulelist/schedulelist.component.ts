@@ -17,6 +17,7 @@ import { ContratoState } from '../../state-management/contrato/contrato.state';
 import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { GetTurno } from '../../state-management/turno/turno.action';
 import { GetHorario } from '../../state-management/horario/horario.action';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 @Component({
   selector: 'app-schedulelist',
@@ -58,7 +59,7 @@ export class SchedulelistComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private store: Store, public pdfreportService: PdfreportService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, public permisosAppService: PermisosAppService) {
     // Assign your data array to the data source
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
     this.horarios$ = this.store.select(HorarioState.getHorarios);

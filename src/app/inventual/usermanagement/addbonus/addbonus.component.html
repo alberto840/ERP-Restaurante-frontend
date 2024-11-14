@@ -29,39 +29,41 @@
         </div>
       </div>
     </div>
-    <div class="inventual-content-area px-7">
-      <div class="inventual-addsupplier-area bg-white p-7 custom-shadow rounded-8 mb-5">
-        <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
-          <div class="col-span-4 md:col-span-6 sm:col-span-12">
-            <div class="inventual-select-field mb-5">
-              <h5 class="text-[15px] text-heading font-semibold mb-3">Nombre Bono</h5>
-              <div class="inventual-input-field-style">
-                  <mat-form-field class="w-full" [floatLabel]="'always'">
-                    <mat-label class="hidden">Llego tarde</mat-label>
-                    <input matInput [placeholder]="'Ej. Bono Navidad'" class="form-control" id="nombre" [(ngModel)]="bono.nombre" name="nombre">
-                  </mat-form-field>
+    <ng-template [ngIf]="permisosAppService.findAccess(19)">
+      <div class="inventual-content-area px-7">
+        <div class="inventual-addsupplier-area bg-white p-7 custom-shadow rounded-8 mb-5">
+          <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
+            <div class="col-span-4 md:col-span-6 sm:col-span-12">
+              <div class="inventual-select-field mb-5">
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Nombre Bono</h5>
+                <div class="inventual-input-field-style">
+                    <mat-form-field class="w-full" [floatLabel]="'always'">
+                      <mat-label class="hidden">Llego tarde</mat-label>
+                      <input matInput [placeholder]="'Ej. Bono Navidad'" class="form-control" id="nombre" [(ngModel)]="bono.nombre" name="nombre">
+                    </mat-form-field>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-span-4 md:col-span-6 sm:col-span-12">
-            <div class="inventual-select-field mb-5">
-              <h5 class="text-[15px] text-heading font-semibold mb-3">Monto (Bs)</h5>
-              <div class="inventual-input-field-style">
-                  <mat-form-field class="w-full" [floatLabel]="'always'">
-                    <mat-label class="hidden">Cumplio 1 año</mat-label>
-                    <input matInput [placeholder]="'9999'" type="number" class="form-control" id="monto" [(ngModel)]="bono.monto" name="monto">
-                  </mat-form-field>
+            <div class="col-span-4 md:col-span-6 sm:col-span-12">
+              <div class="inventual-select-field mb-5">
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Monto (Bs)</h5>
+                <div class="inventual-input-field-style">
+                    <mat-form-field class="w-full" [floatLabel]="'always'">
+                      <mat-label class="hidden">Cumplio 1 año</mat-label>
+                      <input matInput [placeholder]="'9999'" type="number" class="form-control" id="monto" [(ngModel)]="bono.monto" name="monto">
+                    </mat-form-field>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-span-12">
-            <div class="inventual-material-btn pt-2.5 justify-end">         
-              <button mat-raised-button color="primary" (click)="agregarBono()">Registrar Bono</button>     
+            <div class="col-span-12">
+              <div class="inventual-material-btn pt-2.5 justify-end">         
+                <button mat-raised-button color="primary" (click)="agregarBono()">Registrar Bono</button>     
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </ng-template>
     <div class="inventual-copyright-area pt-28 xl:pt-0 lg:pt-0 md:pt-0 sm:pt-0">
       <app-copyright></app-copyright>
     </div>

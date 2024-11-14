@@ -6,6 +6,7 @@ import { Store } from '@ngxs/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 @Component({
   selector: 'app-addbonus',
@@ -50,11 +51,11 @@ export class AddbonusComponent implements OnInit {
     
     this.store.dispatch(new AddBono(this.bono)).subscribe({
       next: () => {
-        this.openSnackBar('Bono actualizado correctamente', 'Cerrar');
+        this.openSnackBar('Bono creado correctamente', 'Cerrar');
       },
       error: (error) => {
-        console.error('Error al actualizar Bono:', error);
-        this.openSnackBar('No se pudo actualizar Bono', 'Cerrar');
+        console.error('Error al crear Bono:', error);
+        this.openSnackBar('No se pudo crear Bono', 'Cerrar');
       }
     });
     this.bono = {
@@ -72,7 +73,7 @@ export class AddbonusComponent implements OnInit {
   
   hide = true;
   
-    constructor(private store: Store, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
+    constructor(private store: Store, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public permisosAppService: PermisosAppService) {
     }
   
     ngOnInit(): void {

@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 @Component({
   selector: 'app-adduser',
@@ -136,7 +137,7 @@ export class AdduserComponent implements OnInit {
   
   hide = true;
   
-  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public permisosAppService: PermisosAppService) {
       this.roles$ = this.store.select(RolesState.getRoles);
       this.sucursales$ = this.store.select(SucursalState.getSucursales);
     }

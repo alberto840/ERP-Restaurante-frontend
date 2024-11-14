@@ -16,6 +16,7 @@ import { SucursalModel } from '../../models/sucursal.model';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 @Component({
   selector: 'app-contrato',
@@ -101,7 +102,7 @@ export class ContratoComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public permisosAppService: PermisosAppService) {
     this.contratos$ = this.store.select(ContratoState.getContratos);
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
   }

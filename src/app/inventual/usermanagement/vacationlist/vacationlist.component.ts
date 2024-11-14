@@ -16,6 +16,7 @@ import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class VacationlistComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public permisosAppService: PermisosAppService) {
     // Assign your data array to the data source
     this.vacaciones$ = this.store.select(VacacionesState.getVacaciones);
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);

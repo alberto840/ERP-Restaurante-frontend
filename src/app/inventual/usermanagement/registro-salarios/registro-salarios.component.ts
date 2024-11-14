@@ -13,6 +13,7 @@ import { Store } from '@ngxs/store';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 @Component({
   selector: 'app-registro-salarios',
@@ -94,7 +95,7 @@ export class RegistroSalariosComponent implements OnInit {
   
   hide = true;
   
-  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public permisosAppService: PermisosAppService) {
       this.descuentos$ = this.store.select(DiscountsState.getDiscounts);
       this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
     }

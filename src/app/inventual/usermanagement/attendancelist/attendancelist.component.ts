@@ -21,6 +21,7 @@ import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { EmpleadosState } from '../../state-management/empleado/empleado.state';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 @Component({
   selector: 'app-attendancelist',
@@ -51,7 +52,7 @@ export class AttendancelistComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public permisosAppService: PermisosAppService) {
     // Assign your data array to the data source
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
     this.asistencias$ = this.store.select(AsistenciaState.getAsistencias);

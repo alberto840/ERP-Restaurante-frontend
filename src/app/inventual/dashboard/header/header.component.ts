@@ -121,5 +121,7 @@ prodropdown(){
     this.roles$.subscribe((roles) => {
       this.roles = roles;
     });
+    this.nombreCompleto = localStorage.getItem('nombre') + ' ' + localStorage.getItem('primerApellido');
+    this.rol = localStorage.getItem('rol');
   }
 }

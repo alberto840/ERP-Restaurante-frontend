@@ -13,6 +13,7 @@ import { DateTime } from 'luxon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 export interface Days {
   id: number;
@@ -167,7 +168,7 @@ export class RegistroTurnosComponent {
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public permisosAppService: PermisosAppService) {
     this.turnos$ = this.store.select(TurnoState.getTurnos);
   }
 

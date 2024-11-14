@@ -29,103 +29,105 @@
                 </div>
             </div>
         </div>
-        <div class="inventual-content-area px-7">
-            <div class="inventual-common-material-table bg-white p-7 custom-shadow rounded-8 mb-5">
-                <div class="inventual-table-header-search-area">
-                    <div class="grid grid-cols-12 gap-5 mb-7 pb-0.5">
-                        <div class="col-span-5 md:col-span-6 sm:col-span-12">
-                            <div class="inventual-select-field">
-                                <div class="inventual-input-field-style">
-                                    <mat-form-field class="w-full" [floatLabel]="'always'">
-                                        <mat-label class="hidden">Filtrar</mat-label>
-                                        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Asistencia" #input>
-                                    </mat-form-field>
+        <ng-template [ngIf]="permisosAppService.findAccess(10)">
+            <div class="inventual-content-area px-7">
+                <div class="inventual-common-material-table bg-white p-7 custom-shadow rounded-8 mb-5">
+                    <div class="inventual-table-header-search-area">
+                        <div class="grid grid-cols-12 gap-5 mb-7 pb-0.5">
+                            <div class="col-span-5 md:col-span-6 sm:col-span-12">
+                                <div class="inventual-select-field">
+                                    <div class="inventual-input-field-style">
+                                        <mat-form-field class="w-full" [floatLabel]="'always'">
+                                            <mat-label class="hidden">Filtrar</mat-label>
+                                            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Asistencia" #input>
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-span-7 md:col-span-6 sm:col-span-12">
-                            <div class="inventual-table-header-search-action-btn text-end sm:text-start">
-                                <button type="button" class="pdf" (click)="generarPDF()">
-                                    <app-pdf-icon></app-pdf-icon>
-                                </button>
-                                <button type="button" class="csv" (click)="generarCSV()">
-                                    <app-csv-icon></app-csv-icon>
-                                </button>
+                            <div class="col-span-7 md:col-span-6 sm:col-span-12">
+                                <div class="inventual-table-header-search-action-btn text-end sm:text-start">
+                                    <button type="button" class="pdf" (click)="generarPDF()">
+                                        <app-pdf-icon></app-pdf-icon>
+                                    </button>
+                                    <button type="button" class="csv" (click)="generarCSV()">
+                                        <app-csv-icon></app-csv-icon>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="inventual-common-table">
-                    <table mat-table [dataSource]="dataSource" matSort>
-
-                        <!-- Checkbox Column -->
-                        <ng-container matColumnDef="select">
-                            <th mat-header-cell *matHeaderCellDef>
-                                <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                                    [checked]="selection.hasValue() && isAllSelected()"
-                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                    [aria-label]="checkboxLabel()">
-                                </mat-checkbox>
-                            </th>
-                            <td mat-cell *matCellDef="let row">
-                                <mat-checkbox (click)="$event.stopPropagation()"
-                                    (change)="$event ? selection.toggle(row) : null"
-                                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                                </mat-checkbox>
-                            </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="usuarioId">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Empleado </th>
-                            <td mat-cell *matCellDef="let row"> {{getUserName(row.usuarioId)}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="retraso">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Retraso </th>
-                            <td mat-cell *matCellDef="let row">
-                                <div>
-                                    <span *ngIf="row.retraso === true"
-                                        class="badge-stroke badge-warning">Atrasado</span>
-                                    <span *ngIf="row.retraso === false"
-                                        class="badge-stroke badge-success">A tiempo</span>
-                                </div>
-                            </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="horaMarcada">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Marcada </th>
-                            <td mat-cell *matCellDef="let row"> {{row.horaMarcada}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="fecha">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-                            <td mat-cell *matCellDef="let row"> {{row.fecha}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="tipoMarcado">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Marcado </th>
-                            <td mat-cell *matCellDef="let row"> {{row.tipoMarcado}} </td>
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
-                        </tr>
-
-                        <!-- Row shown when there is no matching data. -->
-                        <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="8">
-                                <div class="table-data-not-found">
-                                    <p>No data matching the filter "{{input.value}}"</p>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                    <div class="inventual-common-table">
+                        <table mat-table [dataSource]="dataSource" matSort>
+    
+                            <!-- Checkbox Column -->
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                                        [checked]="selection.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                        [aria-label]="checkboxLabel()">
+                                    </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                        (change)="$event ? selection.toggle(row) : null"
+                                        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="usuarioId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Empleado </th>
+                                <td mat-cell *matCellDef="let row"> {{getUserName(row.usuarioId)}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="retraso">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Retraso </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <div>
+                                        <span *ngIf="row.retraso === true"
+                                            class="badge-stroke badge-warning">Atrasado</span>
+                                        <span *ngIf="row.retraso === false"
+                                            class="badge-stroke badge-success">A tiempo</span>
+                                    </div>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="horaMarcada">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Marcada </th>
+                                <td mat-cell *matCellDef="let row"> {{row.horaMarcada}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="fecha">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                                <td mat-cell *matCellDef="let row"> {{row.fecha}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="tipoMarcado">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Marcado </th>
+                                <td mat-cell *matCellDef="let row"> {{row.tipoMarcado}} </td>
+                            </ng-container>
+    
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+                            </tr>
+    
+                            <!-- Row shown when there is no matching data. -->
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="8">
+                                    <div class="table-data-not-found">
+                                        <p>No data matching the filter "{{input.value}}"</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+    
+                        <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                    </div>
                 </div>
             </div>
-        </div>
+        </ng-template>
         <div class="inventual-copyright-area">
             <app-copyright></app-copyright>
         </div>

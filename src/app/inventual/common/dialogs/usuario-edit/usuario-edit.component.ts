@@ -77,10 +77,6 @@ export class UsuarioEditComponent implements OnInit {
       this.openSnackBar('El correo tiene que estar entre 3 y 150 caracteres', 'Cerrar');
       return;
     }
-    if (this.user.password.length < 3 || this.user.password.length > 50) {
-      this.openSnackBar('El Password tiene que estar entre 3 y 150 caracteres', 'Cerrar');
-      return;
-    }
     if (this.user.direccion.length < 3 || this.user.direccion.length > 50) {
       this.openSnackBar('La dirección tiene que estar entre 3 y 150 caracteres', 'Cerrar');
       return;

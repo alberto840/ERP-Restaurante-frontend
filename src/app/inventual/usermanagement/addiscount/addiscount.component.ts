@@ -10,6 +10,7 @@ import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 @Component({
   selector: 'app-addiscount',
@@ -76,7 +77,7 @@ export class AddiscountComponent implements OnInit {
   
   hide = true;
   
-    constructor(private store: Store, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService) {
+    constructor(private store: Store, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public permisosAppService: PermisosAppService) {
       this.users$ = this.store.select(EmpleadosState.getEmpleados);
     }
   

@@ -72,19 +72,6 @@
                         </div>
                     </div>
                     <div class="inventual-select-field mb-7">
-                        <h5 class="text-[15px] text-heading font-semibold mb-3">Password</h5>
-                        <div class="inventual-input-field-style inventual-input-field-style-eye">
-                          <mat-form-field appearance="fill">
-                            <mat-label class="hidden">Enter your password</mat-label>
-                            <input matInput [type]="hide ? 'password' : 'text'" type="text" class="form-control" id="password" [(ngModel)]="user.password" name="password">
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                              [attr.aria-pressed]="hide">
-                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                            </button>
-                          </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="inventual-select-field mb-7">
                         <h5 class="text-[15px] text-heading font-semibold mb-3">Rol</h5>
                         <div class="inventual-select-field-style">
                           <mat-form-field>

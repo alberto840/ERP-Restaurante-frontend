@@ -2,21 +2,6 @@ import { INavbarData } from './helper';
 
 export const navbarData: INavbarData[] = [
   {
-    routeLink: 'salarios',
-    icon: 'fal fa-file-invoice-dollar',
-    label: 'Salarios',
-    items: [
-      {
-        routeLink: '/salarios/registro',
-        label: 'Registrar Salario',
-      },
-      {
-        routeLink: '/salarios/lista',
-        label: 'Lista de Salarios',
-      },
-    ],
-  },
-  {
     routeLink: '/sucursales',
     icon: 'fal fa-file-invoice-dollar',
     label: 'Sucursales',
@@ -46,6 +31,21 @@ export const navbarData: INavbarData[] = [
       {
         routeLink: '/empleados/asistencia',
         label: 'Control de Asistencia x',
+      },
+    ],
+  },
+  {
+    routeLink: 'salarios',
+    icon: 'fal fa-file-invoice-dollar',
+    label: 'Salarios',
+    items: [
+      {
+        routeLink: '/salarios/registro',
+        label: 'Registrar Salario',
+      },
+      {
+        routeLink: '/salarios/lista',
+        label: 'Lista de Salarios',
       },
     ],
   },

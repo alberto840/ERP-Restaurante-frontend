@@ -8,6 +8,7 @@ import { EmpleadosState } from '../../state-management/empleado/empleado.state';
 import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { TurnoState } from '../../state-management/turno/turno.state';
 import { GetTurno } from '../../state-management/turno/turno.action';
+import { PermisosAppService } from '../../services/permisos-app.service';
 
 @Component({
   selector: 'app-registro-horario',
@@ -52,7 +53,7 @@ export class RegistroHorarioComponent implements OnInit {
   
   hide = true;
   
-    constructor(private store: Store) {
+    constructor(private store: Store, public permisosAppService: PermisosAppService) {
       this.users$ = this.store.select(EmpleadosState.getEmpleados);
       this.turnos$ = this.store.select(TurnoState.getTurnos);
     }

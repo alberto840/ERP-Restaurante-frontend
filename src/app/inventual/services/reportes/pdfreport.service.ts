@@ -233,9 +233,9 @@ export class PdfreportService {
         salario.id,
         userSalario ? userSalario.nombre : 'Sin Usuario',
         salario.fechapago.toString(),
-        descuentoSalrio ? descuentoSalrio.monto : 'Sin Descuento',
-        salario.salario.toString(),
-        descuentoSalrio ? (salario.salario - descuentoSalrio.monto) : salario.salario,
+        descuentoSalrio ? descuentoSalrio.monto+" Bs." : 'Sin Descuento',
+        salario.salario.toString()+" Bs.",
+        descuentoSalrio ? (salario.salario - descuentoSalrio.monto)+" Bs." : salario.salario,
       ];
     });
 

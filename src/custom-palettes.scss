@@ -473,11 +473,12 @@
 @mixin inventualMaterialTableStyle {
   .inventual-common-table {
     @apply overflow-x-auto cursor-grab;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    // Quitar las siguientes propiedades para mostrar el scrollbar:
+    // -ms-overflow-style: none;
+    // scrollbar-width: none;
+    // &::-webkit-scrollbar {
+    //   display: none;
+    // }
     table.mdc-data-table__table {
         @apply border bg-white border-border border-solid xxl:min-w-[1290px] w-full;
         th {

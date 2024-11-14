@@ -29,75 +29,77 @@
           </div>
         </div>
       </div>
-      <div class="inventual-content-area px-7">
-        <div class="inventual-addsupplier-area bg-white p-7 custom-shadow rounded-8 mb-5">
-          <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
-              <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Usuario</h5>
-                <div class="inventual-select-field-style">
-                  <mat-form-field>
-                    <mat-select class="block" [placeholder]="'Selecionar Usuario'" class="form-control" id="usuariosId" [(ngModel)]="salario.usuariosId"  name="usuariosId">
-                      <mat-option *ngFor="let rol of usuarios$ | async" [value]="rol.id">
-                        {{ rol.nombre+' '+rol.primerApellido+' '+rol.segundoApellido }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+      <ng-template [ngIf]="permisosAppService.findAccess(27)">
+        <div class="inventual-content-area px-7">
+          <div class="inventual-addsupplier-area bg-white p-7 custom-shadow rounded-8 mb-5">
+            <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
+              <div class="col-span-4 md:col-span-6 sm:col-span-12">
+                <div class="inventual-select-field mb-5">
+                  <h5 class="text-[15px] text-heading font-semibold mb-3">Usuario</h5>
+                  <div class="inventual-select-field-style">
+                    <mat-form-field>
+                      <mat-select class="block" [placeholder]="'Selecionar Usuario'" class="form-control" id="usuariosId" [(ngModel)]="salario.usuariosId"  name="usuariosId">
+                        <mat-option *ngFor="let rol of usuarios$ | async" [value]="rol.id">
+                          {{ rol.nombre+' '+rol.primerApellido+' '+rol.segundoApellido }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
-              <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Salario (Bs)</h5>
-                <div class="inventual-input-field-style">
-                  <mat-form-field class="w-full" [floatLabel]="'always'">
-                    <mat-label class="hidden">00 000 000 000</mat-label>
-                    <input matInput [placeholder]="'Ej. 352'" type="text" class="form-control" id="salario" [(ngModel)]="salario.salario" name="salario">
-                  </mat-form-field>
+              <div class="col-span-4 md:col-span-6 sm:col-span-12">
+                <div class="inventual-select-field mb-5">
+                  <h5 class="text-[15px] text-heading font-semibold mb-3">Salario (Bs)</h5>
+                  <div class="inventual-input-field-style">
+                    <mat-form-field class="w-full" [floatLabel]="'always'">
+                      <mat-label class="hidden">00 000 000 000</mat-label>
+                      <input matInput [placeholder]="'Ej. 352'" type="text" class="form-control" id="salario" [(ngModel)]="salario.salario" name="salario">
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
-              <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha de Pago</h5>
-                <div class="inventual-input-field-style">
-                  <mat-form-field class="w-full" [floatLabel]="'always'">
-                    <mat-label class="hidden">Elige tu fecha</mat-label>
-                    <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechapago" [(ngModel)]="salario.fechapago" name="fechapago">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>                
+              <div class="col-span-4 md:col-span-6 sm:col-span-12">
+                <div class="inventual-select-field mb-5">
+                  <h5 class="text-[15px] text-heading font-semibold mb-3">Fecha de Pago</h5>
+                  <div class="inventual-input-field-style">
+                    <mat-form-field class="w-full" [floatLabel]="'always'">
+                      <mat-label class="hidden">Elige tu fecha</mat-label>
+                      <input matInput [matDatepicker]="picker" [placeholder]="'MM/DD/YYYY'" class="form-control" id="fechapago" [(ngModel)]="salario.fechapago" name="fechapago">
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>                
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
-              <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Descuento</h5>
-                <div class="inventual-select-field-style">
-                  <mat-form-field>
-                    <mat-select class="block" [placeholder]="'Selecionar Descuento'" class="form-control" id="descuentoId" [(ngModel)]="salario.descuentoId"  name="descuentoId">
-                      <mat-option *ngFor="let rol of descuentos$ | async" [value]="rol.id">
-                        {{ rol.tipoDescuento+' - '+rol.monto+" Bs ("+rol.justificacion+")" }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+              <div class="col-span-4 md:col-span-6 sm:col-span-12">
+                <div class="inventual-select-field mb-5">
+                  <h5 class="text-[15px] text-heading font-semibold mb-3">Descuento</h5>
+                  <div class="inventual-select-field-style">
+                    <mat-form-field>
+                      <mat-select class="block" [placeholder]="'Selecionar Descuento'" class="form-control" id="descuentoId" [(ngModel)]="salario.descuentoId"  name="descuentoId">
+                        <mat-option *ngFor="let rol of descuentos$ | async" [value]="rol.id">
+                          {{ rol.tipoDescuento+' - '+rol.monto+" Bs ("+rol.justificacion+")" }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-span-12">
-              <div class="inventual-material-btn pt-2.5 justify-end">              
-                <ng-template [ngIf]="!checked">                
-                  <button mat-raised-button color="primary" (click)="agregarSalario()">Registrar Pago</button>
-                </ng-template>
-                <ng-template [ngIf]="checked">                
-                  <button mat-raised-button color="primary">Registrar Empleado</button>
-                </ng-template>
+              <div class="col-span-12">
+                <div class="inventual-material-btn pt-2.5 justify-end">              
+                  <ng-template [ngIf]="!checked">                
+                    <button mat-raised-button color="primary" (click)="agregarSalario()">Registrar Pago</button>
+                  </ng-template>
+                  <ng-template [ngIf]="checked">                
+                    <button mat-raised-button color="primary">Registrar Empleado</button>
+                  </ng-template>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </ng-template>
       <div class="inventual-copyright-area pt-28 xl:pt-0 lg:pt-0 md:pt-0 sm:pt-0">
         <app-copyright></app-copyright>
       </div>

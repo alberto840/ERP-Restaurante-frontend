@@ -29,63 +29,187 @@
                 </div>
             </div>
         </div>
-        <div class="inventual-content-area px-7">
-            <div class="inventual-unit-area bg-white p-7 custom-shadow rounded-8 mb-5">
-                <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
-                    <div class="col-span-4 md:col-span-12 sm:col-span-12">
-                        <div class="inventual-unit-content">
-                            <div class="inventual-select-field mb-7">
-                                <h5 class="text-[15px] text-heading font-semibold mb-3">Nombre</h5>
-                                <div class="inventual-input-field-style">
-                                    <mat-form-field class="w-full" [floatLabel]="'always'">
-                                        <mat-label class="hidden">Kilogram</mat-label>
-                                        <input matInput [placeholder]="'Ej. Turno tarde'" type="text" class="form-control" id="nombre" [(ngModel)]="turno.nombre" name="nombre">
-                                    </mat-form-field>
+        <ng-template [ngIf]="permisosAppService.findAccess(25) || permisosAppService.findAccess(26)">
+            <div class="inventual-content-area px-7">
+                <div class="inventual-unit-area bg-white p-7 custom-shadow rounded-8 mb-5">
+                    <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
+                        <div class="col-span-4 md:col-span-12 sm:col-span-12">
+                            <div class="inventual-unit-content">
+                                <div class="inventual-select-field mb-7">
+                                    <h5 class="text-[15px] text-heading font-semibold mb-3">Nombre</h5>
+                                    <div class="inventual-input-field-style">
+                                        <mat-form-field class="w-full" [floatLabel]="'always'">
+                                            <mat-label class="hidden">Kilogram</mat-label>
+                                            <input matInput [placeholder]="'Ej. Turno tarde'" type="text" class="form-control" id="nombre" [(ngModel)]="turno.nombre" name="nombre">
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="inventual-unit-content">
-                            <div class="inventual-select-field mb-7">
-                                <h5 class="text-[15px] text-heading font-semibold mb-3">Descripcion</h5>
-                                <div class="inventual-input-field-style">
-                                    <mat-form-field class="w-full" [floatLabel]="'always'">
-                                        <mat-label class="hidden">Kilogram</mat-label>
-                                        <input matInput [placeholder]="'Ej. Horario medio tiempo tarde'" type="text" class="form-control" id="descripcion" [(ngModel)]="turno.descripcion" name="descripcion">
-                                    </mat-form-field>
+                            <div class="inventual-unit-content">
+                                <div class="inventual-select-field mb-7">
+                                    <h5 class="text-[15px] text-heading font-semibold mb-3">Descripcion</h5>
+                                    <div class="inventual-input-field-style">
+                                        <mat-form-field class="w-full" [floatLabel]="'always'">
+                                            <mat-label class="hidden">Kilogram</mat-label>
+                                            <input matInput [placeholder]="'Ej. Horario medio tiempo tarde'" type="text" class="form-control" id="descripcion" [(ngModel)]="turno.descripcion" name="descripcion">
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-span-4 md:col-span-6 sm:col-span-12">
+                              <div class="inventual-select-field mb-5">
+                                <h5 class="text-[15px] text-heading font-semibold mb-3">Dia</h5>
+                                <div class="inventual-common-table">
+                                    <table class="!min-w-full" mat-table [dataSource]="dataSourceDay" matSort>
+        
+                                        <!-- Checkbox Column -->
+                                        <ng-container matColumnDef="select">
+                                            <th mat-header-cell *matHeaderCellDef>
+                                                <mat-checkbox (change)="$event ? toggleAllRowsDay() : null"
+                                                    [checked]="selectionDay.hasValue() && isAllSelectedDay()"
+                                                    [indeterminate]="selectionDay.hasValue() && !isAllSelectedDay()"
+                                                    [aria-label]="checkboxLabelDay()">
+                                                </mat-checkbox>
+                                            </th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <mat-checkbox (click)="$event.stopPropagation()"
+                                                    (change)="$event ? selectionDay.toggle(row) : null"
+                                                    [checked]="selectionDay.isSelected(row)" [aria-label]="checkboxLabelDay(row)">
+                                                </mat-checkbox>
+                                            </td>
+                                        </ng-container>
+        
+                                        <ng-container matColumnDef="day">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Todos los Dias</th>
+                                            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+                                        </ng-container>
+        
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsDay"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsDay;"
+                                            (click)="selectionDay.toggle(row)">
+                                        </tr>
+        
+                                        <!-- Row shown when there is no matching data. -->
+                                        <tr class="mat-row" *matNoDataRow>
+                                            <td class="mat-cell" colspan="4">
+                                                <div class="table-data-not-found">
+                                                    <p>No data found</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="inventual-unit-content">
+                                <div class="inventual-select-field mb-5">
+                                  <h5 class="text-[15px] text-heading font-semibold mb-3">Hora Inicial</h5>
+                                  <div class="inventual-input-field-style">        
+                                    <input placeholder="Ingrese Hora de Ingreso" aria-label="Ingrese Hora de Ingreso"
+                                        [ngxTimepicker]="appendedToInput" [format]="24" readonly class="form-control" id="horaInicio" [(ngModel)]="turno.horaInicio" name="horaInicio">
+                                    <ngx-material-timepicker #appendedToInput
+                                        [appendToInput]="true"></ngx-material-timepicker>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="inventual-unit-content">
+                                <div class="inventual-select-field mb-5">
+                                  <h5 class="text-[15px] text-heading font-semibold mb-3">Hora Final</h5>
+                                  <div class="inventual-input-field-style">
+                                    <input placeholder="Ingrese Hora de Salida" aria-label="Ingrese Hora de Salida"
+                                        [ngxTimepicker]="appendedToInput2" [format]="24" readonly class="form-control" id="horaFin" [(ngModel)]="turno.horaFin" name="horaFin">
+                                    <ngx-material-timepicker #appendedToInput2
+                                        [appendToInput]="true"></ngx-material-timepicker>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="inventual-material-btn mb-7">
+                                <button mat-raised-button color="primary" class="mb-1" (click)="agregarTurno()">
+                                    Crear Turno
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-span-4 md:col-span-6 sm:col-span-12">
-                          <div class="inventual-select-field mb-5">
-                            <h5 class="text-[15px] text-heading font-semibold mb-3">Dia</h5>
+                        <div class="col-span-8 md:col-span-12 sm:col-span-12">
                             <div class="inventual-common-table">
-                                <table class="!min-w-full" mat-table [dataSource]="dataSourceDay" matSort>
+                                <table class="!min-w-full" mat-table [dataSource]="dataSource" matSort>
     
                                     <!-- Checkbox Column -->
                                     <ng-container matColumnDef="select">
                                         <th mat-header-cell *matHeaderCellDef>
-                                            <mat-checkbox (change)="$event ? toggleAllRowsDay() : null"
-                                                [checked]="selectionDay.hasValue() && isAllSelectedDay()"
-                                                [indeterminate]="selectionDay.hasValue() && !isAllSelectedDay()"
-                                                [aria-label]="checkboxLabelDay()">
+                                            <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                                                [checked]="selection.hasValue() && isAllSelected()"
+                                                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                                [aria-label]="checkboxLabel()">
                                             </mat-checkbox>
                                         </th>
                                         <td mat-cell *matCellDef="let row">
                                             <mat-checkbox (click)="$event.stopPropagation()"
-                                                (change)="$event ? selectionDay.toggle(row) : null"
-                                                [checked]="selectionDay.isSelected(row)" [aria-label]="checkboxLabelDay(row)">
+                                                (change)="$event ? selection.toggle(row) : null"
+                                                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
                                             </mat-checkbox>
                                         </td>
                                     </ng-container>
     
-                                    <ng-container matColumnDef="day">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Todos los Dias</th>
-                                        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+                                    <ng-container matColumnDef="nombre">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Turno </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
                                     </ng-container>
     
-                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsDay"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsDay;"
-                                        (click)="selectionDay.toggle(row)">
+                                    <ng-container matColumnDef="descripcion">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="horaInicio">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Inicio </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.horaInicio | date:'HH:mm'}}</td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="horaFin">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Fin </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.horaFin | date:'HH:mm'}}</td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="dia">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dia </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.dia}} </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="action">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <button matTooltip="Reporte PDF" type="button" class="pdf" style="margin-right: 20px;" (click)="generarPDF()">
+                                                <app-pdf-icon></app-pdf-icon>
+                                            </button>
+                                            <button matTooltip="Reporte Csv" type="button" class="csv" (click)="generarCSV()">
+                                                <app-csv-icon></app-csv-icon>
+                                            </button>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <div class="table-action-menu-wrap">
+                                                <button mat-icon-button [matMenuTriggerFor]="beforeMenu"
+                                                    class="common-action-menu-style"
+                                                    aria-label="Example icon-button with a menu">
+                                                    Accion <mat-icon>arrow_drop_down</mat-icon>
+                                                </button>
+                                                <mat-menu #beforeMenu="matMenu" xPosition="before">
+                                                    <button mat-menu-item (click)="dialogsService.actualizarTurno(row)">
+                                                        <img src="../../../../../assets/img/icon/action-2.png"
+                                                            alt="icon not found">
+                                                        <span>Editar Rol</span>
+                                                    </button>    
+                                                    <button mat-menu-item (click)="eliminarTurno(row.id)">
+                                                        <img src="../../../../../assets/img/icon/action-6.png"
+                                                            alt="icon not found">
+                                                        <span>Eliminar Rol</span>
+                                                    </button>
+                                                </mat-menu>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+    
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        (click)="selection.toggle(row)">
                                     </tr>
     
                                     <!-- Row shown when there is no matching data. -->
@@ -97,137 +221,15 @@
                                         </td>
                                     </tr>
                                 </table>
+    
+                                <mat-paginator [pageSizeOptions]="[ 10, 25, 100]"
+                                    aria-label="Select page of users"></mat-paginator>
                             </div>
-                          </div>
-                        </div>
-                        <div class="inventual-unit-content">
-                            <div class="inventual-select-field mb-5">
-                              <h5 class="text-[15px] text-heading font-semibold mb-3">Hora Inicial</h5>
-                              <div class="inventual-input-field-style">        
-                                <input placeholder="Ingrese Hora de Ingreso" aria-label="Ingrese Hora de Ingreso"
-                                    [ngxTimepicker]="appendedToInput" [format]="24" readonly class="form-control" id="horaInicio" [(ngModel)]="turno.horaInicio" name="horaInicio">
-                                <ngx-material-timepicker #appendedToInput
-                                    [appendToInput]="true"></ngx-material-timepicker>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="inventual-unit-content">
-                            <div class="inventual-select-field mb-5">
-                              <h5 class="text-[15px] text-heading font-semibold mb-3">Hora Final</h5>
-                              <div class="inventual-input-field-style">
-                                <input placeholder="Ingrese Hora de Salida" aria-label="Ingrese Hora de Salida"
-                                    [ngxTimepicker]="appendedToInput2" [format]="24" readonly class="form-control" id="horaFin" [(ngModel)]="turno.horaFin" name="horaFin">
-                                <ngx-material-timepicker #appendedToInput2
-                                    [appendToInput]="true"></ngx-material-timepicker>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="inventual-material-btn mb-7">
-                            <button mat-raised-button color="primary" class="mb-1" (click)="agregarTurno()">
-                                Crear Turno
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-span-8 md:col-span-12 sm:col-span-12">
-                        <div class="inventual-common-table">
-                            <table class="!min-w-full" mat-table [dataSource]="dataSource" matSort>
-
-                                <!-- Checkbox Column -->
-                                <ng-container matColumnDef="select">
-                                    <th mat-header-cell *matHeaderCellDef>
-                                        <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                                            [checked]="selection.hasValue() && isAllSelected()"
-                                            [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                            [aria-label]="checkboxLabel()">
-                                        </mat-checkbox>
-                                    </th>
-                                    <td mat-cell *matCellDef="let row">
-                                        <mat-checkbox (click)="$event.stopPropagation()"
-                                            (change)="$event ? selection.toggle(row) : null"
-                                            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                                        </mat-checkbox>
-                                    </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="nombre">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Turno </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="descripcion">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="horaInicio">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Inicio </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.horaInicio | date:'HH:mm'}}</td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="horaFin">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Fin </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.horaFin | date:'HH:mm'}}</td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="dia">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Dia </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.dia}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="action">
-                                    <th mat-header-cell *matHeaderCellDef>
-                                        <button matTooltip="Reporte PDF" type="button" class="pdf" style="margin-right: 20px;" (click)="generarPDF()">
-                                            <app-pdf-icon></app-pdf-icon>
-                                        </button>
-                                        <button matTooltip="Reporte Csv" type="button" class="csv" (click)="generarCSV()">
-                                            <app-csv-icon></app-csv-icon>
-                                        </button>
-                                    </th>
-                                    <td mat-cell *matCellDef="let row">
-                                        <div class="table-action-menu-wrap">
-                                            <button mat-icon-button [matMenuTriggerFor]="beforeMenu"
-                                                class="common-action-menu-style"
-                                                aria-label="Example icon-button with a menu">
-                                                Accion <mat-icon>arrow_drop_down</mat-icon>
-                                            </button>
-                                            <mat-menu #beforeMenu="matMenu" xPosition="before">
-                                                <button mat-menu-item (click)="dialogsService.actualizarTurno(row)">
-                                                    <img src="../../../../../assets/img/icon/action-2.png"
-                                                        alt="icon not found">
-                                                    <span>Editar Rol</span>
-                                                </button>    
-                                                <button mat-menu-item (click)="eliminarTurno(row.id)">
-                                                    <img src="../../../../../assets/img/icon/action-6.png"
-                                                        alt="icon not found">
-                                                    <span>Eliminar Rol</span>
-                                                </button>
-                                            </mat-menu>
-                                        </div>
-                                    </td>
-                                </ng-container>
-
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                                    (click)="selection.toggle(row)">
-                                </tr>
-
-                                <!-- Row shown when there is no matching data. -->
-                                <tr class="mat-row" *matNoDataRow>
-                                    <td class="mat-cell" colspan="4">
-                                        <div class="table-data-not-found">
-                                            <p>No data found</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <mat-paginator [pageSizeOptions]="[ 10, 25, 100]"
-                                aria-label="Select page of users"></mat-paginator>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </ng-template>
         <div class="inventual-copyright-area">
             <app-copyright></app-copyright>
         </div>

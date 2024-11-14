@@ -79,6 +79,7 @@ export class SalarioEditComponent implements OnInit {
       descuentoId: 0,
       usuariosId: 0
     };
+    this.cerrarDialog();
   }
 
   cerrarDialog() {
