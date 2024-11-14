@@ -179,6 +179,9 @@ import { BonoEditComponent } from './common/dialogs/bono-edit/bono-edit.componen
 import { TurnoEditComponent } from './common/dialogs/turno-edit/turno-edit.component';
 import { RegistroSalariosComponent } from './usermanagement/registro-salarios/registro-salarios.component';
 import { SalarioEditComponent } from './common/dialogs/salario-edit/salario-edit.component';
+import { AsistenciaState } from './state-management/asistencia/asistencia.state';
+import { ActualizarPasswordComponent } from './usermanagement/actualizar-password/actualizar-password.component';
+import { PermisoRolState } from './state-management/permisos-rol/permisos-rol.state';
 
 @NgModule({
   imports: [
@@ -215,7 +218,7 @@ import { SalarioEditComponent } from './common/dialogs/salario-edit/salario-edit
     HttpClientModule,
     MatTableModule,
     DragDropModule,    
-    NgxsModule.forRoot([EmpleadosState, SucursalState, VacacionesState, DiscountsState, BonosState, RolesState, ContratoState, HorarioState, TurnoState, SalariosState]),
+    NgxsModule.forRoot([PermisoRolState, AsistenciaState, EmpleadosState, SucursalState, VacacionesState, DiscountsState, BonosState, RolesState, ContratoState, HorarioState, TurnoState, SalariosState]),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot() 
   ],
@@ -355,6 +358,7 @@ import { SalarioEditComponent } from './common/dialogs/salario-edit/salario-edit
     TurnoEditComponent,
     RegistroSalariosComponent,
     SalarioEditComponent,
+    ActualizarPasswordComponent,
   ],
 })
 export class InventualModule {}

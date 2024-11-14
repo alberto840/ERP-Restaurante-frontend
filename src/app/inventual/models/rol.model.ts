@@ -4,7 +4,8 @@ export interface RolModel {
 }
 
 export interface PermisoModel {
-  id: number;
+  permisosRolesId: number;
   rolId: number;
   permisoId: number;
+  status: boolean;
 }

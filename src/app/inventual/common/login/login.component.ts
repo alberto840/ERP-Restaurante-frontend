@@ -28,9 +28,9 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.loginUser).subscribe({
       next: (response) => {
         //Con el estado se le permitirá o no el acceso a la aplicación
-        const status = response.data.usuario.estado;
+        //const status = response.data.usuario.estado;
         //this.tokendecoded = this.jwdecoder.decodeToken(response.data);
-        this.guardarDatos(response.data.token, response.data.usuario.id, response.data.usuario.nombre, response.data.usuario.primerApellido, response.data.usuario.segundoApellido, response.data.usuario.rolesId, response.data.usuario.sucursalId);
+        this.guardarDatos(response.data.token, response.data.usuario.id, response.data.usuario.nombre, response.data.usuario.primerApellido, response.data.usuario.segundoApellido, response.data.usuario.rolesId, response.data.usuario.sucursalId, response.data.usuario.correo, response.data.usuario.empCode, response.data.usuario.fechaIngreso, response.data.usuario.estado, response.data.usuario.direccion, response.data.usuario.edad, response.data.usuario.telefono);
         this.router.navigate(['salarios/lista']);
       },
       error: (error) => {
@@ -39,14 +39,21 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-  guardarDatos(token: string, userid: number, nombre: string, primerApellido: string, segundoApellido: string, rolid: number, sucursalid: number){
+  guardarDatos(token: string, userid: number, nombre: string, primerApellido: string, segundoApellido: string, rolid: number, sucursalid: number, correo: string, empCode: string, fechaIngreso: string, estado: boolean, direccion: string, edad: string, telefono: string){
     // Guarda los datos en el local storage, los Id se convierten a string, debes convertirlos a number al recuperarlos
     localStorage.setItem('token', token);
     localStorage.setItem('userid', userid.toString());
+    localStorage.setItem('empCode', empCode);
     localStorage.setItem('nombre', nombre);
-    //localStorage.setItem('primerApellido', primerApellido);
-    //localStorage.setItem('segundoApellido', segundoApellido);
-    //localStorage.setItem('rol', rolid.toString());
+    localStorage.setItem('primerApellido', primerApellido);
+    localStorage.setItem('segundoApellido', segundoApellido);
+    localStorage.setItem('correo', correo);
+    localStorage.setItem('fechaIngreso', fechaIngreso);
+    localStorage.setItem('estado', estado.toString());
+    localStorage.setItem('direccion', direccion);
+    localStorage.setItem('edad', edad);
+    localStorage.setItem('telefono', telefono);
+    localStorage.setItem('rol', rolid.toString());
     localStorage.setItem('sucursal', sucursalid.toString());
   }
 }

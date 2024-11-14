@@ -14,6 +14,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 
+export interface Days {
+  id: number;
+  name: string;
+}
+
+const ELEMENT_DATA: Days[] = [
+  {id: 1, name: 'Lunes'},
+  {id: 2, name: 'Martes'},
+  {id: 3, name: 'Miercoles'},
+  {id: 4, name: 'Jueves'},
+  {id: 5, name: 'Viernes'},
+  {id: 6, name: 'Sabado'},
+  {id: 7, name: 'Domingo'}
+];
+
 @Component({
   selector: 'app-registro-turnos',
   templateUrl: './registro-turnos.component.html',
@@ -21,6 +36,38 @@ import { CsvreportService } from '../../services/reportes/csvreport.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class RegistroTurnosComponent {
+  //elementos para la tabla de dias
+  
+  displayedColumnsDay: string[] = ['select', 'day'];
+  dataSourceDay = new MatTableDataSource<Days>(ELEMENT_DATA);
+  selectionDay = new SelectionModel<Days>(true, []);
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelectedDay() {
+    const numSelected = this.selectionDay.selected.length;
+    const numRows = this.dataSourceDay.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRowsDay() {
+    if (this.isAllSelectedDay()) {
+      this.selectionDay.clear();
+      return;
+    }
+
+    this.selectionDay.select(...this.dataSourceDay.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabelDay(row?: Days): string {
+    if (!row) {
+      return `${this.isAllSelectedDay() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selectionDay.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  //
   turno: TurnoModel = {
     id: 0,
     nombre: '',
@@ -31,7 +78,9 @@ export class RegistroTurnosComponent {
   };
   
   agregarTurno() {
-    if (!this.turno.nombre || !this.turno.descripcion || !this.turno.horaInicio || !this.turno.horaFin || !this.turno.dia) {
+    const DiasSeleccionados = this.selectionDay.selected;
+
+    if (!this.turno.nombre || !this.turno.descripcion || !this.turno.horaInicio || !this.turno.horaFin) {
       this.openSnackBar('Debe completar todos los campos', 'Cerrar');
       return;
     }
@@ -59,15 +108,21 @@ export class RegistroTurnosComponent {
 
     this.turno.horaInicio = inicio;
     this.turno.horaFin = fin;
-    this.store.dispatch(new AddTurno(this.turno)).subscribe({
-      next: () => {
-        this.openSnackBar('Turno creado correctamente', 'Cerrar');
-      },
-      error: (error) => {
-        console.error('Error al crear turno:', error);
-        this.openSnackBar('No se pudo crear Turno', 'Cerrar');
-      }
-    });
+    
+    for (const dia of DiasSeleccionados) {
+      this.turno.dia = dia.name;
+      this.store.dispatch(new AddTurno(this.turno)).subscribe({
+        next: () => {
+          this.openSnackBar('Turno creado correctamente', 'Cerrar');
+          this.selectionDay.clear();
+        },
+        error: (error) => {
+          console.error('Error al crear turno:', error);
+          this.openSnackBar('No se pudo crear Turno', 'Cerrar');
+          this.selectionDay.clear();
+        }
+      });
+    }
     this.turno = {
       id: 0,
       nombre: '',

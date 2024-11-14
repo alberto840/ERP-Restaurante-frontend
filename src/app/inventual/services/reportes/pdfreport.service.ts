@@ -11,6 +11,7 @@ import { BonosModel } from '../../models/bonos.model';
 import { ContratoModel } from '../../models/contrato.model';
 import { TurnoModel } from '../../models/horarios.model';
 import { SalariosModel } from '../../models/salarios.model';
+import { AsistenciaModel } from '../../models/asistencia.model';
 
 
 @Injectable({
@@ -229,7 +230,7 @@ export class PdfreportService {
       const userSalario = userlist.find(user => user.id === salario.usuariosId);
       const descuentoSalrio = descuentoslist.find(descuento => descuento.id === salario.descuentoId);
       return [
-        salario.descuentoId,
+        salario.id,
         userSalario ? userSalario.nombre : 'Sin Usuario',
         salario.fechapago.toString(),
         descuentoSalrio ? descuentoSalrio.monto : 'Sin Descuento',
@@ -244,5 +245,32 @@ export class PdfreportService {
     });
 
     doc.save('informe-salarios.pdf');
+  }
+
+  asistenciapdf(asistencialist: AsistenciaModel[], userlist: UsuarioModel[]) {
+    const doc = new jsPDF('l', 'mm', [297, 210]);
+    doc.text('Informe de Historial asistencia generado: ' + new Date().toLocaleString(), 10, 10);
+    const fecha = new Date().toLocaleString();
+    // doc.text('/n Fecha de generacion: ' + fecha, 10, 10);
+
+    const columns = ['ID', 'Usuario', 'Retraso', 'Hora Marcada', 'Fecha', 'Tipo Marcado'];
+    const data = asistencialist.map((asistencia) => {
+      const userSalario = userlist.find(user => user.id === asistencia.usuarioId);
+      return [
+        asistencia.id,
+        userSalario ? (userSalario.nombre+" "+userSalario.primerApellido) : 'Sin Usuario',
+        asistencia.retraso ? 'Atrasado' : 'A tiempo',
+        asistencia.horaMarcada.toString(),
+        asistencia.fecha.toString(),
+        asistencia.tipoMarcado.toString(),
+      ];
+    });
+
+    autoTable(doc, {
+      head: [columns],
+      body: data,
+    });
+
+    doc.save('informe-Asistencia.pdf');
   }
 }

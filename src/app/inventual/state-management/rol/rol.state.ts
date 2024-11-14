@@ -1,9 +1,10 @@
-import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { State, Action, StateContext, Selector, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { RolModel } from '../../models/rol.model';
+import { PermisoModel, RolModel } from '../../models/rol.model';
 import { RolService } from '../../services/rol.service';
 import { AddRol, UpdateRol, DeleteRol, GetRol } from './rol.action';
+import { AddPermisosRol } from '../permisos-rol/permisos-rol.action';
 
 export interface RolesStateModel {
   roles: RolModel[];
@@ -17,7 +18,7 @@ export interface RolesStateModel {
 })
 @Injectable()
 export class RolesState {
-  constructor(private rolService: RolService) {}
+  constructor(private rolService: RolService, private store: Store) {}
 
   @Selector()
   static getRoles(state: RolesStateModel) {
@@ -37,12 +38,33 @@ export class RolesState {
   addRol({ getState, patchState }: StateContext<RolesStateModel>, { payload }: AddRol) {
     return this.rolService.addRol(payload).pipe(
       tap((response) => {
+        this.crearPermisoinicial(response.id);
         const state = getState();
         patchState({
           roles: [...state.roles, response],
         });
       })
     );
+  }
+
+  crearPermisoinicial(rolid: number) {
+    let permiso: PermisoModel = {
+      permisosRolesId: 0,
+      rolId: rolid,
+      permisoId: 0,
+      status: false
+    }    
+    for(let i = 0; i < 34; i++) {
+      permiso.permisoId = i+1;
+      this.store.dispatch(new AddPermisosRol(permiso)).subscribe({
+        next: (response) => {
+          console.log('Permiso agregar exitosamente'+i+"permisoId: "+permiso.rolId);
+        },
+        error: (error) => {
+          console.error('Error al agregar contrato:', error+"permisoIdxd: "+permiso.rolId);
+        }
+      });
+    }
   }
 
   @Action(UpdateRol)

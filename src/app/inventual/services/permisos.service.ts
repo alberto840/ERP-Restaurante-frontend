@@ -33,7 +33,7 @@ export class PermisosService {private baseUrl = environment.apiUrl + 'api/permis
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put<PermisoModel>(`${this.baseUrl}/${permiso.id}`, permiso, { headers });
+    return this.http.put<PermisoModel>(`${this.baseUrl}/${permiso.permisosRolesId}`, permiso, { headers });
   }
   
   deletePermiso(permisoId: number): Observable<ResponseModel<PermisoModel>> {

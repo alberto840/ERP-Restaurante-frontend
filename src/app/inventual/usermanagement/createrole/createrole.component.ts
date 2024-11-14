@@ -8,13 +8,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { RoleInterfaceData, roleData } from '../../data/roleData';
 import { RolModel } from '../../models/rol.model';
 import { AddRol, DeleteRol, GetRol, UpdateRol } from '../../state-management/rol/rol.action';
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { RolesState } from '../../state-management/rol/rol.state';
+import { CsvreportService } from '../../services/reportes/csvreport.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-createrole',
@@ -29,16 +31,26 @@ export class CreateroleComponent implements AfterViewInit {
   };
   
   agregarRol() {
-    this.store.dispatch(new AddRol(this.rol));
-    this.rol = {
-      id: 0,
-      nombre: ''
-    };
+    this.store.dispatch(new AddRol(this.rol)).subscribe({
+      next: (response) => {
+        console.log('Rol agregar exitosamente');
+        this.openSnackBar('Rol agregado correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al agregar Rol:', error);
+        this.openSnackBar('Rol no se pudo agregar', 'Cerrar');
+      }
+    });
   }
   
   eliminarRol(id: number) {
     this.store.dispatch(new DeleteRol(id));
   }
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
+  }
+
   
   actualizarRol(rol: RolModel) {    
     this.store.dispatch(new UpdateRol(this.rol));
@@ -61,7 +73,7 @@ export class CreateroleComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   
-  constructor(private store: Store, public pdfreportService: PdfreportService) {
+  constructor(private store: Store, private _snackBar: MatSnackBar, public csvreportService: CsvreportService, public dialogsService: DialogsService, public pdfreportService: PdfreportService) {
     this.roles$ = this.store.select(RolesState.getRoles);
   }
   

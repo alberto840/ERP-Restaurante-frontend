@@ -21,11 +21,11 @@
     </div>
     <div class="inventual-breadcrumb-area px-7 py-9 bg-white mb-5">
       <div class="inventual-breadcrumb-area-inner px-0.5">
-        <h5 class="text-[20px] text-heading font-bold mb-3">Profile</h5>
+        <h5 class="text-[20px] text-heading font-bold mb-3">Perfil</h5>
         <div class="inventual-breadcrumb-area-inner-wrap">
-          <span class="text-[14px] text-body font-normal inline-block me-2">User</span>
+          <span class="text-[14px] text-body font-normal inline-block me-2">Usuario</span>
           <span class="text-[14px] text-body font-normal inline-block me-2">></span>
-          <span class="text-[14px] text-body font-normal inline-block me-2">Profile</span>
+          <span class="text-[14px] text-body font-normal inline-block me-2">Perfil</span>
         </div>
       </div>
     </div>
@@ -38,35 +38,71 @@
                 <img src="../../../../assets/img/user/user-profile.png" alt="img not found">
               </div>
               <div class="inventual-profile-info-text">
-                <h4 class="text-heading font-bold text-[24px] mb-1">Shane Watson</h4>
-                <span class="text-[16px] text-body">Admin User</span>
+                <h4 class="text-heading font-bold text-[24px] mb-1">{{usuario.nombre+" "+usuario.primerApellido}}</h4>
+                <span class="text-[16px] text-body">{{getRolName(usuario.rolesId)}}</span>
               </div>
             </div>
             <div class="inventual-profile-info-btn">
-              <button type="button" (click)="editProfileEnable()">Edit Profile </button>
+              <button type="button" (click)="editProfileEnable()">Editar Perfil </button>
+            </div>
+          </div>
+          <div class="col-span-6 md:col-span-6 sm:col-span-12">
+            <div class="inventual-select-field mb-5">
+              <h5 class="text-[20px] text-heading font-bold mb-3">Actualizar Datos</h5>
             </div>
           </div>
           <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
             <div class="col-span-4 md:col-span-6 sm:col-span-12">
               <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Supplier Name</h5>
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Nombre</h5>
                 <div class="inventual-input-field-style">
                   <mat-form-field class="w-full" [floatLabel]="'always'">
-                    <mat-label class="hidden">Joseph Tylor</mat-label>
-                    <input matInput [placeholder]="'Shane Watson'" value="Shane Watson"
-                      [disabled]="isProfileEnabled ? false : true">
+                    <mat-label class="hidden">Juan</mat-label>
+                    <input matInput [placeholder]="'Ej. Juan'" type="text" class="form-control" id="nombre" [(ngModel)]="usuario.nombre" name="name">
                   </mat-form-field>
                 </div>
               </div>
             </div>
             <div class="col-span-4 md:col-span-6 sm:col-span-12">
               <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Phone</h5>
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Apellido Materno</h5>
+                <div class="inventual-input-field-style">
+                  <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label class="hidden">Paredes</mat-label>
+                    <input matInput [placeholder]="'Ej. Paredes'" type="text" class="form-control" id="primerApellido" [(ngModel)]="usuario.primerApellido" name="primerApellido">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-span-4 md:col-span-6 sm:col-span-12">
+              <div class="inventual-select-field mb-5">
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Apellido Paterno</h5>
+                <div class="inventual-input-field-style">
+                  <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label class="hidden">Mendoza</mat-label>
+                    <input matInput [placeholder]="'Ej. Mendoza'" type="text" class="form-control" id="segundoApellido" [(ngModel)]="usuario.segundoApellido" name="segundoApellido">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-span-4 md:col-span-6 sm:col-span-12">
+              <div class="inventual-select-field mb-5">
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Telefono</h5>
                 <div class="inventual-input-field-style">
                   <mat-form-field class="w-full" [floatLabel]="'always'">
                     <mat-label class="hidden">00 000 000 000</mat-label>
-                    <input matInput [placeholder]="'+02 259 857 654'" value="+02 259 857 654"
-                      [disabled]="isProfileEnabled ? false : true">
+                    <input matInput [placeholder]="'Ej. 00 000 000 000'" type="text" class="form-control" id="telefono" [(ngModel)]="usuario.telefono" name="telefono">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-span-4 md:col-span-6 sm:col-span-12">
+              <div class="inventual-select-field mb-5">
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Direccion</h5>
+                <div class="inventual-input-field-style">
+                  <mat-form-field class="w-full" [floatLabel]="'always'">
+                    <mat-label class="hidden">Ciudad, Barrio, Calle</mat-label>
+                    <input matInput [placeholder]="'Ciudad, Barrio, Calle'" type="text" class="form-control" id="direccion" [(ngModel)]="usuario.direccion" name="direccion">
                   </mat-form-field>
                 </div>
               </div>
@@ -76,46 +112,31 @@
                 <h5 class="text-[15px] text-heading font-semibold mb-3">Email</h5>
                 <div class="inventual-input-field-style">
                   <mat-form-field class="w-full" [floatLabel]="'always'">
-                    <mat-label class="hidden">joseph@example.com</mat-label>
-                    <input type="email" matInput [placeholder]="'nasir@example.com'" value="nasir@example.com"
-                      [disabled]="isProfileEnabled ? false : true">
+                    <mat-label class="hidden">joseph&#64;example.com</mat-label>
+                    <input type="email" matInput [placeholder]="'Ej. joseph@example.com'" type="text" class="form-control" id="correo" [(ngModel)]="usuario.correo" name="correo">
                   </mat-form-field>
                 </div>
               </div>
             </div>
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
-              <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Gender</h5>
-                <div class="inventual-select-field-style">
-                  <mat-form-field>
-                    <mat-select class="block" [placeholder]="'Male'" [disabled]="isProfileEnabled ? false : true">
-                      <mat-option value="language-1">Male</mat-option>
-                      <mat-option value="language-2">Female</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+            <div class="col-span-12">
+              <div class="inventual-material-btn pt-2.5 justify-end">
+                <button mat-raised-button color="primary" [disabled]="isProfileEnabled ? false : true" (click)="actualizarUsuario()">Actualizar Perfil</button>
               </div>
             </div>
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
-              <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Username</h5>
-                <div class="inventual-input-field-style">
-                  <mat-form-field class="w-full" [floatLabel]="'always'">
-                    <mat-label class="hidden">Joseph Tylor</mat-label>
-                    <input matInput [placeholder]="'nasir_mondal'" value="nasir_mondal"
-                      [disabled]="isProfileEnabled ? false : true">
-                  </mat-form-field>
-                </div>
-              </div>
+          </div>
+          <div class="col-span-6 md:col-span-6 sm:col-span-12">
+            <div class="inventual-select-field mb-5">
+              <h5 class="text-[20px] text-heading font-bold mb-3">Actualizar Contraseña</h5>
             </div>
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
+          </div>
+          <div class="grid grid-cols-12 gap-x-7 sm:gap-x-0">
+            <div class="col-span-6 md:col-span-6 sm:col-span-12">
               <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Password</h5>
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Contraseña Actual</h5>
                 <div class="inventual-input-field-style inventual-input-field-style-eye">
                   <mat-form-field appearance="fill">
                     <mat-label class="hidden">Enter your password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" value="123456"
-                      [disabled]="isProfileEnabled ? false : true">
+                    <input matInput [type]="hide ? 'password' : 'text'" type="text" class="form-control" id="password" [(ngModel)]="password.passwordAntigua" name="password">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                       [attr.aria-pressed]="hide">
                       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -124,48 +145,29 @@
                 </div>
               </div>
             </div>
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
+            <div class="col-span-6 md:col-span-6 sm:col-span-12">
               <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Role</h5>
-                <div class="inventual-select-field-style">
-                  <mat-form-field>
-                    <mat-select class="block" [placeholder]="'Admin'" [disabled]="isProfileEnabled ? false : true">
-                      <mat-option value="language-1">Admin</mat-option>
-                      <mat-option value="language-2">Staff</mat-option>
-                      <mat-option value="language-3">Manager</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
               </div>
             </div>
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
+            <div class="col-span-6 md:col-span-6 sm:col-span-12">
               <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Company Name</h5>
-                <div class="inventual-input-field-style">
-                  <mat-form-field class="w-full" [floatLabel]="'always'">
-                    <mat-label class="hidden">Joseph Tylor</mat-label>
-                    <input matInput [placeholder]="'Inventual'" value="Inventual"
-                      [disabled]="isProfileEnabled ? false : true">
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="col-span-4 md:col-span-6 sm:col-span-12">
-              <div class="inventual-select-field mb-5">
-                <h5 class="text-[15px] text-heading font-semibold mb-3">Address</h5>
-                <div class="inventual-input-field-style">
-                  <mat-form-field class="w-full" [floatLabel]="'always'">
-                    <mat-label class="hidden">Joseph Tylor</mat-label>
-                    <input matInput [placeholder]="'5874 Street Park, New York, USA'"
-                      value="5874 Street Park, New York, USA" [disabled]="isProfileEnabled ? false : true">
+                <h5 class="text-[15px] text-heading font-semibold mb-3">Contraseña Nueva</h5>
+                <div class="inventual-input-field-style inventual-input-field-style-eye">
+                  <mat-form-field appearance="fill">
+                    <mat-label class="hidden">Enter your password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" type="text" class="form-control" id="password" [(ngModel)]="password.passwordNueva" name="password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
                   </mat-form-field>
                 </div>
               </div>
             </div>
             <div class="col-span-12">
               <div class="inventual-material-btn pt-2.5 justify-end">
-                <button mat-raised-button color="primary" [disabled]="isProfileEnabled ? false : true">Update
-                  Profile</button>
+                <button mat-raised-button color="primary" [disabled]="isProfileEnabled ? false : true" (click)="actualizarPassword()">Actualizar Contraseña
+                  </button>
               </div>
             </div>
           </div>

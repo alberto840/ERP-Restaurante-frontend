@@ -18,3 +18,8 @@ export interface LoginModel {
     correo: string;
     password: string;
 }
+
+export interface PasswordModel {    
+  passwordAntigua: string;
+  passwordNueva: string;
+}

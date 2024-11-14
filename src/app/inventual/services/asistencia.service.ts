@@ -40,6 +40,6 @@ export class AsistenciaService {
       'Authorization': `Bearer ${token}`
     });
   
-    return this.http.get<AsistenciaModel[]>(`${this.baseUrl}/fecha/${fecha.toString()}`, { headers });
+    return this.http.get<AsistenciaModel[]>(`${this.baseUrl}/fecha/${fecha}`, { headers });
   }
 }

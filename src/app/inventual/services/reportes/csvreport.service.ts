@@ -8,6 +8,7 @@ import { BonosModel } from '../../models/bonos.model';
 import { DescuentosModel } from '../../models/descuentos.model';
 import { VacacionesModel } from '../../models/vacaciones.model';
 import { SalariosModel } from '../../models/salarios.model';
+import { AsistenciaModel } from '../../models/asistencia.model';
 
 @Injectable({
   providedIn: 'root'
@@ -229,6 +230,34 @@ export class CsvreportService {
     const a = document.createElement('a');
     a.href = url;
     a.download = 'Reporte-Salarios.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+  
+  asistenciacsv(asistencialist: AsistenciaModel[], userlist: UsuarioModel[]) {
+    const headers = ['ID', 'Usuario', 'Retraso', 'Hora Marcada', 'Fecha', 'Tipo Marcado'];
+  
+    const csvData = [
+      headers.join(','), // Encabezados
+      ...asistencialist.map(asistencia => {
+        const userSalario = userlist.find(user => user.id === asistencia.usuarioId);
+  
+        return [
+          asistencia.id,
+          userSalario ? (userSalario.nombre+" "+userSalario.primerApellido) : 'Sin Usuario',
+          asistencia.retraso ? 'Atrasado' : 'A tiempo',
+          asistencia.horaMarcada.toString(),
+          asistencia.fecha.toString(),
+          asistencia.tipoMarcado.toString(),
+        ].join(',')
+      })
+    ].join('\n');
+  
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Reporte-Asistencias.csv';
     a.click();
     window.URL.revokeObjectURL(url);
   }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResponseModel } from '../models/response.model';
 import { environment } from 'src/environments/environment';
-import { UsuarioModel } from '../models/empleado.model';
+import { PasswordModel, UsuarioModel } from '../models/empleado.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,14 @@ export class EmpleadoService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.put<ResponseModel<UsuarioModel>>(`${this.baseUrl}/${empleado.id}`, empleado, { headers });
+  }
+
+  updatePassword(password: PasswordModel, empleadoid: number): Observable<ResponseModel<PasswordModel>> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put<ResponseModel<PasswordModel>>(`${this.baseUrl}/${empleadoid}/password`, password, { headers });
   }
 
   deleteEmpleado(empleadoId: number): Observable<ResponseModel<UsuarioModel>> {
