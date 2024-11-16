@@ -9,13 +9,13 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserInterfaceData, userData } from '../../data/userData';
-import { AsistenciaModel } from '../../models/asistencia.model';
+import { AsistenciaModel, AsistenciaStringModel } from '../../models/asistencia.model';
 import { UsuarioModel } from '../../models/empleado.model';
 import { AsistenciaState } from '../../state-management/asistencia/asistencia.state';
 import { GetAsistencia } from '../../state-management/asistencia/asistencia.action';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
@@ -44,7 +44,7 @@ export class AttendancelistComponent implements AfterViewInit {
     'fecha',
     'tipoMarcado'
   ];
-  dataSource: MatTableDataSource<AsistenciaModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
+  dataSource: MatTableDataSource<AsistenciaStringModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
   selection = new SelectionModel<AsistenciaModel>(true, []);
 
   @ViewChild(MatPaginator)
@@ -56,6 +56,7 @@ export class AttendancelistComponent implements AfterViewInit {
     // Assign your data array to the data source
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
     this.asistencias$ = this.store.select(AsistenciaState.getAsistencias);
+    this.transformarDatosString();
   }
 
   generarPDF() {
@@ -81,25 +82,9 @@ export class AttendancelistComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-  
-    // Encuentra el ID del usuario con el nombre ingresado en el filtro
-    let usuario: UsuarioModel | undefined;
-    this.usuarios$.subscribe((usuarios) => {
-      usuario = usuarios.find(user => user.nombre.toLowerCase() === filterValue);
-    });
-    //const usuario = this.usuarios.find(user => user.nombre.toLowerCase() === "Luis");
-  
-    // Si encuentra un usuario, filtra por su ID; de lo contrario, aplica el filtro como texto
-    if (usuario) {
-      console.log("id"+usuario.id.toString());
-      this.dataSource.filter = usuario.id.toString();
-    } else {
-      console.log(filterValue+" "+this.usuarios.length);
-      this.dataSource.filter = filterValue;
-    }
-  
-    // Reinicia la paginación si está activa
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -157,12 +142,44 @@ export class AttendancelistComponent implements AfterViewInit {
     return usuario ? usuario.nombre : 'Sin usuario';  // Devuelve el nombre del sucursal o "Sin sucursal" si no se encuentra
   }  
 
+  getTipoMarcado(tipoMarcado: number): string {
+    switch (tipoMarcado) {
+      case 1:
+        return 'Huella';
+      case 15:
+        return 'Facial';
+      case 20:
+        return 'Codigo';
+      default:
+        return 'Desconocido';
+    }
+  }
+
+  transformarDatosString(){
+    const asistenciaModel$: Observable<AsistenciaModel[]> = this.asistencias$;
+    const asistenciaStringModel$: Observable<AsistenciaStringModel[]> = asistenciaModel$.pipe(
+      map((asistencias: AsistenciaModel[]) =>
+        asistencias.map((asistencia: AsistenciaModel) => ({
+          id: asistencia.id,
+          fecha: asistencia.fecha,
+          horaMarcada: asistencia.horaMarcada,
+          tipoMarcado: asistencia.tipoMarcado,
+          tipoMarcadostring: this.getTipoMarcado(asistencia.tipoMarcado),
+          retraso: asistencia.retraso,
+          usuarioId: asistencia.usuarioId, // Convertimos usuarioId a string
+          usuarioIdstring: this.getUserName(asistencia.usuarioId),
+        }))
+      )
+    );    
+    return asistenciaStringModel$;
+  }
+
   ngOnInit(): void {
     // Despacha la acción para obtener los usuarios
     this.store.dispatch([new GetEmpleado(), new GetAsistencia()]);
 
     // Suscríbete al observable para actualizar el dataSource
-    this.asistencias$.subscribe((asistencias) => {
+    this.transformarDatosString().subscribe((asistencias) => {
       this.dataSource.data = asistencias; // Asigna los datos al dataSource
     });
 

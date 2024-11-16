@@ -68,6 +68,10 @@ export class MenuComponent implements OnInit {
     this.screenWidth = window.innerWidth;
   }
 
+  plancha(){
+    console.log('plancha:'+this.navData.length);
+  }
+
   handleClick(item: INavbarData): void {
     this.shrinkItems(item);
     item.expanded = !item.expanded;

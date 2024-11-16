@@ -3,9 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SalesInterfaceData, salesReport } from '../../data/salesReport';
-import { SalariosModel } from '../../models/salarios.model';
+import { SalariosModel, SalariosStringModel } from '../../models/salarios.model';
 import { UsuarioModel } from '../../models/empleado.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { DescuentosModel } from '../../models/descuentos.model';
 import { Store } from '@ngxs/store';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
@@ -46,7 +46,7 @@ export class SalaryhistoryComponent implements AfterViewInit {
     'total',
     'action',
   ];
-  dataSource: MatTableDataSource<SalariosModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
+  dataSource: MatTableDataSource<SalariosStringModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
   selection = new SelectionModel<SalariosModel>(true, []);
 
   @ViewChild(MatPaginator)
@@ -101,6 +101,24 @@ export class SalaryhistoryComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  transformarDatosString(){
+    const listaActual$: Observable<SalariosModel[]> = this.historialSalarios$;
+    const listaActualizada$: Observable<SalariosStringModel[]> = listaActual$.pipe(
+      map((objetos: SalariosModel[]) =>
+        objetos.map((objeto: SalariosModel) => ({
+          id: objeto.id,
+          salario: objeto.salario,
+          fechapago: objeto.fechapago,
+          descuentoId: objeto.descuentoId,
+          usuariosId: objeto.usuariosId,
+          descuentoIdstring: this.getDiscountName(objeto.descuentoId).toString(),
+          usuariosIdstring: this.getUserName(objeto.usuariosId),
+        }))
+      )
+    );    
+    return listaActualizada$;
   }
   
   eliminarHistorial(id: number) {
@@ -168,7 +186,7 @@ export class SalaryhistoryComponent implements AfterViewInit {
     this.store.dispatch([new GetEmpleado(), new GetDescuento(), new GetSalario()]);
 
     // Suscríbete al observable para actualizar el dataSource
-    this.historialSalarios$.subscribe((salarios) => {
+    this.transformarDatosString().subscribe((salarios) => {
       this.dataSource.data = salarios; // Asigna los datos al dataSource
     });
 

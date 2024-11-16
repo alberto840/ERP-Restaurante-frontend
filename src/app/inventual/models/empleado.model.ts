@@ -14,6 +14,24 @@ export interface UsuarioModel {
   sucursalId: number;
 }
 
+export interface UsuarioStringModel {
+  id: number;
+  nombre: string;
+  primerApellido: string;
+  segundoApellido: string;
+  correo: string;
+  password: string;
+  fechaIngreso: Date;
+  estado: boolean;
+  direccion: string;
+  edad: Date;
+  telefono: string;
+  rolesId: number;
+  sucursalId: number;
+  rolesIdstring: string;
+  sucursalIdstring: string;
+}
+
 export interface LoginModel {    
     correo: string;
     password: string;

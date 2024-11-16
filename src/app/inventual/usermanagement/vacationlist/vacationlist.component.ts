@@ -4,11 +4,11 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SalesInterfaceData, salesReport } from '../../data/salesReport';
 import { UsuarioModel } from '../../models/empleado.model';
-import { Observable } from 'rxjs';
-import { VacacionesModel } from '../../models/vacaciones.model';
+import { map, Observable } from 'rxjs';
+import { VacacionesModel, VacacionesStringModel } from '../../models/vacaciones.model';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { Store } from '@ngxs/store';
-import { VacacionesState } from '../../state-management/vacacion/vacacion.state';
+import { VacacionesState, VacacionesStateModel } from '../../state-management/vacacion/vacacion.state';
 import { EmpleadosState } from '../../state-management/empleado/empleado.state';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DeleteVacacion, GetVacacion } from '../../state-management/vacacion/vacacion.action';
@@ -41,7 +41,7 @@ export class VacationlistComponent implements AfterViewInit {
     'aprobacion',
     'action',
   ];
-  dataSource: MatTableDataSource<VacacionesModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
+  dataSource: MatTableDataSource<VacacionesStringModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
   selection = new SelectionModel<VacacionesModel>(true, []);
 
   @ViewChild(MatPaginator)
@@ -71,6 +71,23 @@ export class VacationlistComponent implements AfterViewInit {
       this.usuarioslist = usuarios;
     });
     this.csvreportService.vacacionescsv(vacacionesSeleccionados, this.usuarioslist);
+  }
+
+  transformarDatosString(){
+    const listaActual$: Observable<VacacionesModel[]> = this.vacaciones$;
+    const listaActualizada$: Observable<VacacionesStringModel[]> = listaActual$.pipe(
+      map((objetos: VacacionesModel[]) =>
+        objetos.map((objeto: VacacionesModel) => ({
+          id: objeto.id,
+          fechaInicio: objeto.fechaInicio,
+          fechaFin: objeto.fechaFin,
+          aprobacion: objeto.aprobacion,
+          usuariosId: objeto.usuariosId,
+          usuariosIdstring: this.getUserName(objeto.usuariosId),
+        }))
+      )
+    );    
+    return listaActualizada$;
   }
 
   openSnackBar(message: string, action: string) {
@@ -156,7 +173,7 @@ export class VacationlistComponent implements AfterViewInit {
     this.store.dispatch([new GetEmpleado(), new GetVacacion()]);
 
     // Suscríbete al observable para actualizar el dataSource
-    this.vacaciones$.subscribe((vacaciones) => {
+    this.transformarDatosString().subscribe((vacaciones) => {
       this.dataSource.data = vacaciones; // Asigna los datos al dataSource
     });
 

@@ -14,6 +14,7 @@ export class PermisosAppService {
 
   constructor(private store: Store) { 
     this.permisosRoles$ = this.store.select(PermisoRolState.getPermisosRol);
+    this.store.dispatch([new GetPermisosRol()]);
   }
   
 filtrarPermisosPorRolId(): PermisoModel[] {
@@ -26,7 +27,7 @@ filtrarPermisosPorRolId(): PermisoModel[] {
 }
 
 findAccess(idPermiso: number): boolean {
-  this.store.dispatch([new GetPermisosRol()]);
+  //this.store.dispatch([new GetPermisosRol()]);
   const permisoEncontrado = this.filtrarPermisosPorRolId().find(item => item.permisoId === idPermiso);
   return permisoEncontrado ? permisoEncontrado.status : false;
 }

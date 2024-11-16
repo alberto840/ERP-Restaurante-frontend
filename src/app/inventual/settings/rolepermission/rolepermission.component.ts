@@ -11,6 +11,7 @@ import { RolesState } from '../../state-management/rol/rol.state';
 import { GetRol } from '../../state-management/rol/rol.action';
 import { GetPermisosRol, UpdatePermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 import { PermisoRolState } from '../../state-management/permisos-rol/permisos-rol.state';
+import { time } from 'console';
 
 //for checkbox
 export interface Task {
@@ -67,7 +68,7 @@ export class RolepermissionComponent implements OnInit {
     {id: 31, state: false},
     {id: 32, state: false},
     {id: 33, state: false},
-    {id: 34, state: false}
+    {id: 34, state: false},
   ];
   permisosRoles: PermisoModel = {
     permisosRolesId: 0,
@@ -140,25 +141,45 @@ thirtyfourComplete: boolean = false;
 
 disabled_condition = true;
 
-updateAllComplete() {
-  this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
-}
-someComplete(): boolean {
-  if (this.task.subtasks == null) {
-    return false;
-  }
-  return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
-}
-
 setAll(completed: boolean) {
-  this.isComplete = completed;
   this.allComplete = completed;
-  this.idpermisos.forEach(t => t.state = completed);
-  if (this.task.subtasks == null) {
-    return;
+  this.oneComplete = completed;
+  this.twoComplete = completed;
+  this.threeComplete = completed;
+  this.fourComplete = completed;
+  this.fiveComplete = completed;
+  this.sixComplete = completed;
+  this.sevenComplete = completed;
+  this.eightComplete = completed;
+  this.nineComplete = completed;
+  this.tenComplete = completed;
+  this.elevenComplete = completed;
+  this.twelveComplete = completed;
+  this.thirteenComplete = completed;
+  this.fourteenComplete = completed;
+  this.fifteenComplete = completed;
+  this.sixteenComplete = completed;
+  this.seventeenComplete = completed;
+  this.eighteenComplete = completed;
+  this.nineteenComplete = completed;
+  this.twentyComplete = completed;
+  this.twentyoneComplete = completed;
+  this.twentytwoComplete = completed;
+  this.twentythreeComplete = completed;
+  this.twentyfourComplete = completed;
+  this.twentyfiveComplete = completed;
+  this.twentysixComplete = completed;
+  this.twentysevenComplete = completed;
+  this.twentyeightComplete = completed;
+  this.twentynineComplete = completed;
+  this.thirtyComplete = completed;
+  this.thirtyoneComplete = completed;
+  this.thirtytwoComplete = completed;
+  this.thirtythreeComplete = completed;
+  this.thirtyfourComplete = completed;  
+  for (const permiso of this.idpermisos) {
+    permiso.state = completed;
   }
-  this.task.subtasks.forEach(t => t.completed = completed);
-  
 }
 
 filtrarPermisosPorRolId(permisos$: Observable<PermisoModel[]>, rolId: number): Observable<PermisoModel[]> {
@@ -177,19 +198,21 @@ actualizarPermisos(){
       this.permisosRoles.permisosRolesId = permiso.id;
       for (const permisoporId of permisosFiltrados){
         if(permisoporId.permisoId == permiso.id){
+          console.log("XXXX"+permisoporId.permisoId);
           this.permisosRoles.permisosRolesId = permisoporId.permisosRolesId;
           this.permisosRoles.status = permiso.state;
           this.permisosRoles.permisoId = permisoporId.permisoId;
         }
       }
     });
-    console.log(this.permisosRoles.permisosRolesId+" - "+this.permisosRoles.rolId+" - "+this.permisosRoles.permisoId+" - "+this.permisosRoles.status);
+
+    //console.log("--"+this.permisosRoles.permisosRolesId+" - "+this.permisosRoles.rolId+" - "+this.permisosRoles.permisoId+" - "+this.permisosRoles.status);
     this.store.dispatch(new UpdatePermisosRol(this.permisosRoles)).subscribe({
       next: () => {
         this.openSnackBar('Permisos actualizado correctamente', 'Cerrar');
       },
       error: (error) => {
-        console.error('Error al actualizar Permisos:', error);
+        console.error("--"+this.permisosRoles.permisosRolesId+" - "+this.permisosRoles.rolId+" - "+this.permisosRoles.permisoId+" - "+this.permisosRoles.status+'Error al actualizar Permisos:', error);
         this.openSnackBar('No se pudo actualizar Permisos', 'Cerrar');
       }
     });
@@ -343,6 +366,52 @@ agregarId(id: number, completed: boolean){
   this.idpermisos[id-1].state = completed;
 }
 //checkbox end
+
+asignarPermisosRol(){
+  this.store.dispatch([new GetPermisosRol()]);
+  console.log(this.permisosRoles.rolId);
+  this.filtrarPermisosPorRolId(this.permisosRoles$, this.permisosRoles.rolId).subscribe((permisos) => {
+    for (const permiso of this.idpermisos) {
+      permiso.state = permisos.find((permisoencontrado) => permisoencontrado.permisoId === permiso.id)?.status || false;
+    }
+    this.oneComplete = this.idpermisos.find((permiso) => permiso.id === 1)?.state || false;
+    this.twoComplete = this.idpermisos.find((permiso) => permiso.id === 2)?.state || false;
+    this.threeComplete = this.idpermisos.find((permiso) => permiso.id === 3)?.state || false;
+    this.fourComplete = this.idpermisos.find((permiso) => permiso.id === 4)?.state || false;
+    this.fiveComplete = this.idpermisos.find((permiso) => permiso.id === 5)?.state || false;
+    this.sixComplete = this.idpermisos.find((permiso) => permiso.id === 6)?.state || false;
+    this.sevenComplete = this.idpermisos.find((permiso) => permiso.id === 7)?.state || false;
+    this.eightComplete = this.idpermisos.find((permiso) => permiso.id === 8)?.state || false;
+    this.nineComplete = this.idpermisos.find((permiso) => permiso.id === 9)?.state || false;
+    this.tenComplete = this.idpermisos.find((permiso) => permiso.id === 10)?.state || false;
+    this.elevenComplete = this.idpermisos.find((permiso) => permiso.id === 11)?.state || false;
+    this.twelveComplete = this.idpermisos.find((permiso) => permiso.id === 12)?.state || false;
+    this.thirteenComplete = this.idpermisos.find((permiso) => permiso.id === 13)?.state || false;
+    this.fourteenComplete = this.idpermisos.find((permiso) => permiso.id === 14)?.state || false;
+    this.fifteenComplete = this.idpermisos.find((permiso) => permiso.id === 15)?.state || false;
+    this.sixteenComplete = this.idpermisos.find((permiso) => permiso.id === 16)?.state || false;
+    this.seventeenComplete = this.idpermisos.find((permiso) => permiso.id === 17)?.state || false;
+    this.eighteenComplete = this.idpermisos.find((permiso) => permiso.id === 18)?.state || false;
+    this.nineteenComplete = this.idpermisos.find((permiso) => permiso.id === 19)?.state || false;
+    this.twentyComplete = this.idpermisos.find((permiso) => permiso.id === 20)?.state || false;
+    this.twentyoneComplete = this.idpermisos.find((permiso) => permiso.id === 21)?.state || false;
+    this.twentytwoComplete = this.idpermisos.find((permiso) => permiso.id === 22)?.state || false;
+    this.twentythreeComplete = this.idpermisos.find((permiso) => permiso.id === 23)?.state || false;
+    this.twentyfourComplete = this.idpermisos.find((permiso) => permiso.id === 24)?.state || false;
+    this.twentyfiveComplete = this.idpermisos.find((permiso) => permiso.id === 25)?.state || false;
+    this.twentysixComplete = this.idpermisos.find((permiso) => permiso.id === 26)?.state || false;
+    this.twentysevenComplete = this.idpermisos.find((permiso) => permiso.id === 27)?.state || false;
+    this.twentyeightComplete = this.idpermisos.find((permiso) => permiso.id === 28)?.state || false;
+    this.twentynineComplete = this.idpermisos.find((permiso) => permiso.id === 29)?.state || false;
+    this.thirtyComplete = this.idpermisos.find((permiso) => permiso.id === 30)?.state || false;
+    this.thirtyoneComplete = this.idpermisos.find((permiso) => permiso.id === 31)?.state || false;
+    this.thirtytwoComplete = this.idpermisos.find((permiso) => permiso.id === 32)?.state || false;
+    this.thirtythreeComplete = this.idpermisos.find((permiso) => permiso.id === 33)?.state || false;
+    this.thirtyfourComplete = this.idpermisos.find((permiso) => permiso.id === 34)?.state || false;
+    console.log(this.idpermisos);
+  }).unsubscribe();
+
+}
 
   ngOnInit(): void {
     this.store.dispatch([new GetRol(), new GetPermisosRol()]);

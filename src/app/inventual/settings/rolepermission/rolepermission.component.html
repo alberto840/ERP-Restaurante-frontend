@@ -40,7 +40,7 @@
                                 <div class="inventual-select-field-style">
                                   <mat-form-field>
                                     <mat-select class="block" [placeholder]="'Selecionar Rol'" class="form-control" id="rolesId" [(ngModel)]="permisosRoles.rolId"  name="rolesId">
-                                      <mat-option *ngFor="let rol of roles$ | async" [value]="rol.id">
+                                      <mat-option *ngFor="let rol of roles$ | async" [value]="rol.id" (click)="asignarPermisosRol()">
                                         {{ rol.nombre }}
                                       </mat-option>
                                     </mat-select>
@@ -62,7 +62,7 @@
                                         <h5 class="text-[18px] font-semibold text-heading mb-4">Todas las funciones</h5>
                                         <div class="inventual-role-checkbox default-light-theme">
                                             <mat-checkbox class="example-margin" [checked]="allComplete"
-                                                [color]="task.color" [indeterminate]="someComplete()"
+                                                [color]="task.color"
                                                 (change)="setAll($event.checked)">
                                                 {{task.name}}
                                             </mat-checkbox>
@@ -77,25 +77,25 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="oneComplete"
                                                     class="updateItem" (change)="setSingleCheck1($event.checked)">
                                                     Agregar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twoComplete"
                                                     class="updateItem" (change)="setSingleCheck2($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="threeComplete"
                                                     class="updateItem" (change)="setSingleCheck3($event.checked)">
                                                     Editar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="fourComplete"
                                                     class="updateItem" (change)="setSingleCheck4($event.checked)">
                                                     Eliminar
                                                 </mat-checkbox>
@@ -109,25 +109,25 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="fiveComplete"
                                                     class="updateItem" (change)="setSingleCheck5($event.checked)">
                                                     Agregar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="sixComplete"
                                                     class="updateItem" (change)="setSingleCheck6($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="sevenComplete"
                                                     class="updateItem" (change)="setSingleCheck7($event.checked)">
                                                     Editar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="eightComplete"
                                                     class="updateItem" (change)="setSingleCheck8($event.checked)">
                                                     Eliminar
                                                 </mat-checkbox>
@@ -141,7 +141,7 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="nineComplete"
                                                     class="updateItem" (change)="setSingleCheck9($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
@@ -155,7 +155,7 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="tenComplete"
                                                     class="updateItem" (change)="setSingleCheck10($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
@@ -169,25 +169,25 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="elevenComplete"
                                                     class="updateItem" (change)="setSingleCheck11($event.checked)">
                                                     Agregar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twelveComplete"
                                                     class="updateItem" (change)="setSingleCheck12($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="thirteenComplete"
                                                     class="updateItem" (change)="setSingleCheck13($event.checked)">
                                                     Editar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="fourteenComplete"
                                                     class="updateItem" (change)="setSingleCheck14($event.checked)">
                                                     Eliminar
                                                 </mat-checkbox>
@@ -201,25 +201,25 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="fifteenComplete"
                                                     class="updateItem" (change)="setSingleCheck15($event.checked)">
                                                     Agregar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="sixteenComplete"
                                                     class="updateItem" (change)="setSingleCheck16($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="seventeenComplete"
                                                     class="updateItem" (change)="setSingleCheck17($event.checked)">
                                                     Editar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="eighteenComplete"
                                                     class="updateItem" (change)="setSingleCheck18($event.checked)">
                                                     Eliminar
                                                 </mat-checkbox>
@@ -233,25 +233,25 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="nineteenComplete"
                                                     class="updateItem" (change)="setSingleCheck19($event.checked)">
                                                     Agregar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentyComplete"
                                                     class="updateItem" (change)="setSingleCheck20($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentyoneComplete"
                                                     class="updateItem" (change)="setSingleCheck21($event.checked)">
                                                     Editar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentytwoComplete"
                                                     class="updateItem" (change)="setSingleCheck22($event.checked)">
                                                     Eliminar
                                                 </mat-checkbox>
@@ -265,25 +265,25 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentythreeComplete"
                                                     class="updateItem" (change)="setSingleCheck23($event.checked)">
                                                     Agregar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentyfourComplete"
                                                     class="updateItem" (change)="setSingleCheck24($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentyfiveComplete"
                                                     class="updateItem" (change)="setSingleCheck25($event.checked)">
                                                     Editar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentysixComplete"
                                                     class="updateItem" (change)="setSingleCheck26($event.checked)">
                                                     Eliminar
                                                 </mat-checkbox>
@@ -297,25 +297,25 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentysevenComplete"
                                                     class="updateItem" (change)="setSingleCheck27($event.checked)">
                                                     Agregar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentyeightComplete"
                                                     class="updateItem" (change)="setSingleCheck28($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="twentynineComplete"
                                                     class="updateItem" (change)="setSingleCheck29($event.checked)">
                                                     Editar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="thirtyComplete"
                                                     class="updateItem" (change)="setSingleCheck30($event.checked)">
                                                     Eliminar
                                                 </mat-checkbox>
@@ -329,25 +329,25 @@
                                         </div>
                                         <div class="inventual-role-checkbox-wrapper">
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="thirtyoneComplete"
                                                     class="updateItem" (change)="setSingleCheck31($event.checked)">
                                                     Agregar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="thirtytwoComplete"
                                                     class="updateItem" (change)="setSingleCheck32($event.checked)">
                                                     Ver
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="thirtythreeComplete"
                                                     class="updateItem" (change)="setSingleCheck33($event.checked)">
                                                     Editar
                                                 </mat-checkbox>
                                             </div>
                                             <div class="inventual-role-checkbox default-light-theme">
-                                                <mat-checkbox [color]="'primary'" [checked]="allComplete"
+                                                <mat-checkbox [color]="'primary'" [checked]="thirtyfourComplete"
                                                     class="updateItem" (change)="setSingleCheck34($event.checked)">
                                                     Eliminar
                                                 </mat-checkbox>

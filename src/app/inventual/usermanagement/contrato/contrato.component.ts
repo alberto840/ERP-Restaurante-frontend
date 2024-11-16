@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { ContratoModel } from '../../models/contrato.model';
+import { ContratoModel, ContratoStringModel } from '../../models/contrato.model';
 import { AddContrato, DeleteContrato, GetContrato, UpdateContrato } from '../../state-management/contrato/contrato.action';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
@@ -94,7 +94,7 @@ export class ContratoComponent implements AfterViewInit {
   //sidebar menu activation end
   
   displayedColumns: string[] = ['select', 'nombre', 'inicio','final', 'fechaContrato', 'identificador', 'acciones'];
-  dataSource: MatTableDataSource<ContratoModel> = new MatTableDataSource(); 
+  dataSource: MatTableDataSource<ContratoStringModel> = new MatTableDataSource(); 
   selection = new SelectionModel<ContratoModel>(true, []);
   
   @ViewChild(MatPaginator)
@@ -110,6 +110,24 @@ export class ContratoComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  transformarDatosString(){
+    const listaActual$: Observable<ContratoModel[]> = this.contratos$;
+    const listaActualizada$: Observable<ContratoStringModel[]> = listaActual$.pipe(
+      map((objetos: ContratoModel[]) =>
+        objetos.map((objeto: ContratoModel) => ({
+          id: objeto.id,
+          fechaInicio: objeto.fechaInicio,
+          fechaConclusion: objeto.fechaConclusion,
+          fechaContrato: objeto.fechaContrato, // Convertimos tipoMarcado a string
+          identificador: objeto.identificador,
+          usuariosId: objeto.usuariosId, // Convertimos usuarioId a string
+          usuariosIdstring: this.getUsuariosName(objeto.usuariosId),
+        }))
+      )
+    );    
+    return listaActualizada$;
   }
 
   generarPDF() {
@@ -175,7 +193,7 @@ export class ContratoComponent implements AfterViewInit {
     this.store.dispatch([new GetContrato(), new GetEmpleado()]);
   
     // Suscríbete al observable para actualizar el dataSource
-    this.contratos$.subscribe((contratos) => {
+    this.transformarDatosString().subscribe((contratos) => {
       this.dataSource.data = contratos; // Asigna los datos al dataSource
     });
 

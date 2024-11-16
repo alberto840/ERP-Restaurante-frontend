@@ -78,7 +78,7 @@
     
                             <ng-container matColumnDef="usuarioId">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Empleado </th>
-                                <td mat-cell *matCellDef="let row"> {{getUserName(row.usuarioId)}} </td>
+                                <td mat-cell *matCellDef="let row"> {{row.usuarioIdstring}} </td>
                             </ng-container>
     
                             <ng-container matColumnDef="retraso">
@@ -105,7 +105,7 @@
     
                             <ng-container matColumnDef="tipoMarcado">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Marcado </th>
-                                <td mat-cell *matCellDef="let row"> {{row.tipoMarcado}} </td>
+                                <td mat-cell *matCellDef="let row"> {{row.tipoMarcadostring}} </td>
                             </ng-container>
     
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

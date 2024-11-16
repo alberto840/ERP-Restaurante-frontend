@@ -78,7 +78,7 @@
     
                             <ng-container matColumnDef="nombre">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Empleado </th>
-                                <td mat-cell *matCellDef="let row"> {{getUserName(row.usuariosId)}} </td>
+                                <td mat-cell *matCellDef="let row"> {{row.usuariosIdstring}} </td>
                             </ng-container>
     
                             <ng-container matColumnDef="fechapago">
@@ -93,7 +93,7 @@
     
                             <ng-container matColumnDef="desceunto">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Descuento </th>
-                                <td mat-cell *matCellDef="let row"> {{getDiscountName(row.descuentoId)}} Bs.</td>
+                                <td mat-cell *matCellDef="let row"> {{row.descuentoIdstring}} Bs.</td>
                             </ng-container>
     
                             <ng-container matColumnDef="total">

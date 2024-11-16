@@ -125,12 +125,12 @@
     
                             <ng-container matColumnDef="rol">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
-                                <td mat-cell *matCellDef="let row"> {{ getRolName(row.rolesId) }} </td>
+                                <td mat-cell *matCellDef="let row"> {{ row.rolesIdstring }} </td>
                             </ng-container>
     
                             <ng-container matColumnDef="sucursal">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Sucursal </th>
-                                <td mat-cell *matCellDef="let row"> {{ getSucursalName(row.sucursalId) }} </td>
+                                <td mat-cell *matCellDef="let row"> {{ row.sucursalIdstring }} </td>
                             </ng-container>
     
                             <ng-container matColumnDef="action">

@@ -9,9 +9,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserInterfaceData, userData } from '../../data/userData';
-import { UsuarioModel } from '../../models/empleado.model';
+import { UsuarioModel, UsuarioStringModel } from '../../models/empleado.model';
 import { RolModel } from '../../models/rol.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { EmpleadosState } from '../../state-management/empleado/empleado.state';
@@ -25,6 +25,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-userlist',
@@ -55,7 +56,7 @@ export class UserlistComponent implements AfterViewInit {
     'sucursal',
     'action',
   ];
-  dataSource: MatTableDataSource<UsuarioModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
+  dataSource: MatTableDataSource<UsuarioStringModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
   selection = new SelectionModel<UsuarioModel>(true, []);
 
   @ViewChild(MatPaginator)
@@ -181,12 +182,39 @@ export class UserlistComponent implements AfterViewInit {
     return rol ? rol.nombre : 'Sin Rol';  // Devuelve el nombre del rol o "Sin Rol" si no se encuentra
   }
 
+  transformarDatosString(){
+    const listaActual$: Observable<UsuarioModel[]> = this.usuarios$;
+    const listaActualizada$: Observable<UsuarioStringModel[]> = listaActual$.pipe(
+      map((objetos: UsuarioModel[]) =>
+        objetos.map((objeto: UsuarioModel) => ({
+          id: objeto.id,
+          nombre: objeto.nombre,
+          primerApellido: objeto.primerApellido,
+          segundoApellido: objeto.segundoApellido,
+          correo: objeto.correo,
+          password: objeto.password,
+          fechaIngreso: objeto.fechaIngreso,
+          estado: objeto.estado,
+          direccion: objeto.direccion,
+          edad: objeto.edad,
+          telefono: objeto.telefono,
+          //hasta tener el endpoint de roles
+          rolesId: objeto.rolesId,
+          sucursalId: objeto.sucursalId,
+          rolesIdstring: this.getRolName(objeto.rolesId),
+          sucursalIdstring: this.getSucursalName(objeto.sucursalId),
+        }))
+      )
+    );    
+    return listaActualizada$;
+  }
+
   ngOnInit(): void {
     // Despacha la acción para obtener los usuarios
-    this.store.dispatch([new GetEmpleado(), new GetRol(), new GetSucursal()]);
+    this.store.dispatch([new GetEmpleado(), new GetRol(), new GetSucursal(), new GetPermisosRol()]);
 
     // Suscríbete al observable para actualizar el dataSource
-    this.usuarios$.subscribe((users) => {
+    this.transformarDatosString().subscribe((users) => {
       this.dataSource.data = users; // Asigna los datos al dataSource
     });
 
