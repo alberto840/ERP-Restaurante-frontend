@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-bonuslist',
@@ -121,7 +122,7 @@ export class BonuslistComponent implements AfterViewInit {
 
   ngOnInit(): void {
     // Despacha la acción para obtener los usuarios
-    this.store.dispatch([new GetBono()]);
+    this.store.dispatch([new GetBono(), new GetPermisosRol()]);
 
     // Suscríbete al observable para actualizar el dataSource
     this.bonos$.subscribe((bonos) => {

@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-addbonus',
@@ -77,6 +78,7 @@ export class AddbonusComponent implements OnInit {
     }
   
     ngOnInit(): void {
+      this.store.dispatch([new GetPermisosRol()]);
     }
   
 }

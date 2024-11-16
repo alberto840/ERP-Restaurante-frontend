@@ -14,6 +14,7 @@ import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-adduser',
@@ -143,7 +144,7 @@ export class AdduserComponent implements OnInit {
     }
   
     ngOnInit(): void {
-      this.store.dispatch([new GetRol(), new GetSucursal()]);
+      this.store.dispatch([new GetRol(), new GetSucursal(),new GetPermisosRol()]);
     }
   
 }

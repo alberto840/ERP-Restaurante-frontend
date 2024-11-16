@@ -198,7 +198,6 @@ actualizarPermisos(){
       this.permisosRoles.permisosRolesId = permiso.id;
       for (const permisoporId of permisosFiltrados){
         if(permisoporId.permisoId == permiso.id){
-          console.log("XXXX"+permisoporId.permisoId);
           this.permisosRoles.permisosRolesId = permisoporId.permisosRolesId;
           this.permisosRoles.status = permiso.state;
           this.permisosRoles.permisoId = permisoporId.permisoId;

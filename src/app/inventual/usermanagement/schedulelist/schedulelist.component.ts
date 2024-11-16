@@ -18,6 +18,7 @@ import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { GetTurno } from '../../state-management/turno/turno.action';
 import { GetHorario } from '../../state-management/horario/horario.action';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-schedulelist',
@@ -190,7 +191,7 @@ export class SchedulelistComponent implements AfterViewInit {
 
   ngOnInit(): void {
     // Despacha la acción para obtener los usuarios
-    this.store.dispatch([new GetEmpleado(), new GetTurno(), new GetHorario()]);
+    this.store.dispatch([new GetEmpleado(), new GetTurno(), new GetHorario(), new GetPermisosRol()]);
 
     // Suscríbete al observable para actualizar el dataSource
     this.usuarios$.subscribe((users) => {

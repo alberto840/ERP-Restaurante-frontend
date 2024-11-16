@@ -17,6 +17,7 @@ import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-contrato',
@@ -190,7 +191,7 @@ export class ContratoComponent implements AfterViewInit {
   
   ngOnInit(): void {
     // Despacha la acción para obtener las empresas
-    this.store.dispatch([new GetContrato(), new GetEmpleado()]);
+    this.store.dispatch([new GetContrato(), new GetEmpleado(), new GetPermisosRol()]);
   
     // Suscríbete al observable para actualizar el dataSource
     this.transformarDatosString().subscribe((contratos) => {

@@ -14,6 +14,7 @@ import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-discountlist',
@@ -121,7 +122,7 @@ export class DiscountlistComponent implements AfterViewInit {
 
   ngOnInit(): void {
     // Despacha la acción para obtener los usuarios
-    this.store.dispatch([new GetDescuento()]);
+    this.store.dispatch([new GetDescuento(), new GetPermisosRol()]);
 
     // Suscríbete al observable para actualizar el dataSource
     this.descuentos$.subscribe((descuentos) => {

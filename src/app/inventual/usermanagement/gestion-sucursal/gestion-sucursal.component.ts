@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-gestion-sucursal',
@@ -150,7 +151,7 @@ export class GestionSucursalComponent implements AfterViewInit {
   
   ngOnInit(): void {
     // Despacha la acción para obtener las empresas
-    this.store.dispatch(new GetSucursal());
+    this.store.dispatch([new GetSucursal(), new GetPermisosRol()]);
   
     // Suscríbete al observable para actualizar el dataSource
     this.sucursales$.subscribe((sucursales) => {

@@ -14,6 +14,7 @@ import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-registro-salarios',
@@ -101,7 +102,7 @@ export class RegistroSalariosComponent implements OnInit {
     }
   
     ngOnInit(): void {
-      this.store.dispatch([new GetDescuento(), new GetEmpleado()]);
+      this.store.dispatch([new GetDescuento(), new GetEmpleado(),new GetPermisosRol()]);
     }
   
 }

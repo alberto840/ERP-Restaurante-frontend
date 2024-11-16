@@ -22,6 +22,7 @@ import { PdfreportService } from '../../services/reportes/pdfreport.service';
 import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { EmpleadosState } from '../../state-management/empleado/empleado.state';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-attendancelist',
@@ -176,7 +177,7 @@ export class AttendancelistComponent implements AfterViewInit {
 
   ngOnInit(): void {
     // Despacha la acción para obtener los usuarios
-    this.store.dispatch([new GetEmpleado(), new GetAsistencia()]);
+    this.store.dispatch([new GetEmpleado(), new GetAsistencia(), new GetPermisosRol()]);
 
     // Suscríbete al observable para actualizar el dataSource
     this.transformarDatosString().subscribe((asistencias) => {

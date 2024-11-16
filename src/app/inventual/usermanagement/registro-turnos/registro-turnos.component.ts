@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogsService } from '../../services/dialogs/dialogs.service';
 import { CsvreportService } from '../../services/reportes/csvreport.service';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 export interface Days {
   id: number;
@@ -227,7 +228,7 @@ export class RegistroTurnosComponent {
   
   ngOnInit(): void {
     // Despacha la acción para obtener las empresas
-    this.store.dispatch(new GetTurno());
+    this.store.dispatch([new GetTurno(),new GetPermisosRol()]);
   
     // Suscríbete al observable para actualizar el dataSource
     this.turnos$.subscribe((turno) => {

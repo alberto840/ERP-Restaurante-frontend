@@ -9,6 +9,7 @@ import { GetEmpleado } from '../../state-management/empleado/empleado.action';
 import { TurnoState } from '../../state-management/turno/turno.state';
 import { GetTurno } from '../../state-management/turno/turno.action';
 import { PermisosAppService } from '../../services/permisos-app.service';
+import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
 
 @Component({
   selector: 'app-registro-horario',
@@ -59,7 +60,7 @@ export class RegistroHorarioComponent implements OnInit {
     }
   
     ngOnInit(): void {
-      this.store.dispatch([new GetEmpleado(), new GetTurno()]);
+      this.store.dispatch([new GetEmpleado(), new GetTurno(),new GetPermisosRol()]);
     }
   
 }
