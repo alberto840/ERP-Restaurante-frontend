@@ -182,6 +182,7 @@ import { SalarioEditComponent } from './common/dialogs/salario-edit/salario-edit
 import { AsistenciaState } from './state-management/asistencia/asistencia.state';
 import { ActualizarPasswordComponent } from './usermanagement/actualizar-password/actualizar-password.component';
 import { PermisoRolState } from './state-management/permisos-rol/permisos-rol.state';
+import { HorarioAddComponent } from './common/dialogs/horario-add/horario-add.component';
 
 @NgModule({
   imports: [
@@ -359,6 +360,7 @@ import { PermisoRolState } from './state-management/permisos-rol/permisos-rol.st
     RegistroSalariosComponent,
     SalarioEditComponent,
     ActualizarPasswordComponent,
+    HorarioAddComponent,
   ],
 })
 export class InventualModule {}

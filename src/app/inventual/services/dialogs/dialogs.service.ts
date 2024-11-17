@@ -12,10 +12,11 @@ import { DescuentosModel } from '../../models/descuentos.model';
 import { DescuentoEditComponent } from '../../common/dialogs/descuento-edit/descuento-edit.component';
 import { BonosModel } from '../../models/bonos.model';
 import { BonoEditComponent } from '../../common/dialogs/bono-edit/bono-edit.component';
-import { TurnoModel } from '../../models/horarios.model';
+import { HorarioModel, TurnoModel } from '../../models/horarios.model';
 import { TurnoEditComponent } from '../../common/dialogs/turno-edit/turno-edit.component';
 import { SalariosModel } from '../../models/salarios.model';
 import { SalarioEditComponent } from '../../common/dialogs/salario-edit/salario-edit.component';
+import { HorarioAddComponent } from '../../common/dialogs/horario-add/horario-add.component';
 
 export interface DialogData {
   sucursal: SucursalModel;
@@ -26,6 +27,9 @@ export interface DialogData {
   bono: BonosModel;
   turno: TurnoModel;
   salario: SalariosModel;
+  horario: HorarioModel;
+  day: string;
+  userId: number;
 }
 
 @Injectable({
@@ -96,6 +100,15 @@ export class DialogsService {
     this.dialog.open(SalarioEditComponent, {
       data: {
         salario: salario
+      },
+    });
+  }
+
+  agregarHorario(day: string, userId: number): void {
+    this.dialog.open(HorarioAddComponent, {
+      data: {
+        day: day,
+        userId: userId
       },
     });
   }

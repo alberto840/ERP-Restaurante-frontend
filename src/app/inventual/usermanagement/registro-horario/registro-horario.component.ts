@@ -10,6 +10,7 @@ import { TurnoState } from '../../state-management/turno/turno.state';
 import { GetTurno } from '../../state-management/turno/turno.action';
 import { PermisosAppService } from '../../services/permisos-app.service';
 import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-registro-horario',
@@ -41,7 +42,20 @@ export class RegistroHorarioComponent implements OnInit {
   }
 
   agregarHorario() {
-    this.store.dispatch(new AddHorario(this.horario));
+    if(!this.horario.usuariosId || !this.horario.turnoId){
+      this.openSnackBar('Debe completar todos los campos', 'Cerrar');
+      return;
+    }
+    this.store.dispatch(new AddHorario(this.horario)).subscribe({
+      next: () => {
+        console.log('Horario asignado exitosamente');
+        this.openSnackBar('Horario asignado correctamente', 'Cerrar');
+      },
+      error: (error) => {
+        console.error('Error al agregada Horario:', error);
+        this.openSnackBar('Horario no se pudo agregar', 'Cerrar');
+      }
+    });
     this.horario = {
       id: 0,
       diaSemana: new Date(),
@@ -49,12 +63,16 @@ export class RegistroHorarioComponent implements OnInit {
       turnoId: 0
     };
   }
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 2000});
+  }
 
   //sidebar menu activation end
   
   hide = true;
   
-    constructor(private store: Store, public permisosAppService: PermisosAppService) {
+    constructor(private store: Store, public permisosAppService: PermisosAppService, private _snackBar: MatSnackBar) {
       this.users$ = this.store.select(EmpleadosState.getEmpleados);
       this.turnos$ = this.store.select(TurnoState.getTurnos);
     }

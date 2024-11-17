@@ -19,6 +19,7 @@ import { GetTurno } from '../../state-management/turno/turno.action';
 import { GetHorario } from '../../state-management/horario/horario.action';
 import { PermisosAppService } from '../../services/permisos-app.service';
 import { GetPermisosRol } from '../../state-management/permisos-rol/permisos-rol.action';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-schedulelist',
@@ -40,8 +41,6 @@ export class SchedulelistComponent implements AfterViewInit {
   contratolist: ContratoModel[] = [];
 
   displayedColumns: string[] = [
-    'select',
-    'id',
     'nombre',
     'lunes',
     'martes',
@@ -50,7 +49,6 @@ export class SchedulelistComponent implements AfterViewInit {
     'viernes',
     'sabado',
     'domingo',
-    'action',
   ];
   dataSource: MatTableDataSource<UsuarioModel> = new MatTableDataSource(); // Cambiado el tipo a `any`
   selection = new SelectionModel<UsuarioModel>(true, []);
@@ -60,7 +58,7 @@ export class SchedulelistComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private store: Store, public pdfreportService: PdfreportService, public permisosAppService: PermisosAppService) {
+  constructor(private store: Store, public pdfreportService: PdfreportService, public permisosAppService: PermisosAppService, public dialogService: DialogsService) {
     // Assign your data array to the data source
     this.usuarios$ = this.store.select(EmpleadosState.getEmpleados);
     this.horarios$ = this.store.select(HorarioState.getHorarios);
@@ -141,6 +139,7 @@ export class SchedulelistComponent implements AfterViewInit {
       return []; // Si los sucursal aún no se han cargado
     }
     let turnosUser: TurnoModel[] = [];
+    this.horarios.sort((a, b) => b.id - a.id);
     for(let i = 0; i < this.horarios.length; i++) {
       if(this.horarios[i].usuariosId === id) {
         turnosUser.push(this.turnos.find((t) => t.id === this.horarios[i].turnoId) || {id: 0, nombre: '', descripcion: '', horaInicio: new Date(), horaFin: new Date(), dia: ''});
